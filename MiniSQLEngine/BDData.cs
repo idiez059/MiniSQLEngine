@@ -15,19 +15,29 @@ namespace MiniSQLEngine
            
         }
 
+        public struct Column
+        {
+            public string title;
+            public List<object> col;
+
+            public List<object> getList()
+            {
+                return col;
+            }
+        }
 
         public static void pruebaLectura()
         {
            
             String[] lines = File.ReadAllLines("ejemploColumnas.txt");
-            List<List<dynamic>> outerList = new List<List<dynamic>>();
-            List<String> innerList1 = new List<string>();
-            List<int> innerList2 = new List<int>();
-            outerList.Add(innerList1);
-            foreach(String data in lines)
+            var outerList = new List<Column>();
+            outerList.Add(new Column { title = "namesList", col = new List<object> {new List<String>()}});
+            outerList.Add(new Column { title = "agesList", col = new List<object> { new List<int>() } });
+            foreach (String data in lines)
             {
                 String[] split = data.Split(',');
-                .Add(split[0], Convert.ToInt32(split[1]));
+                outerList[0].getList().Add(split[0]);
+                outerList[1].getList().Add(Convert.ToInt32(split[1]));
             }
         }
 
