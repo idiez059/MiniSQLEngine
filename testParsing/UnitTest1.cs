@@ -58,6 +58,24 @@ namespace testParsing
                         Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));        
         }
 
+        public void TestCreateTable()
+        {
+            string input1 = "CREATE TABLE qwer (INT PRIMARY KEY(7856));";
+            string input2 = "CREATE TABLE qwer;";
+            string input3 = "CREATE TABLE qwer (INT PRIMARY KEY(QWERTY));";
+            string input4 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj));";
+            string input5 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj) REFERENCES werty(fghj));";
+            string input6 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj) REFERENCES werty);";
+
+            string pattern = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input4, pattern));
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input5, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input6, pattern));
+        }
+
         [TestMethod]
         public void TestSelect()
         {
@@ -97,8 +115,8 @@ namespace testParsing
 
         }
         public void TestUpdate()
-        public void TestCreateTable()
         {
+        
             String input1 = "UPDATE alumno SET nombre = Nadia WHERE nombre = Xabi";
             String input3 = "UPDATE alumno SET nombre = Nadia nombre = Xabi";
             String pattern = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
@@ -106,23 +124,7 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
 
-            string input1 = "CREATE TABLE qwer (INT PRIMARY KEY(7856));";
-            string input2 = "CREATE TABLE qwer;";
-            string input3 = "CREATE TABLE qwer (INT PRIMARY KEY(QWERTY));"  
-            string input4 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj));";   
-            string input5 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj) REFERENCES werty(fghj));";   
-            string input6 = "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj) REFERENCES werty);"; 
-
-            string pattern = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));        
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input4, pattern));
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input5, pattern)); 
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input6, pattern));
             
-
-
         }
 
     }
