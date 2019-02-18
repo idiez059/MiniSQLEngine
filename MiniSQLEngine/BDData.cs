@@ -5,54 +5,77 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace MiniSQLEngine
 {
-    public class BDData
+    public class Generic<T>
     {
-       static void Main (String[] args)
+        public Generic()
         {
-           
+            Console.WriteLine("T={0}", typeof(T));
         }
+    }
+    public class Column
+    {
+        public string title;
+        public List<object> col;
 
-        public struct Column
+        public List<object> getList()
         {
-            public string title;
-            public List<object> col;
-
-            public List<object> getList()
-            {
-                return col;
-            }
+            return col;
         }
+    }
 
-        public static void pruebaLectura()
-        {
-           
-            String[] lines = File.ReadAllLines("ejemploColumnas.txt");
-            var outerList = new List<Column>();
-            outerList.Add(new Column { title = "namesList", col = new List<object> {new List<String>()}});
-            outerList.Add(new Column { title = "agesList", col = new List<object> { new List<int>() } });
-            foreach (String data in lines)
-            {
-                String[] split = data.Split(',');
-                outerList[0].getList().Add(split[0]);
-                outerList[1].getList().Add(Convert.ToInt32(split[1]));
-            }
-        }
-
-        //public static void pruebaLectura()
-        //{
-        //    String[] lines = File.ReadAllLines("ejemploDatos.txt");
-        //    Dictionary<String, Int32> nameAges = new Dictionary<String, Int32>();
-        //    foreach (String nameAge in lines)
-        //    {
-        //        String[] split = nameAge.Split(',');
-        //        nameAges.Add(split[0], Convert.ToInt32(split[1]));
-
-        //    }
-        //}
-       
+    public class ColumnInt : Column
+    {
 
     }
+
+    public class ColumnString : Column
+    {
+
+    }
+
+    public class ColumnFloat : Column
+    {
+
+    }
+
+    public class BDData
+    {
+
+        private List<Column> bd = new List<Column>();
+
+        private BDData()
+        {
+
+        }
+        private static BDData instance = new BDData();
+
+        public static BDData getInstance()
+        {
+            return instance;
+        }
+        public void resetBD(List<Column> pBD)
+        {
+            bd = pBD;
+        }
+
+        //XabiLovesOverlord
+        public void addColumnInt(String pTitle)
+        {
+            bd.Add(new ColumnInt { title = pTitle, col = new List<object> { new List<String>() } });
+        }
+        public void addColumnString(String pTitle)
+        {
+            bd.Add(new ColumnString { title = pTitle, col = new List<object> { new List<String>() } });
+        }
+        public void addColumnFloat(String pTitle)
+        {
+            bd.Add(new ColumnFloat { title = pTitle, col = new List<object> { new List<String>() } });
+        }
+    }
+    
 }
+ 
