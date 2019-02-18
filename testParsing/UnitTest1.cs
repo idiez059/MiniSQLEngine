@@ -82,8 +82,8 @@ namespace testParsing
             String input1 = "SELECT * FROM alumno";
             String input2 = "Select * FROM alumno WHERE age < 10";
             String input3 = "SELECT FROM alumno";
-            String pattern = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)
-";
+            String pattern = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+
 
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));

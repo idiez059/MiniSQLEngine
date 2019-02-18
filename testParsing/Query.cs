@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class Class1
+public abstract class Class1
 {
-	public Class1()
+	abstract public Class1()
 	{
 	}
 }
