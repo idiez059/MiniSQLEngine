@@ -18,33 +18,115 @@ namespace MiniSQLEngine
     }
     public class Column
     {
-        public string title;
-        public List<object> col;
+        public String title;
+        private bool fKey;
+        private bool pKey;
+        private int? forKey;
 
-        public List<object> getList()
+        public Column(String pTitle)
         {
-            return col;
+            title = pTitle;
+            pKey = false;
+            fKey = false;
+            forKey = null;
+            
         }
+
+        public void setPKey(bool foo)
+        {
+            pKey = foo;
+        }
+        public bool getPKey()
+        {
+            return pKey;
+        }
+        public void setFKey(bool foo)
+        {
+            fKey = foo;
+        }
+        public bool getFKey()
+        {
+            return pKey;
+        }
+        public void setForKey(int pForKey)
+        {
+            forKey = pForKey;
+        }
+        public int? getForKey()
+        {
+            return forKey;
+        }
+        
+      
     }
 
     public class ColumnInt : Column
     {
+        List<int> col;
+        public ColumnInt(String title):base(title)
+        {
+            col = null;
+        }
+        public ColumnInt(String title,List<int> pCol):base(title)
+        {
+            col = pCol;
+        }
+        public List<int> getList()
+        {
+            return col;
+        }
+        public void setList(List<int> pLista)
+        {
+            col = pLista;
+        }
+
 
     }
 
     public class ColumnString : Column
     {
-
+        List<String> col;
+        public ColumnString(String title) : base(title)
+        {
+            col = null;
+        }
+        public ColumnString(String title, List<String> pCol) : base(title)
+        {
+            col = pCol;
+        }
+        public List<String> getList()
+        {
+           return col;
+        }
+        public void setList(List<String> pLista)
+        {
+            col = pLista;
+        }
     }
 
     public class ColumnFloat : Column
     {
-
+        List<float> col;
+        public ColumnFloat(String title) : base(title)
+        {
+            col = null;
+        }
+        public ColumnFloat(String title, List<float> pCol) : base(title)
+        {
+            col = pCol;
+        }
+        public List<float> getList()
+        {
+            return col;
+        }
+        public void setList(List<float> pLista)
+        {
+            col = pLista;
+        }
     }
 
     public class BDData
     {
-
         private List<Column> bd = new List<Column>();
 
         private BDData()
@@ -62,18 +144,32 @@ namespace MiniSQLEngine
             bd = pBD;
         }
 
+
         //XabiLovesOverlord
-        public void addColumnInt(String pTitle)
+
+        public void addColumnInt(String title)
         {
-            bd.Add(new ColumnInt { title = pTitle, col = new List<object> { new List<String>() } });
+            bd.Add(new ColumnInt(title));
         }
-        public void addColumnString(String pTitle)
+        public void addColumnInt(String title, List<int> lista)
         {
-            bd.Add(new ColumnString { title = pTitle, col = new List<object> { new List<String>() } });
+            bd.Add(new ColumnInt(title,lista));
         }
-        public void addColumnFloat(String pTitle)
+        public void addColumnString(String title)
         {
-            bd.Add(new ColumnFloat { title = pTitle, col = new List<object> { new List<String>() } });
+            bd.Add(new ColumnString(title));
+        }
+        public void addColumnString(String title, List<String> lista)
+        {
+            bd.Add(new ColumnString(title,lista));
+        }
+        public void addColumnFloat(String title)
+        {
+            bd.Add(new ColumnFloat(title));
+        }
+        public void addColumnFloat(String title, List<float> lista)
+        {
+            bd.Add(new ColumnFloat(title,lista));
         }
     }
     
