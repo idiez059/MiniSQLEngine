@@ -6,7 +6,7 @@ public class Parser
 	{
         //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
        
-        string input = "SELECT id FROM alumno";
+        string input = Console.ReadLine();
 
         string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
         string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
@@ -34,22 +34,39 @@ public class Parser
       
         if (matchSelect.Success)
         {
-
+            new Select(input);
         }
         else if (matchUpdate.Success)
         {
-
+            new Update(input);
         }
         else if (matchDelete.Success)
         {
-
+            new Delete(input);
         }
         else if (matchInsert.Success)
         {
-
-
+            new Insert(input);
         }
-
-
+        else if (matchCreateDataBase.Success)
+        {
+            new CreateDataBase(input);
+        }
+        else if (matchDropDataBase.Success)
+        {
+            new DropDataBase(input);
+        }
+        else if (matchDropTable.Success)
+        {
+            new DropTable(input);
+        }
+        else if (matchBackupDataBase.Success)
+        {
+            new BackupDataBase(input);
+        }
+        else if (matchCreateTable.Success)
+        {
+            new CreateTable(input);
+        }
     }
 }
