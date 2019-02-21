@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
-public abstract class Class1
+public class Select
 {
-	abstract public Class1()
+    public Select(String query)
 	{
-        //recibimos de la clase parser los parametros ya separados 
-
-        //
-
+        string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+        String[] partes = Regex.Split(query,select);
+        
 	}
 }
