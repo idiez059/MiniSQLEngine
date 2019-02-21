@@ -1,8 +1,10 @@
 ﻿using System;
 
-public class Class1
+public class DropDataBase
 {
-	public Class1()
+	public DropDataBase(String query)
 	{
-	}
+        string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
+        String[] partes = Regex.Split(query, dropDataBase);
+    }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 
-public class Class1
+public class CreateTable
 {
-	public Class1()
-	{
-	}
+	public CreateTable(String query)
+    {
+        string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+        String[] partes = Regex.Split(query, createTable);
+    }
 }

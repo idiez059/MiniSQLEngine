@@ -1,8 +1,10 @@
 ﻿using System;
 
-public class Class1
+public class Delete
 {
-	public Class1()
+	public Delete (String query)
 	{
-	}
+        string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
+        String[] partes = Regex.Split(query, delete);
+    }
 }
