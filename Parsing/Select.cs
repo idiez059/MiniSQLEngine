@@ -3,10 +3,20 @@ using System.Text.RegularExpressions;
 
 public class Select
 {
-    public Select(String query)
+    public Select(String seleccion, String tabla, String[] condiciones)
 	{
-        string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
-        String[] partes = Regex.Split(query,select);
-        
+        String pSeleccion = seleccion;
+        String pTabla = tabla;
+        String[] pCondiciones = condiciones;
 	}
+
+    public getSeleccion()
+    {
+        return pSeleccion;
+    }
+
+    public getTabla()
+    {
+        return pTabla;
+    }
 }
