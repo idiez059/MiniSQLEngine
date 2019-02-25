@@ -1,8 +1,11 @@
 ﻿using System;
 
-public class Class1
+public class DropTable
 {
-	public Class1()
-	{
+	public DropTable(String query)
+    {
+        string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
+        String[] partes = Regex.Split(query, dropTable); 
+	
 	}
 }

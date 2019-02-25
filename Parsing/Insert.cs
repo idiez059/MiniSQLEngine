@@ -1,8 +1,11 @@
 ﻿using System;
 
-public class Class1
+public class Insert
 {
-	public Class1()
-	{
+	public Insert(String query)
+    {
+        string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
+        String[] partes = Regex.Split(query, insert); 
+	
 	}
 }

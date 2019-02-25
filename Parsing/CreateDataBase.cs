@@ -1,8 +1,10 @@
 ﻿using System;
 
-public class Class1
+public class CreateDataBase
 {
-	public Class1()
+    public CreateDataBase(String query)
 	{
-	}
+        string  createDataBase =  @"CREATE DATABASE\s+(|\w+)(\;)";
+        String[] partes = Regex.Split(query, createDataBase);
+    }
 }

@@ -15,10 +15,10 @@ namespace testParsing
             string input4 = "create base alumnos";
 
             string pattern = @"CREATE DATABASE\s+(\w+)(\;)";
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern)); 
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern)); 
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input4, pattern)); 
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input4, pattern));
         }
 
         [TestMethod]
@@ -28,8 +28,8 @@ namespace testParsing
             string input2 = "DROP DATABASES alumnos;";
 
             string pattern = @"DROP DATABASE\s+(\w+)(\;)";
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern)); 
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
         }
 
         [TestMethod]
@@ -40,11 +40,11 @@ namespace testParsing
             string input3 = "DROP DATABASE 'sdfghj';";
 
             string pattern = @"DROP TABLE\s+(\w+)(\;)";
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
         }
-        
+
         [TestMethod]
         public void TestBackupDataBase()
         {
@@ -53,9 +53,9 @@ namespace testParsing
             string input3 = "BACKUP DATABASE qwert TO DISK = 'tyu'";
 
             string pattern = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-                        Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
-                        Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));        
+            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
         }
 
         public void TestCreateTable()
@@ -116,7 +116,7 @@ namespace testParsing
         }
         public void TestUpdate()
         {
-        
+
             String input1 = "UPDATE alumno SET nombre = Nadia WHERE nombre = Xabi";
             String input3 = "UPDATE alumno SET nombre = Nadia nombre = Xabi";
             String pattern = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
@@ -124,7 +124,7 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
 
-            
+
         }
 
     }

@@ -1,8 +1,10 @@
 ﻿using System;
 
-public class Class1
+public class Update
 {
-	public Class1()
-	{
-	}
+    public Update(String query)
+    {
+        string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+        String[] partes = Regex.Split(query, update);
+    }
 }
