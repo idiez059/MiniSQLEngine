@@ -1,8 +1,11 @@
 ﻿using System;
 
-public class Class1
+public abstract class Query
 {
-	public Class1()
+	public Query()
 	{
+
 	}
+
+    public abstract void Run();
 }

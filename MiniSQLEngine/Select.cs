@@ -1,21 +1,28 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-public class Select
+public class Select : Query
 {
+    String pSeleccion;
+    String pTabla;
+    String[] pCondiciones;
     public Select(String seleccion, String tabla, String[] condiciones)
 	{
-        String pSeleccion = seleccion;
-        String pTabla = tabla;
-        String[] pCondiciones = condiciones;
+        pSeleccion = seleccion;
+        pTabla = tabla;
+        pCondiciones = condiciones;
 	}
+    public override void Run()
+    {
+        throw new NotImplementedException();
+    }
 
-    public getSeleccion()
+    public string getSeleccion()
     {
         return pSeleccion;
     }
 
-    public getTabla()
+    public string getTabla()
     {
         return pTabla;
     }
