@@ -17,6 +17,7 @@ public class Select : Query
         throw new NotImplementedException();
     }
 
+
     public string getSeleccion()
     {
         return pColumns;
