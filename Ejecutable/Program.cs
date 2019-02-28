@@ -11,7 +11,8 @@ namespace Ejecutable
     {
         static void Main(string[] args)
         {
-            BDData.pruebaLectura();
+            //esperando a que estén métodos en BBData
+           // BDData.QueryOAlgo();
         }
     }
 }
