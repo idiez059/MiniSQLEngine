@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace MiniSQLEngine
 {
+    /*
     class Helper
     {
         //public object value;
         //private string Type;
-        public static IList CreateGenericList(Type collectionType)
+        public static IList CreateGenericList(Type collectionType) 
     }
+    */
 }

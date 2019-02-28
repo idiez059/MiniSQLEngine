@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="BackupDataBase.cs" />
     <Compile Include="BDData.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="CreateDataBase.cs" />
     <Compile Include="CreateTable.cs" />
     <Compile Include="Delete.cs" />

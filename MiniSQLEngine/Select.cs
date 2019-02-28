@@ -3,14 +3,14 @@ using System.Text.RegularExpressions;
 
 public class Select : Query
 {
-    String pSeleccion;
+    String pColumns;
     String pTabla;
-    String[] pCondiciones;
-    public Select(String seleccion, String tabla, String[] condiciones)
+    String pContenido;
+    public Select(String columns, String tabla, String contenido)
 	{
-        pSeleccion = seleccion;
+        pColumns = columns;
         pTabla = tabla;
-        pCondiciones = condiciones;
+        pContenido = contenido;
 	}
     public override void Run()
     {
@@ -19,11 +19,16 @@ public class Select : Query
 
     public string getSeleccion()
     {
-        return pSeleccion;
+        return pColumns;
     }
 
     public string getTabla()
     {
         return pTabla;
+    }
+
+    public string getContenido()
+    {
+        return pContenido;
     }
 }

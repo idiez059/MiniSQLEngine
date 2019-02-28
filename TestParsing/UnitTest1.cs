@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text.RegularExpressions;
 
 namespace testParsing
 {
@@ -31,7 +32,7 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
         }
-
+       
         [TestMethod]
         public void TestDropTable()
         {
@@ -44,6 +45,17 @@ namespace testParsing
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
         }
+
+        /* public void TestManageDropTable()
+        {
+            string query = @"DROP TABLE table1;";  
+            ClassDropTable dt = myClass.ManageDropTable(query);
+            String name = "table1";
+            ClassDropTable dtExpected = new ClassDropTable(name);
+            Assert.AreEqual(dtExpected.GetName(), dt.GetName());
+        }
+        */
+
 
         [TestMethod]
         public void TestBackupDataBase()
@@ -58,6 +70,7 @@ namespace testParsing
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
         }
 
+        [TestMethod]
         public void TestCreateTable()
         {
             string input1 = "CREATE TABLE qwer (INT PRIMARY KEY(7856));";
@@ -75,10 +88,11 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input5, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input6, pattern));
         }
-
+        
         [TestMethod]
         public void TestSelect()
         {
+            
             String input1 = "SELECT * FROM alumno";
             String input2 = "Select * FROM alumno WHERE age < 10";
             String input3 = "SELECT FROM alumno";
@@ -88,8 +102,19 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
+            
+           /* string[] wrongQueries = { "Select * FROM Table1;", "SELECT * FROM Table 1;", "SELECT * FROM Table1", "SELECT column1 FROM Table1;" };
+            string[] correctQueries = { "SELECT * FROM Table1;", "SELECT  * FROM Table1 ;" };
 
+            foreach (string query in wrongQueries)
+                Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
+
+
+            foreach (string query in correctQueries)
+                Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
+            */
         }
+        [TestMethod]
         public void TestDelete()
         {
             String input1 = "DELETE FROM alumno";
@@ -102,6 +127,7 @@ namespace testParsing
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
 
         }
+        [TestMethod]
         public void TestInsert()
         {
             String input1 = "INSERT INTO alumno";
@@ -114,6 +140,7 @@ namespace testParsing
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
 
         }
+        [TestMethod]
         public void TestUpdate()
         {
 
@@ -129,3 +156,4 @@ namespace testParsing
 
     }
 }
+ 
