@@ -41,11 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackupDataBase.cs" />
     <Compile Include="BDData.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="CreateDataBase.cs" />
+    <Compile Include="CreateTable.cs" />
+    <Compile Include="Delete.cs" />
+    <Compile Include="DropDataBase.cs" />
+    <Compile Include="DropTable.cs" />
     <Compile Include="FileSystemAbstract.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Insert.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="Update.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

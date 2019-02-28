@@ -4,18 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace MiniSQLEngine
 {
-    public class Generic<T>
-    {
-        public Generic()
-        {
-            Console.WriteLine("T={0}", typeof(T));
-        }
-    }
     public class Column
     {
         public String title;
@@ -29,9 +22,16 @@ namespace MiniSQLEngine
             pKey = false;
             fKey = false;
             forKey = null;
-            
-        }
 
+        }
+        public String getTitle()
+        {
+            return title;
+        }
+        public void setTitle(String newTitle)
+        {
+            title = newTitle;
+        }
         public void setPKey(bool foo)
         {
             pKey = foo;
@@ -56,18 +56,18 @@ namespace MiniSQLEngine
         {
             return forKey;
         }
-        
-      
+
+
     }
 
     public class ColumnInt : Column
     {
         List<int> col;
-        public ColumnInt(String title):base(title)
+        public ColumnInt(String title) : base(title)
         {
             col = null;
         }
-        public ColumnInt(String title,List<int> pCol):base(title)
+        public ColumnInt(String title, List<int> pCol) : base(title)
         {
             col = pCol;
         }
@@ -79,13 +79,35 @@ namespace MiniSQLEngine
         {
             col = pLista;
         }
-
-
+        public int getElementByIndex(int foo)
+        {
+            return col[foo];
+        }
+        public void setElementByIndex(int foo, int element)
+        {
+            col[foo] = element;
+        }
+        public bool hasElement(int element)
+        {
+            return col.Contains(element);
+        }
+        public List<int> elementsByContent(int content)
+        {
+            List<int> elements = null;
+            foreach (int element in col)
+            {
+                if (element == content)
+                {
+                    elements.Add(element);
+                }
+            }
+            return elements;
+        }
     }
 
     public class ColumnString : Column
     {
-        List<String> col;
+        private List<String> col;
         public ColumnString(String title) : base(title)
         {
             col = null;
@@ -96,11 +118,35 @@ namespace MiniSQLEngine
         }
         public List<String> getList()
         {
-           return col;
+            return col;
         }
         public void setList(List<String> pLista)
         {
             col = pLista;
+        }
+        public String getElementByIndex(int foo)
+        {
+            return col[foo];
+        }
+        public void setElementByIndex(int foo, String element)
+        {
+            col[foo] = element;
+        }
+        public bool hasElement(String element)
+        {
+            return col.Contains(element);
+        }
+        public List<String> elementsByContent(String content)
+        {
+            List<String> elements = null;
+            foreach (String element in col)
+            {
+                if (element.Equals(content))
+                {
+                    elements.Add(element);
+                }
+            }
+            return elements;
         }
     }
 
@@ -123,6 +169,30 @@ namespace MiniSQLEngine
         {
             col = pLista;
         }
+        public float getElementByIndex(int foo)
+        {
+            return col[foo];
+        }
+        public void setElementByIndex(int foo, float element)
+        {
+            col[foo] = element;
+        }
+        public bool hasElement(float element)
+        {
+            return col.Contains(element);
+        }
+        public List<float> elementsByContent(float content)
+        {
+            List<float> elements = null;
+            foreach (float element in col)
+            {
+                if (element == content)
+                {
+                    elements.Add(element);
+                }
+            }
+            return elements;
+        }
     }
 
     public class BDData
@@ -144,16 +214,14 @@ namespace MiniSQLEngine
             bd = pBD;
         }
 
-
         //XabiLovesOverlord
-
         public void addColumnInt(String title)
         {
             bd.Add(new ColumnInt(title));
         }
         public void addColumnInt(String title, List<int> lista)
         {
-            bd.Add(new ColumnInt(title,lista));
+            bd.Add(new ColumnInt(title, lista));
         }
         public void addColumnString(String title)
         {
@@ -161,7 +229,7 @@ namespace MiniSQLEngine
         }
         public void addColumnString(String title, List<String> lista)
         {
-            bd.Add(new ColumnString(title,lista));
+            bd.Add(new ColumnString(title, lista));
         }
         public void addColumnFloat(String title)
         {
@@ -169,9 +237,33 @@ namespace MiniSQLEngine
         }
         public void addColumnFloat(String title, List<float> lista)
         {
-            bd.Add(new ColumnFloat(title,lista));
+            bd.Add(new ColumnFloat(title, lista));
         }
+        public Column findColumnByName(String element)
+        {
+            Column col = null;
+            foreach (Column column in bd)
+            {
+                if (column.getTitle().Equals(element))
+                {
+                    col = column;
+                }
+            }
+            return col;
+        }
+        public bool hasColumn(String element)
+        {
+            if (findColumnByName(element) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
-    
+
 }
- 
