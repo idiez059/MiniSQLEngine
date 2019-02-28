@@ -56,10 +56,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ejecutable\Ejecutable.csproj">
-      <Project>{13cc5126-7ef3-46a6-8805-65799a3d1b66}</Project>
-      <Name>Ejecutable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MiniSQLEngine\MiniSQLEngine.csproj">
       <Project>{71fba82f-f594-44d5-89c6-a4c78022db60}</Project>
       <Name>MiniSQLEngine</Name>

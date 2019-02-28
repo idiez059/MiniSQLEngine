@@ -7,6 +7,15 @@ namespace testParsing
     [TestClass]
     public class TestParsing1
     {
+        /*
+         *  TODAS ESTAS PRUEBAS ESTAN MAL
+         *  HAY QUE HACER QUE COJA LOS VALORES DEL QUERY
+         *  PORQUE QUE PASE ESTOS TEST NO QUIERE DECIR QUE PASE EL ENGIN
+         * mIRAR PRIMERO EL SELECT
+         * 
+         */
+
+        /*
         [TestMethod]
         public void TestCreateDataBase()
         {
@@ -55,7 +64,8 @@ namespace testParsing
             Assert.AreEqual(dtExpected.GetName(), dt.GetName());
         }
         */
-
+        
+        /*
 
         [TestMethod]
         public void TestBackupDataBase()
@@ -88,6 +98,7 @@ namespace testParsing
             Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input5, pattern));
             Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input6, pattern));
         }
+        */
         
         [TestMethod]
         public void TestSelect()
@@ -114,6 +125,7 @@ namespace testParsing
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
             */
         }
+        /*
         [TestMethod]
         public void TestDelete()
         {
@@ -153,7 +165,7 @@ namespace testParsing
 
 
         }
-
+        */
     }
 }
  
