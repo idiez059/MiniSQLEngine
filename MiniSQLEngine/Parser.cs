@@ -38,26 +38,32 @@ namespace MiniSQLEngine.Parser
             Match match1 = Regex.Match(input, update);
             if (match.Success)
             {
-                Match matchUpdate = Regex.Match(input, update);
-                matchUpdate.Groups;
-                return new Update(..);
+                String columns = match.Groups[0].Value;
+                String tabla = match.Groups[1].Value;
+                String contenido = match.Groups[2].Value;
+
+                return new Update(columns, tabla, contenido);
             }
             Match match2 = Regex.Match(input, delete);
-            if (matchDelete.Success)
+            if (match.Success)
             {
-                Match matchDelete = Regex.Match(input, delete);
-                matchDelete.Groups;
-                new Delete(input);
+              
+                String tabla = match.Groups[0].Value;
+                String contenido = match.Groups[1].Value;
+
+                return new Delete(tabla, contenido);
             }
 
             Match match3 = Regex.Match(input, insert);
             if (match.Success)
             {
-                Match matchInsert = Regex.Match(input, insert);
-                matchInsert.Groups;
-                new Insert(input);
+              
+                String tabla = match.Groups[0].Value;
+                String contenido = match.Groups[1].Value;
+
+                return new Insert( tabla, contenido);
             }
-                    return null;
+                  
             //    else if (matchInsert.Success)
             //    {
             //        Match matchInsert = Regex.Match(input, insert);

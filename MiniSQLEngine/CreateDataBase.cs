@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-public class CreateDataBase
+public class CreateDataBase : Query
 {
+    /*
     public CreateDataBase(String query)
 	{
         string  createDataBase =  @"CREATE DATABASE\s+(|\w+)(\;)";
         String[] partes = Regex.Split(query, createDataBase);
+    }
+    */
+
+    String pBase;
+
+    public CreateDataBase(String base)
+    {
+        pBase = base;
+    }
+    public override void Run()
+    {
+        throw new NotImplementedException();
+    }
+
+    public string getBase()
+    {
+        return pBase;
     }
 }
