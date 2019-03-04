@@ -34,57 +34,66 @@ namespace MiniSQLEngine.Parser
                 return new Select(columns, tabla, contenido);
             }
             return null;
-            
-        //    Match match1 = Regex.Match(input, update);
-        //    if (match.Success)
-        //    {
-        //        Match matchUpdate = Regex.Match(input, update);
-        //        matchUpdate.Groups;
-        //        return new Update(..);
-        //    }
-        //    Match match2 = Regex.Match(input, delete);
-        //    if (matchDelete.Success)
-        //    {
-        //        Match matchDelete = Regex.Match(input, delete);
-        //        matchDelete.Groups;
-        //        new Delete(input);
-        //    }
-        //    else if (matchInsert.Success)
-        //    {
-        //        Match matchInsert = Regex.Match(input, insert);
-        //        matchInsert.Groups;
-        //        new Insert(input);
-        //    }
-        //    else if (matchCreateDataBase.Success)
-        //    {
-        //        Match matchCreateDataBase = Regex.Match(input, createDataBase);
-        //        matchCreateDataBase.Groups;
-        //        new CreateDataBase(input);
-        //    }
-        //    else if (matchDropDataBase.Success)
-        //    {
-        //        Match matchDropDataBase = Regex.Match(input, dropDataBase);
-        //        matchDropDataBase.Groups;
-        //        new DropDataBase(input);
-        //    }
-        //    else if (matchDropTable.Success)
-        //    {
-        //        Match matchDropTable = Regex.Match(input, dropTable);
-        //        matchDropTable.Groups;
-        //        new DropTable(input);
-        //    }
-        //    else if (matchBackupDataBase.Success)
-        //    {
-        //        Match matchBackupDataBase = Regex.Match(input, backupDataBase);
-        //        matchBackupDataBase.Groups;
-        //        new BackupDataBase(input);
-        //    }
-        //    else if (matchCreateTable.Success)
-        //    {
-        //        Match matchCreateTable = Regex.Match(input, createTable);
-        //        matchCreateTable.Groups;
-        //        new CreateTable(input);
-        //    }
+
+            Match match1 = Regex.Match(input, update);
+            if (match.Success)
+            {
+                Match matchUpdate = Regex.Match(input, update);
+                matchUpdate.Groups;
+                return new Update(..);
+            }
+            Match match2 = Regex.Match(input, delete);
+            if (matchDelete.Success)
+            {
+                Match matchDelete = Regex.Match(input, delete);
+                matchDelete.Groups;
+                new Delete(input);
+            }
+
+            Match match3 = Regex.Match(input, insert);
+            if (match.Success)
+            {
+                Match matchInsert = Regex.Match(input, insert);
+                matchInsert.Groups;
+                new Insert(input);
+            }
+                    return null;
+            //    else if (matchInsert.Success)
+            //    {
+            //        Match matchInsert = Regex.Match(input, insert);
+            //        matchInsert.Groups;
+            //        new Insert(input);
+            //    }
+            //    else if (matchCreateDataBase.Success)
+            //    {
+            //        Match matchCreateDataBase = Regex.Match(input, createDataBase);
+            //        matchCreateDataBase.Groups;
+            //        new CreateDataBase(input);
+            //    }
+            //    else if (matchDropDataBase.Success)
+            //    {
+            //        Match matchDropDataBase = Regex.Match(input, dropDataBase);
+            //        matchDropDataBase.Groups;
+            //        new DropDataBase(input);
+            //    }
+            //    else if (matchDropTable.Success)
+            //    {
+            //        Match matchDropTable = Regex.Match(input, dropTable);
+            //        matchDropTable.Groups;
+            //        new DropTable(input);
+            //    }
+            //    else if (matchBackupDataBase.Success)
+            //    {
+            //        Match matchBackupDataBase = Regex.Match(input, backupDataBase);
+            //        matchBackupDataBase.Groups;
+            //        new BackupDataBase(input);
+            //    }
+            //    else if (matchCreateTable.Success)
+            //    {
+            //        Match matchCreateTable = Regex.Match(input, createTable);
+            //        matchCreateTable.Groups;
+            //        new CreateTable(input);
+            //    }
         }
     }
 }

@@ -5,8 +5,8 @@ public abstract class Query
 {
 	public Query()
 	{
+         public abstract void Run();
+}
 
-	}
-
-    public abstract void Run();
+   
 }
