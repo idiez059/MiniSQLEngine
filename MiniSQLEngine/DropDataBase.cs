@@ -12,10 +12,10 @@ public class DropDataBase : Query
     */
 
     String pBase;
-    
-    public DropDataBase(String base)
+
+    public DropDataBase(String database)
     {
-       pBase = base; 
+        pBase = database;
     }
     public override void Run()
     {

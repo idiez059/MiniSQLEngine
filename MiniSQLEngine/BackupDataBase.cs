@@ -13,9 +13,9 @@ public class BackupDataBase : Query
 
     String pBase;
 
-    public BackupDataBase(String base)
+    public BackupDataBase(String database)
     {
-        pBase = base;
+        pBase = database;
     }
     public override void Run()
     {

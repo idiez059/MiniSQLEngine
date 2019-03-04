@@ -12,16 +12,28 @@ public class CreateTable : Query
     */
 
     String pTabla;
+    String pPK;
+    String pFK;
   
-    public CreateTable(String tabla)
+    public CreateTable(String tabla, String pk,String fk)
     {
         pTabla = tabla;
+        pPK = pk;
+        pFK = fk;
+
     }
     public override void Run()
     {
         throw new NotImplementedException();
     }
-
+    public string getFK()
+    {
+        return pFK;
+    }
+    public string getPK()
+    {
+        return pPK;
+    }
     public string getTabla()
     {
         return pTabla;
