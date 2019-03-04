@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using MiniSQLEngine.Parser;
 
-namespace MiniSQLEngine
+
+namespace MiniSQLEngine.Parser
+
 {
     public class Column
     {
@@ -264,6 +267,17 @@ namespace MiniSQLEngine
 
         }
 
+
+        public string RunQuery(string queryString)
+        {
+        Parser theParser = new Parser();
+
+
+        Query theQuery = theParser.Parse(queryString);
+
+        String tabla = theQuery.
+        String columna = ..
+        }
     }
 
 }
