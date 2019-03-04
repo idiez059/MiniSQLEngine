@@ -14,7 +14,7 @@ namespace testParsing
          * mIRAR PRIMERO EL SELECT
          * 
          */
-
+        Parser parser = new Parser();
         /*
         [TestMethod]
         public void TestCreateDataBase()
@@ -103,26 +103,29 @@ namespace testParsing
         [TestMethod]
         public void TestSelect()
         {
-            
-            String input1 = "SELECT * FROM alumno";
-            String input2 = "Select * FROM alumno WHERE age < 10";
-            String input3 = "SELECT FROM alumno";
-            String pattern = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+           Query instancia=  parser.parse("SELECT * FROM alumno");
+           Assert.IsTrue(instancia.)
+            /*   
+               String input1 = "SELECT * FROM alumno";
+               String input2 = "Select * FROM alumno WHERE age < 10";
+               String input3 = "SELECT FROM alumno";
+               String pattern = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
 
 
-            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
-            Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
-            Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
-            
-           /* string[] wrongQueries = { "Select * FROM Table1;", "SELECT * FROM Table 1;", "SELECT * FROM Table1", "SELECT column1 FROM Table1;" };
-            string[] correctQueries = { "SELECT * FROM Table1;", "SELECT  * FROM Table1 ;" };
+               Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input1, pattern));
+               Assert.IsTrue(System.Text.RegularExpressions.Regex.IsMatch(input2, pattern));
+               Assert.IsFalse(System.Text.RegularExpressions.Regex.IsMatch(input3, pattern));
 
-            foreach (string query in wrongQueries)
-                Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
+              /* string[] wrongQueries = { "Select * FROM Table1;", "SELECT * FROM Table 1;", "SELECT * FROM Table1", "SELECT column1 FROM Table1;" };
+               string[] correctQueries = { "SELECT * FROM Table1;", "SELECT  * FROM Table1 ;" };
+
+               foreach (string query in wrongQueries)
+                   Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
 
 
-            foreach (string query in correctQueries)
-                Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
+               foreach (string query in correctQueries)
+                   Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
+               */
             */
         }
         /*

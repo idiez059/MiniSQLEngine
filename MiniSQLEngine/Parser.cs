@@ -50,6 +50,8 @@ namespace MiniSQLEngine.Parser
 
                 return new Update(columns, tabla, contenido);
             }
+
+            //Delete
             Match matchDelete = Regex.Match(input, delete);
             if (matchDelete.Success)
             {
@@ -60,6 +62,7 @@ namespace MiniSQLEngine.Parser
                 return new Delete(tabla, contenido);
             }
 
+            //Insert
             Match matchInsert = Regex.Match(input, insert);
             if (matchInsert.Success)
             {
@@ -70,36 +73,49 @@ namespace MiniSQLEngine.Parser
                 return new Insert(tabla, contenido);
             }
 
-            //Match matchCreateDataBase = Regex.Match(input, createDataBase);
-            //if (matchCreateDataBase.Success)
-            //{
-            //    matchCreateDataBase.Groups;
-            //    new CreateDataBase(input);
-            //}
-            //    else if (matchDropDataBase.Success)
-            //    {
-            //        Match matchDropDataBase = Regex.Match(input, dropDataBase);
-            //        matchDropDataBase.Groups;
-            //        new DropDataBase(input);
-            //    }
-            //    else if (matchDropTable.Success)
-            //    {
-            //        Match matchDropTable = Regex.Match(input, dropTable);
-            //        matchDropTable.Groups;
-            //        new DropTable(input);
-            //    }
-            //    else if (matchBackupDataBase.Success)
-            //    {
-            //        Match matchBackupDataBase = Regex.Match(input, backupDataBase);
-            //        matchBackupDataBase.Groups;
-            //        new BackupDataBase(input);
-            //    }
-            //    else if (matchCreateTable.Success)
-            //    {
-            //        Match matchCreateTable = Regex.Match(input, createTable);
-            //        matchCreateTable.Groups;
-            //        new CreateTable(input);
-            //    }
+            //CreateDataBase
+            Match matchCreateDataBase = Regex.Match(input, createDataBase);
+            if (matchCreateDataBase.Success)
+            {
+                String nombreBD = matchCreateDataBase.Groups[0].Value;
+
+                return new CreateDataBase(nombreBD);
+            }
+
+            //DropDataBase
+            Match matchDropDataBase = Regex.Match(input, dropDataBase);
+            if (matchDropDataBase.Success)
+            {
+                String nombreDB = matchDropDataBase.Groups[0].Value;
+                return new DropDataBase(nombreDB);
+            }
+
+            //DropTable
+            Match matchDropTable = Regex.Match(input, dropTable);
+            if (matchDropTable.Success)
+            {
+                
+                String nombreTabla = matchDropTable.Groups[0].Value;
+                return new DropTable(nombreTabla);
+            }
+
+            //BackupDataBase
+            Match matchBackupDataBase = Regex.Match(input, backupDataBase);
+            if (matchBackupDataBase.Success)
+            {                
+                String nombreBD = matchBackupDataBase.Groups[0].Value;
+                new BackupDataBase(nombreBD);
+            }
+
+            //Cambiar
+            //CreateTable
+            Match matchCreateTable = Regex.Match(input, createTable);
+            if (matchCreateTable.Success)
+            {
+                
+                String nombreTabla = matchCreateTable.Groups[0].Value;
+                new CreateTable(input);
+            }
             return null;
         }
     }
