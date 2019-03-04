@@ -6,7 +6,12 @@ namespace MiniSQLEngine.Parser
 
     public class Parser
     {
-        public Query Parse(string input)
+        public Parser()
+        {
+            
+        }
+
+        public Query parse(string input)
         {
             //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
@@ -24,58 +29,53 @@ namespace MiniSQLEngine.Parser
             // we search only one coincidence 
             Console.WriteLine("Regex.Match()");
 
-            Match match = Regex.Match(input, select);
-            if (match.Success)
+            //Select
+            Match matchSelect = Regex.Match(input, select);
+            if (matchSelect.Success)
             {
-                String columns = match.Groups[0].Value;
-                String tabla = match.Groups[1].Value;
-                String contenido = match.Groups[2].Value;
+                String columns = matchSelect.Groups[0].Value;
+                String tabla = matchSelect.Groups[1].Value;
+                String contenido = matchSelect.Groups[2].Value;
 
                 return new Select(columns, tabla, contenido);
             }
-            return null;
 
-            Match match1 = Regex.Match(input, update);
-            if (match.Success)
+            //Update
+            Match matchUpdate = Regex.Match(input, update);
+            if (matchUpdate.Success)
             {
-                String columns = match.Groups[0].Value;
-                String tabla = match.Groups[1].Value;
-                String contenido = match.Groups[2].Value;
+                String columns = matchUpdate.Groups[0].Value;
+                String tabla = matchUpdate.Groups[1].Value;
+                String contenido = matchUpdate.Groups[2].Value;
 
                 return new Update(columns, tabla, contenido);
             }
-            Match match2 = Regex.Match(input, delete);
-            if (match.Success)
+            Match matchDelete = Regex.Match(input, delete);
+            if (matchDelete.Success)
             {
-              
-                String tabla = match.Groups[0].Value;
-                String contenido = match.Groups[1].Value;
+
+                String tabla = matchDelete.Groups[0].Value;
+                String contenido = matchDelete.Groups[1].Value;
 
                 return new Delete(tabla, contenido);
             }
 
-            Match match3 = Regex.Match(input, insert);
-            if (match.Success)
+            Match matchInsert = Regex.Match(input, insert);
+            if (matchInsert.Success)
             {
-              
-                String tabla = match.Groups[0].Value;
-                String contenido = match.Groups[1].Value;
 
-                return new Insert( tabla, contenido);
+                String tabla = matchInsert.Groups[0].Value;
+                String contenido = matchInsert.Groups[1].Value;
+
+                return new Insert(tabla, contenido);
             }
-                  
-            //    else if (matchInsert.Success)
-            //    {
-            //        Match matchInsert = Regex.Match(input, insert);
-            //        matchInsert.Groups;
-            //        new Insert(input);
-            //    }
-            //    else if (matchCreateDataBase.Success)
-            //    {
-            //        Match matchCreateDataBase = Regex.Match(input, createDataBase);
-            //        matchCreateDataBase.Groups;
-            //        new CreateDataBase(input);
-            //    }
+
+            //Match matchCreateDataBase = Regex.Match(input, createDataBase);
+            //if (matchCreateDataBase.Success)
+            //{
+            //    matchCreateDataBase.Groups;
+            //    new CreateDataBase(input);
+            //}
             //    else if (matchDropDataBase.Success)
             //    {
             //        Match matchDropDataBase = Regex.Match(input, dropDataBase);
@@ -100,6 +100,7 @@ namespace MiniSQLEngine.Parser
             //        matchCreateTable.Groups;
             //        new CreateTable(input);
             //    }
+            return null;
         }
     }
 }
