@@ -6,47 +6,52 @@ namespace MiniSQLEngine.Parser
 
     public class Parser
     {
-        public Query Parse(string input)
+        public Query Parserito()
         {
-            //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
+            
+        }
 
-            string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
-            string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
-            string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
-            string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
+        public void parse(string input) {
+        //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
-            string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
-            string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
-            string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
-            string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+        string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+        string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+        string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
+        string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
 
-            // we search only one coincidence 
-            Console.WriteLine("Regex.Match()");
+        string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
+        string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
+        string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
+        string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
+        string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
 
-            Match match = Regex.Match(input, select);
-            if (match.Success)
+        // we search only one coincidence 
+        Console.WriteLine("Regex.Match()");
+
+            //Select
+            Match matchSelect = Regex.Match(input, select);
+            if (matchSelect.Success)
             {
-                String columns = match.Groups[0].Value;
-                String tabla = match.Groups[1].Value;
-                String contenido = match.Groups[2].Value;
+                String columns = matchSelect.Groups[0].Value;
+        String tabla = matchSelect.Groups[1].Value;
+        String contenido = matchSelect.Groups[2].Value;
 
                 return new Select(columns, tabla, contenido);
-            }
-            return null;
+    }
 
-            Match match1 = Regex.Match(input, update);
-            if (match.Success)
+    //Update
+    Match matchUpdate = Regex.Match(input, update);
+            if (matchUpdate.Success)
             {
                 Match matchUpdate = Regex.Match(input, update);
-                matchUpdate.Groups;
+    matchUpdate.Groups;
                 return new Update(..);
-            }
-            Match match2 = Regex.Match(input, delete);
+}
+Match match2 = Regex.Match(input, delete);
             if (matchDelete.Success)
             {
                 Match matchDelete = Regex.Match(input, delete);
-                matchDelete.Groups;
+matchDelete.Groups;
                 new Delete(input);
             }
 
@@ -54,10 +59,10 @@ namespace MiniSQLEngine.Parser
             if (match.Success)
             {
                 Match matchInsert = Regex.Match(input, insert);
-                matchInsert.Groups;
+matchInsert.Groups;
                 new Insert(input);
             }
-                    return null;
+            
             //    else if (matchInsert.Success)
             //    {
             //        Match matchInsert = Regex.Match(input, insert);
@@ -94,6 +99,6 @@ namespace MiniSQLEngine.Parser
             //        matchCreateTable.Groups;
             //        new CreateTable(input);
             //    }
+            return null;
         }
-    }
 }
