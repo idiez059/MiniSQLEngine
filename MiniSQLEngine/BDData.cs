@@ -270,13 +270,36 @@ namespace MiniSQLEngine.Parser
 
         public string RunQuery(string queryString)
         {
-        Parser theParser = new Parser();
+            string result;
+            Parser theParser = new Parser();
+            Query theQuery = theParser.parse(queryString);
+
+            Select queryAsSelect = theQuery as Select;
+            Update queryAsUpdate = theQuery as Update;
+            string table = queryAsSelect.getTabla();
+            string column = queryAsSelect.getColumns();
+            string content = queryAsSelect.getContenido();
+
+            
+
+            if(queryAsSelect == null)
+            {
+                string columna2 = queryAsUpdate.getColumns();
+                string tabla2 .....
+                string 
+                if ()
+                {
+
+                }
+
+                        
+            }
+
+            return ans;
 
 
-        Query theQuery = theParser.Parse(queryString);
 
-        String tabla = theQuery.
-        String columna = ..
+
         }
     }
 
