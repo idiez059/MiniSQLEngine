@@ -10,12 +10,11 @@ public class CreateDataBase : Query
         String[] partes = Regex.Split(query, createDataBase);
     }
     */
-
     String pBase;
 
-    public CreateDataBase(String base)
+    public CreateDataBase(String database)
     {
-        pBase = base;
+        pBase = database;
     }
     public override void Run()
     {
