@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MiniSQLEngine
-{
+namespace MiniSQLEngine { 
+
 
     public class Parser
     {

@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using MiniSQLEngine.Parser;
+using MiniSQLEngine;
 
 
-namespace MiniSQLEngine.Parser
+namespace MiniSQLEngine
 
 {
     public class Column
