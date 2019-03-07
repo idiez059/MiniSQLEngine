@@ -11,6 +11,13 @@ namespace MiniSQLEngine
 
     class FileSystemAbstract
     {
+        public void writeToDataFile()
+        {
 
+        }
+        public void writeToStructureFile()
+        {
+
+        }
     }
 }
