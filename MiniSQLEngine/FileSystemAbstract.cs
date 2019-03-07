@@ -47,17 +47,19 @@ namespace MiniSQLEngine
         {
 
         }
-        public void writeToStructureFile(List<string> colType)
+        public void writeToStructureFile(string dbName, string tableName,List<string> colType)
         {
             List<string> col = colType;
             List<string> towrite = new List<string>();
             int i = 0;
+            String lePath;
             foreach (var column in col)
             {
                 i++;
                 towrite.Add(i.ToString() + column.ToString());
             }
-            System.IO.File.WriteAllLines(@".....", towrite);
+            lePath = openStructureFile(dbName, tableName);
+            System.IO.File.WriteAllLines(lePath, towrite);
         }
 
         public ArrayList readDataFile(String dbName, String tableName)
