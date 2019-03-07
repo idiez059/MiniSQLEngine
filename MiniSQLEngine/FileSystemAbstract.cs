@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace MiniSQLEngine
 {
@@ -11,16 +12,43 @@ namespace MiniSQLEngine
 
     class FileSystemAbstract
     {
-        static void Main()
-
-        // Get the files in the directory and print out some information about them.
-        System.IO.FileInfo[] fileNames = dirInfo.GetFiles("*.*");
-
-
-        foreach (System.IO.FileInfo fi in fileNames)
+        public static String openDataFile(String dbName, String tableName)
         {
-            Console.WriteLine("{0}: {1}: {2}", fi.Name, fi.LastAccessTime, fi.Length);
+            String resultingPath = null;
+            if (File.Exists("/../../../" + dbName + "/Data" + tableName + ".txt"))
+            {
+                resultingPath = "/../../../" + dbName + "/Data" + tableName + ".txt";
+                return resultingPath;
+            }
+            else
+            {
+                Console.WriteLine("Error: could not find specified file");
+                resultingPath = "";
+                return resultingPath;
+            }
         }
+        public static String openStructureFile(String dbName, String tableName)
+        {
+            String resultingPath = null;
+            if (File.Exists("/../../../" + dbName + "/Structure" + tableName + ".txt"))
+            {
+                resultingPath = "/../../../" + dbName + "/Structure" + tableName + ".txt";
+                return resultingPath;
+            }
+            else
+            {
+                Console.WriteLine("Error: could not find specified file");
+                return resultingPath;
+            }
+        }
+        public void writeToDataFile()
+        {
 
-}
+        }
+        public void writeToStructureFile()
+        {
+            int[] indexLines = null;
+            System.IO.File.WriteAllLines
+        }
+    }
 }
