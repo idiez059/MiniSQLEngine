@@ -266,8 +266,6 @@ namespace MiniSQLEngine
             }
 
         }
-
-
         public string RunQuery(string queryString)
         {
             string result;
@@ -280,19 +278,19 @@ namespace MiniSQLEngine
             string column = queryAsSelect.getColumns();
             string content = queryAsSelect.getContenido();
 
-            
 
-            if(queryAsSelect == null)
+
+            if (queryAsSelect == null)
             {
                 string columna2 = queryAsUpdate.getColumns();
                 string tabla2 .....
-                string 
+                string
                 if ()
                 {
 
                 }
 
-                        
+
             }
 
             return ans;
