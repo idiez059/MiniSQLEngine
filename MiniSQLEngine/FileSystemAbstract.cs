@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Collections;
 
 namespace MiniSQLEngine
 {
@@ -50,6 +51,45 @@ namespace MiniSQLEngine
             
             int[] indexLines = null;
             System.IO.File.WriteAllLines(@)
+        }
+
+        public ArrayList readDataFile(String dbName, String tableName)
+        {
+            StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                    arrText.Add(sLine);
+            }
+            objReader.Close();
+
+            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+            Console.ReadLine();
+
+            return arrText;
+        }
+        public ArrayList readDatastructure(String dbName, String tableName)
+        {
+            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                    arrText.Add(sLine);
+            }
+            objReader.Close();
+
+            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+            Console.ReadLine();
+
+            return arrText;
         }
     }
 }
