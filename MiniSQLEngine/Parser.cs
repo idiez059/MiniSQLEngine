@@ -124,7 +124,10 @@ namespace MiniSQLEngine.Parser
             {
                 
                 String nombreTabla = matchCreateTable.Groups[0].Value;
-                new CreateTable(input);
+                String tipoDato = matchCreateTable.Groups[1].Value;
+                String pk = matchCreateTable.Groups[2].Value;
+                String fk = matchCreateTable.Groups[3].Value;
+                new CreateTable(nombreTabla, tipoDato, pk, fk);
             }
             return null;
         }
