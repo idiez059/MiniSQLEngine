@@ -3,13 +3,9 @@ using System.Text.RegularExpressions;
 
 public class Delete : Query
 {
-    /*
-	public Delete (String query)
-	{
-        string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
-        String[] partes = Regex.Split(query, delete);
-    }
-    */
+    String pTabla;
+    String pContenido;
+
     public Delete( String tabla, String contenido)
     {
         pTabla = tabla;

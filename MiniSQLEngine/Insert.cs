@@ -3,15 +3,7 @@ using System.Text.RegularExpressions;
 
 public class Insert : Query
 {
-    /*
-	public Insert(String query)
-    {
-        string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
-        String[] partes = Regex.Split(query, insert); 
-	
-	}
-    */
-  
+    
     String pTabla;
     String pContenido;
     public Insert (String tabla, String contenido)

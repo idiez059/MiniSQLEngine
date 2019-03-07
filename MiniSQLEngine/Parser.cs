@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MiniSQLEngine.Parser
-{
+namespace MiniSQLEngine { 
+
 
     public class Parser
     {
+        
         public Parser()
         {
             
         }
 
         public static Query Parse(string query)
-        // public Query parse(string input)  
+          
         {
             //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
@@ -27,12 +28,11 @@ namespace MiniSQLEngine.Parser
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
             string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
 
-            // we search only one coincidence 
+            //We search only one coincidence 
             Console.WriteLine("Regex.Match()");
 
             //Select
             Match matchSelect = Regex.Match(query, select);
-          //  Match matchSelect = Regex.Match(input, select);
             if (matchSelect.Success)
             {
                 String columns = matchSelect.Groups[0].Value;
@@ -44,7 +44,6 @@ namespace MiniSQLEngine.Parser
 
             //Update
             Match matchUpdate = Regex.Match(query, update);
-          //  Match matchUpdate = Regex.Match(input, update);
             if (matchUpdate.Success)
             {
                 String columns = matchUpdate.Groups[0].Value;
@@ -56,7 +55,6 @@ namespace MiniSQLEngine.Parser
 
             //Delete
             Match matchDelete = Regex.Match(query, delete);
-            //Match matchDelete = Regex.Match(input, delete);
             if (matchDelete.Success)
             {
 
@@ -68,7 +66,6 @@ namespace MiniSQLEngine.Parser
 
             //Insert
             Match matchInsert = Regex.Match(query, insert);
-            //Match matchInsert = Regex.Match(input, insert);
             if (matchInsert.Success)
             {
 
@@ -80,7 +77,6 @@ namespace MiniSQLEngine.Parser
 
             //CreateDataBase
             Match matchCreateDataBase = Regex.Match(query, createDataBase);
-            //Match matchCreateDataBase = Regex.Match(input, createDataBase);
             if (matchCreateDataBase.Success)
             {
                 String nombreBD = matchCreateDataBase.Groups[0].Value;
@@ -90,7 +86,6 @@ namespace MiniSQLEngine.Parser
 
             //DropDataBase
             Match matchDropDataBase = Regex.Match(query, dropDataBase);
-           // Match matchDropDataBase = Regex.Match(input, dropDataBase);
             if (matchDropDataBase.Success)
             {
                 String nombreDB = matchDropDataBase.Groups[0].Value;
@@ -99,7 +94,6 @@ namespace MiniSQLEngine.Parser
 
             //DropTable
             Match matchDropTable = Regex.Match(query, dropTable);
-          //  Match matchDropTable = Regex.Match(input, dropTable);
             if (matchDropTable.Success)
             {
                 
@@ -109,22 +103,22 @@ namespace MiniSQLEngine.Parser
 
             //BackupDataBase
             Match matchBackupDataBase = Regex.Match(query, backupDataBase);
-          //  Match matchBackupDataBase = Regex.Match(input, backupDataBase);
             if (matchBackupDataBase.Success)
             {                
                 String nombreBD = matchBackupDataBase.Groups[0].Value;
                 new BackupDataBase(nombreBD);
             }
 
-            //Cambiar
             //CreateTable
             Match matchCreateTable = Regex.Match(query, createTable);
-        //    Match matchCreateTable = Regex.Match(input, createTable);
             if (matchCreateTable.Success)
             {
                 
                 String nombreTabla = matchCreateTable.Groups[0].Value;
-                new CreateTable(input);
+                String tipoDato = matchCreateTable.Groups[1].Value;
+                String pk = matchCreateTable.Groups[2].Value;
+                String fk = matchCreateTable.Groups[3].Value;
+                new CreateTable(nombreTabla, tipoDato, pk, fk);
             }
             return null;
         }
