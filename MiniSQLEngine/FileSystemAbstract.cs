@@ -47,8 +47,9 @@ namespace MiniSQLEngine
         }
         public void writeToStructureFile()
         {
+            
             int[] indexLines = null;
-            System.IO.File.WriteAllLines
+            System.IO.File.WriteAllLines(@)
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MiniSQLEngine.Parser
+namespace MiniSQLEngine
 {
 
     public class Parser
     {
+        
         public Parser()
         {
             
