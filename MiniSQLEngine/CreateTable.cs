@@ -12,12 +12,14 @@ public class CreateTable : Query
     */
 
     String pTabla;
+    String pTipoDato;
     String pPK;
     String pFK;
   
-    public CreateTable(String tabla, String pk,String fk)
+    public CreateTable(String tabla,String tipoDato, String pk,String fk)
     {
         pTabla = tabla;
+        pTipoDato = tipoDato;
         pPK = pk;
         pFK = fk;
 
