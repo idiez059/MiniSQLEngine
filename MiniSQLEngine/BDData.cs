@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using MiniSQLEngine.Parser;
+using MiniSQLEngine;
 
 
-namespace MiniSQLEngine.Parser
+namespace MiniSQLEngine
 
 {
     public class Column
@@ -266,8 +266,6 @@ namespace MiniSQLEngine.Parser
             }
 
         }
-
-
         public string RunQuery(string queryString)
         {
             string result;
@@ -280,19 +278,19 @@ namespace MiniSQLEngine.Parser
             string column = queryAsSelect.getColumns();
             string content = queryAsSelect.getContenido();
 
-            
 
-            if(queryAsSelect == null)
+
+            if (queryAsSelect == null)
             {
                 string columna2 = queryAsUpdate.getColumns();
                 string tabla2 .....
-                string 
+                string
                 if ()
                 {
 
                 }
 
-                        
+
             }
 
             return ans;

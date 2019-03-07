@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Collections;
 
 namespace MiniSQLEngine
 {
@@ -16,9 +17,9 @@ namespace MiniSQLEngine
         {
 
             String resultingPath = null;
-            if (File.Exists(dbName+"/" + dbName + "Data" + tableName + ".txt"))
+            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
             {
-                resultingPath = dbName+"/" + dbName + "/Data" + tableName + ".txt";
+                resultingPath = "/../../../" + dbName + tableName + ".txt";
                 return resultingPath;
             }
             else
@@ -31,9 +32,9 @@ namespace MiniSQLEngine
         public static String openStructureFile(String dbName, String tableName)
         {
             String resultingPath = null;
-            if (File.Exists(dbName+"/" +dbName + "Structure" + tableName + ".txt"))
+            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
             {
-                resultingPath = dbName+"/" + dbName + "Structure" + tableName + ".txt";
+                resultingPath = "/../../../" + dbName + tableName + ".txt";
                 return resultingPath;
             }
             else
@@ -57,6 +58,45 @@ namespace MiniSQLEngine
                 towrite.Add(i.ToString() + column.ToString());
             }
             System.IO.File.WriteAllLines(@".....", towrite);
+        }
+
+        public ArrayList readDataFile(String dbName, String tableName)
+        {
+            StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                    arrText.Add(sLine);
+            }
+            objReader.Close();
+
+            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+            Console.ReadLine();
+
+            return arrText;
+        }
+        public ArrayList readDatastructure(String dbName, String tableName)
+        {
+            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+                if (sLine != null)
+                    arrText.Add(sLine);
+            }
+            objReader.Close();
+
+            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+            Console.ReadLine();
+
+            return arrText;
         }
     }
 }
