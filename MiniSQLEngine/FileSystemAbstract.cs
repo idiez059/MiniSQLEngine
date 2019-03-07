@@ -14,6 +14,7 @@ namespace MiniSQLEngine
     {
         public static String openDataFile(String dbName, String tableName)
         {
+
             String resultingPath = null;
             if (File.Exists(dbName+"/" + dbName + "Data" + tableName + ".txt"))
             {
@@ -45,11 +46,17 @@ namespace MiniSQLEngine
         {
 
         }
-        public void writeToStructureFile()
+        public void writeToStructureFile(List<string> colType)
         {
-            
-            int[] indexLines = null;
-            System.IO.File.WriteAllLines(@)
+            List<string> col = colType;
+            List<string> towrite = new List<string>();
+            int i = 0;
+            foreach (var column in col)
+            {
+                i++;
+                towrite.Add(i.ToString() + column.ToString());
+            }
+            System.IO.File.WriteAllLines(@".....", towrite);
         }
     }
 }
