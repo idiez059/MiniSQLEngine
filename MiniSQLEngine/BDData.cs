@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using MiniSQLEngine.Parser;
+using MiniSQLEngine;
 
 
-namespace MiniSQLEngine.Parser
+namespace MiniSQLEngine
 
 {
     public class Column
@@ -86,6 +86,15 @@ namespace MiniSQLEngine.Parser
         {
             return col[foo];
         }
+        public List<int> getElementsByIndex(List<int> foo)
+        {
+            List<int> elements = new List<int>();
+            foreach (int peekaboo in foo)
+            {
+                elements.Add(col[peekaboo]);
+            }
+            return elements;
+        }
         public void setElementByIndex(int foo, int element)
         {
             col[foo] = element;
@@ -99,12 +108,16 @@ namespace MiniSQLEngine.Parser
             List<int> elements = null;
             foreach (int element in col)
             {
-                if (element == content)
+                if (element.Equals(content))
                 {
-                    elements.Add(element);
+                    elements.Add(col.IndexOf(content));
                 }
             }
             return elements;
+        }
+        public System.Type getType()
+        {
+            return col.GetType();
         }
     }
 
@@ -131,6 +144,15 @@ namespace MiniSQLEngine.Parser
         {
             return col[foo];
         }
+        public List<String> getElementsByIndex(List<int> foo)
+        {
+            List<String> elements = new List<String>();
+            foreach (int peekaboo in foo)
+            {
+                elements.Add(col[peekaboo]);
+            }
+            return elements;
+        }
         public void setElementByIndex(int foo, String element)
         {
             col[foo] = element;
@@ -139,17 +161,21 @@ namespace MiniSQLEngine.Parser
         {
             return col.Contains(element);
         }
-        public List<String> elementsByContent(String content)
+        public List<int> elementsByContent(String content)
         {
-            List<String> elements = null;
+            List<int> elements = null;
             foreach (String element in col)
             {
                 if (element.Equals(content))
                 {
-                    elements.Add(element);
+                    elements.Add(col.IndexOf(content));
                 }
             }
             return elements;
+        }
+        public System.Type getType()
+        {
+            return col.GetType();
         }
     }
 
@@ -176,6 +202,15 @@ namespace MiniSQLEngine.Parser
         {
             return col[foo];
         }
+        public List<float> getElementsByIndex(List<int> foo)
+        {
+            List<float> elements = new List<float>();
+            foreach(int peekaboo in foo)
+            {
+                elements.Add(col[peekaboo]);
+            }
+            return elements;
+        }
         public void setElementByIndex(int foo, float element)
         {
             col[foo] = element;
@@ -184,68 +219,73 @@ namespace MiniSQLEngine.Parser
         {
             return col.Contains(element);
         }
-        public List<float> elementsByContent(float content)
+        public List<int> elementsByContent(float content)
         {
-            List<float> elements = null;
+            List<int> elements = null;
             foreach (float element in col)
             {
                 if (element == content)
                 {
-                    elements.Add(element);
+                    elements.Add(col.IndexOf(content));
                 }
             }
             return elements;
         }
+        public System.Type getType()
+        {
+            return col.GetType();
+        }
     }
-
-    public class BDData
+    public class Table
     {
-        private List<Column> bd = new List<Column>();
-
-        private BDData()
-        {
-
-        }
-        private static BDData instance = new BDData();
-
-        public static BDData getInstance()
-        {
-            return instance;
-        }
-        public void resetBD(List<Column> pBD)
-        {
-            bd = pBD;
-        }
+        private String title;
+        private List<Column> table = new List<Column>();
 
         //XabiLovesOverlord
+        public String getTitle()
+        {
+            return title;
+        }
+        public void setTitle(String pTitle)
+        {
+            title = pTitle;
+        }
+        public List<Column> getTable()
+        {
+            return table;
+        }
+        public void setTabla(List<Column> pTable)
+        {
+            table = pTable;
+        }
         public void addColumnInt(String title)
         {
-            bd.Add(new ColumnInt(title));
+            table.Add(new ColumnInt(title));
         }
         public void addColumnInt(String title, List<int> lista)
         {
-            bd.Add(new ColumnInt(title, lista));
+            table.Add(new ColumnInt(title, lista));
         }
         public void addColumnString(String title)
         {
-            bd.Add(new ColumnString(title));
+            table.Add(new ColumnString(title));
         }
         public void addColumnString(String title, List<String> lista)
         {
-            bd.Add(new ColumnString(title, lista));
+            table.Add(new ColumnString(title, lista));
         }
         public void addColumnFloat(String title)
         {
-            bd.Add(new ColumnFloat(title));
+            table.Add(new ColumnFloat(title));
         }
         public void addColumnFloat(String title, List<float> lista)
         {
-            bd.Add(new ColumnFloat(title, lista));
+            table.Add(new ColumnFloat(title, lista));
         }
         public Column findColumnByName(String element)
         {
             Column col = null;
-            foreach (Column column in bd)
+            foreach (Column column in table)
             {
                 if (column.getTitle().Equals(element))
                 {
@@ -267,40 +307,75 @@ namespace MiniSQLEngine.Parser
 
         }
 
+    }
+    public class BDData
+    {
+        private List<Table> bd = new List<Table>();
+
+        private BDData()
+        {
+
+        }
+        private static BDData instance = new BDData();
+
+        public static BDData getInstance()
+        {
+            return instance;
+        }
+        public void resetBD(List<Table> pBD)
+        {
+            bd = pBD;
+        }
+
+        
 
         public string RunQuery(string queryString)
         {
             string result;
-            Parser theParser = new Parser();
-            Query theQuery = theParser.parse(queryString);
+            Query theQuery = MiniSQLEngine.Parser.Parse(queryString);
 
             Select queryAsSelect = theQuery as Select;
             Update queryAsUpdate = theQuery as Update;
-            string table = queryAsSelect.getTabla();
-            string column = queryAsSelect.getColumns();
-            string content = queryAsSelect.getContenido();
 
-            
-
-            if(queryAsSelect == null)
+            //Implementar en las subclases de Query, no Aqui!
+            string table;
+            string column;
+            string content;
+            string[] combo;
+            if (queryAsSelect != null)
             {
-                string columna2 = queryAsUpdate.getColumns();
-                string tabla2 .....
-                string 
-                if ()
-                {
-
-                }
-
-                        
+                combo = executeQ(theQuery as Select);
+                table = combo[0];
+                column = combo[1];
+                content = combo[2];
             }
-
-            return ans;
-
-
-
+            else if(queryAsUpdate != null)
+            {
+                combo = executeQ(theQuery as Select);
+                table = combo[0];
+                column = combo[1];
+                content = combo[2];
+            }
+            
+            return null;
 
         }
+        public String[] executeQ(Select query)
+        {
+            string table = query.getTabla();
+            string column = query.getColumns();
+            string content = query.getContenido();
+            return new string[]{ table, column, content};
+        }
+        public String[] executeQ(Update query)
+        {
+            string table = query.getTabla();
+            string column = query.getColumns();
+            string content = query.getContenido();
+            return new string[] { table, column, content };
+        }
+        
+        
     }
 
 }
