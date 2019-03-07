@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MiniSQLEngine.Parser
+namespace MiniSQLEngine
 {
 
     public class Parser
     {
+        
         public Parser()
         {
             
@@ -124,7 +125,7 @@ namespace MiniSQLEngine.Parser
             {
                 
                 String nombreTabla = matchCreateTable.Groups[0].Value;
-                new CreateTable(input);
+                new CreateTable(nombreTabla);
             }
             return null;
         }
