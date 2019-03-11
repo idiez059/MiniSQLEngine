@@ -230,6 +230,15 @@ namespace MiniSQLEngine
         {
             col = pLista;
         }
+        public List<String> getAsString()
+        {
+            List<String> stringList = new List<String>();
+            foreach (int alexNoTieneAngulo in col)
+            {
+                stringList.Add(alexNoTieneAngulo.ToString());
+            }
+            return stringList;
+        }
         public String getAll()
         {
             String D4NK = String.Empty;
@@ -294,18 +303,6 @@ namespace MiniSQLEngine
         public List<Column> getColumns()
         {
             return table;
-        }
-        public Column getColumnByName(String pName)
-        {
-            Column result = null;
-            foreach (Column column in table)
-            {
-                if (column.getTitle().Equals(pName))
-                {
-                    result = column;
-                }
-            }
-            return result;
         }
         public void setTabla(List<Column> pTable)
         {

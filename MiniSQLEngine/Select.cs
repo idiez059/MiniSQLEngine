@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
+using System.Collections.Generic;
 
 public class Select : Query
 {
     String pColumns;
     String pTabla;
-    String pContenido;
-    public Select(String columns, String tabla, String contenido)
+    List<String> pContenido;
+    public Select(String columns, String tabla, List<String> contenido)
 	{
         pColumns = columns;
         pTabla = tabla;
@@ -17,35 +18,23 @@ public class Select : Query
     {
         Table bTable = null;
         Column bColumn = null;
-        String bContent;
-        //try
-        //{
-            foreach(Table table in db.getTables())
-            {
-                if (table.getTitle().Equals(pTabla))
-                {
-                   bTable = table;
-                }
-            }
-            if(bTable != null)
-            {
-            foreach (Column column in bTable.getColumns())
-            {
-                if (column.getTitle().Equals(pColumns))
-                {
-                    bColumn = column;
-                }
-            }
+        //String bContent = pContenido;
+        bTable = db.getTableByName(pTabla);
+        if(bTable != null)
+        {
+            bColumn = bTable.findColumnByName(pColumns);
             if(bColumn != null)
             {
-                bColumn.getTitle();
+                    
             }
-        }
-            
-        //}catch(NullReferenceException)
-        //{
-
-        //}
+            else
+            {
+                return "Could not find the specified column";
+            }
+        }else
+            {
+                return "Could not find specified table";
+            }
         return null;
     }
 
@@ -59,7 +48,7 @@ public class Select : Query
         return pTabla;
     }
 
-    public string getContenido()
+    public List<String> getContenido()
     {
         return pContenido;
     }
