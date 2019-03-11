@@ -17,7 +17,7 @@ public class CreateTable : Query
         pFK = fk;
 
     }
-    public override void Run()
+    public override String Run()
     {
         throw new NotImplementedException();
     }

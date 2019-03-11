@@ -1,6 +1,7 @@
 ﻿using MiniSQLEngine;
 using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class Insert : Query
 {
