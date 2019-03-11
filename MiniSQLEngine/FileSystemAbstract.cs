@@ -77,7 +77,7 @@ namespace MiniSQLEngine
             List<string> col = colType;
             List<string> towrite = new List<string>();
             int i = 0;
-            String lePath;
+            String lePath = openStructureFile(dbName, tableName);
             foreach (var column in col)
             {
                 i++;
