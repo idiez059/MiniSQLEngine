@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class BackupDataBase : Query
 {
@@ -9,8 +10,10 @@ public class BackupDataBase : Query
     {
         pBase = database;
     }
-    public override String Run()
+    public override void Run(BDData bd)
     {
+        Table nombre = new Table();
+        String nombreTabla = nombre.getTitle();
         throw new NotImplementedException();
     }
 

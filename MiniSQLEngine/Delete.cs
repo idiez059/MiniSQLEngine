@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class Delete : Query
 {
@@ -11,9 +12,9 @@ public class Delete : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override String Run(MiniSQLEngine.BDData db)
+    public override String Run(BDData bd)
     {
-        throw new NotImplementedException();
+        
     }
 
     public string getTabla()

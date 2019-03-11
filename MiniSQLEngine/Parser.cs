@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace MiniSQLEngine { 
 
@@ -35,9 +36,12 @@ namespace MiniSQLEngine {
             Match matchSelect = Regex.Match(query, select);
             if (matchSelect.Success)
             {
+                List<String> contenido = new List<String>();
                 String columns = matchSelect.Groups[0].Value;
                 String tabla = matchSelect.Groups[1].Value;
-                String contenido = matchSelect.Groups[2].Value;
+                contenido.Add(matchSelect.Groups[2].Value);
+                contenido.Add(matchSelect.Groups[3].Value);
+                contenido.Add(matchSelect.Groups[4].Value);
 
                 return new Select(columns, tabla, contenido);
             }

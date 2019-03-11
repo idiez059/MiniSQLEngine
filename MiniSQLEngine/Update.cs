@@ -14,8 +14,10 @@ public class Update : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override String Run(BDData db)
+    public override void Run(BDData bd)
     {
+        Table nombre = new Table();
+        String nombreTabla = nombre.getTitle();
         throw new NotImplementedException();
     }
 
