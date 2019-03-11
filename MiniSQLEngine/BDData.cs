@@ -266,6 +266,7 @@ namespace MiniSQLEngine
             }
 
         }
+        /*
         public string RunQuery(string queryString)
         {
             string result;
@@ -296,9 +297,9 @@ namespace MiniSQLEngine
             return ans;
 
 
-
+    
 
         }
-    }
+*/    }
 
 }
