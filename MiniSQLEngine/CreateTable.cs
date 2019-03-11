@@ -20,7 +20,7 @@ public class CreateTable : Query
     }
     public override void Run(BDData bd)
     {
-        throw new NotImplementedException();
+        
     }
     public string getFK()
     {
