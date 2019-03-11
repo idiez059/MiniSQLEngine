@@ -77,9 +77,27 @@ namespace MiniSQLEngine
         {
             return col;
         }
+        public List<String> getAsString()
+        {
+            List<String> stringList = new List<String>();
+            foreach(int alexNoTieneAngulo in col)
+            {
+                stringList.Add(alexNoTieneAngulo.ToString());
+            }
+            return stringList;
+        }
         public void setList(List<int> pLista)
         {
             col = pLista;
+        }
+        public String getAll()
+        {
+            String D4NK = String.Empty;
+            foreach(int foo in col)
+            {
+                D4NK = D4NK + foo.ToString() + "\r\n";
+            }
+            return D4NK;
         }
         public int getElementByIndex(int foo)
         {
@@ -139,6 +157,20 @@ namespace MiniSQLEngine
         {
             col = pLista;
         }
+        public String getAll()
+        {
+            String D4NK = String.Empty;
+            foreach (String foo in col)
+            {
+                D4NK = D4NK + foo + "\r\n";
+            }
+            return D4NK;
+        }
+        public String[] getArrayOfElements()
+        {
+            String[] elements = col.ToArray();
+            return elements;
+        }
         public String getElementByIndex(int foo)
         {
             return col[foo];
@@ -197,6 +229,15 @@ namespace MiniSQLEngine
         {
             col = pLista;
         }
+        public String getAll()
+        {
+            String D4NK = String.Empty;
+            foreach (float foo in col)
+            {
+                D4NK = D4NK + foo.ToString() + "\r\n";
+            }
+            return D4NK;
+        }
         public float getElementByIndex(int foo)
         {
             return col[foo];
@@ -249,9 +290,21 @@ namespace MiniSQLEngine
         {
             title = pTitle;
         }
-        public List<Column> getTable()
+        public List<Column> getColumns()
         {
             return table;
+        }
+        public Column getColumnByName(String pName)
+        {
+            Column result = null;
+            foreach (Column column in table)
+            {
+                if (column.getTitle().Equals(pName))
+                {
+                    result = column;
+                }
+            }
+            return result;
         }
         public void setTabla(List<Column> pTable)
         {
@@ -309,6 +362,7 @@ namespace MiniSQLEngine
     }
     public class BDData
     {
+        private String name;
         private List<Table> bd = new List<Table>();
 
         private BDData()
@@ -325,7 +379,30 @@ namespace MiniSQLEngine
         {
             bd = pBD;
         }
-
+        public List<Table> getTables()
+        {
+            return bd;
+        }
+        public void setName(String pName)
+        {
+            name = pName;
+        }
+        public String getName()
+        {
+            return name;
+        }
+        public Table getTableByName(String pName)
+        {
+            Table result = null;
+            foreach (Table table in bd)
+            {
+                if (table.getTitle().Equals(pName))
+                {
+                    result = table;
+                }
+            }
+            return result;
+        }
         
 
         public string RunQuery(string queryString)
