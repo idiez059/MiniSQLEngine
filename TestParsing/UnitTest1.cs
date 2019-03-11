@@ -127,6 +127,7 @@ namespace testParsing
 
         [TestMethod]
         public void TestBackupDataBase()
+
         {
             string[] correctQueries = { "BACKUP DATABASE qwert TO DISK = 'tyu';" };
             string[] wrongQueries = { "BACKUP DATABASE qwert;" };
