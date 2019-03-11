@@ -107,20 +107,7 @@ namespace MiniSQLEngine
              return arrText;
          }
         //Lee de un fichero la información correspondiente a un dato en concreto
-        public ArrayList searchDataFile (String dbName, String tableName, Column columna, String dato)
-        {
-            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
-            string sLine = "";
-            ArrayList arrText = new ArrayList();
-            Boolean encontrado = false;
-
-            while (sLine != null)
-            {
-                sLine = objReader.ReadLine();
-
-            }
-
-        }
+        
         
      }
  }

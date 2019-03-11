@@ -10,7 +10,6 @@ using MiniSQLEngine;
 
 
 namespace MiniSQLEngine
-
 {
     public class Column
     {
@@ -332,11 +331,12 @@ namespace MiniSQLEngine
         public string RunQuery(string queryString)
         {
             string result;
+
             Query theQuery = MiniSQLEngine.Parser.Parse(queryString);
 
             Select queryAsSelect = theQuery as Select;
             Update queryAsUpdate = theQuery as Update;
-
+           
             //Implementar en las subclases de Query, no Aqui!
             string table;
             string column;
@@ -351,12 +351,13 @@ namespace MiniSQLEngine
             }
             else if(queryAsUpdate != null)
             {
-                combo = executeQ(theQuery as Select);
+                combo = executeQ(theQuery as Update);
                 table = combo[0];
                 column = combo[1];
                 content = combo[2];
             }
-            
+           
+
             return null;
 
         }
