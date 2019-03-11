@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiniSQLEngine;
+using System;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
 
@@ -13,8 +14,11 @@ public class Insert : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override String Run(BDData db)
+    public override void Run(BDData db)
     {
+        Table leTable = new Table();
+        String titleTable = leTable.getTitle();
+        
         throw new NotImplementedException();
     }
 

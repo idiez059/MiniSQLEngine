@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiniSQLEngine;
+using System;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
 
