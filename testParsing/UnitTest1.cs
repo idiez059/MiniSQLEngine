@@ -15,10 +15,12 @@ namespace testParsing
          * mIRAR PRIMERO EL SELECT
          * 
          */
+
+        [TestMethod]
         public void Select()
         {
-            string[] wrongQueries = { "Select * FROM Table1;", "SELECT * FROM Table 1;", "SELECT * FROM Table1", "SELECT column1 FROM Table1;" };
-            string[] correctQueries = { "SELECT * FROM Table1;", "SELECT  * FROM Table1 ;" };
+            string[] wrongQueries = { "Select * FROM Table1;", "SELECT * FROM Table 1;", "SELECT * FROM Table1", "SELECT * FROM Table1 ;"};
+            string[] correctQueries = { "SELECT * FROM Table1;" };
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
@@ -27,6 +29,8 @@ namespace testParsing
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
         }
+
+        [TestMethod]
         public void Insert()
         {
             string[] wrongQueries = { "INSERT FROM alumno WHERE nombre = Xabi;" };
@@ -38,6 +42,8 @@ namespace testParsing
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
         }
+
+        [TestMethod]
         public void Delete()
         {
             string[] wrongQueries = { "DELETE FROM ;" };
@@ -49,6 +55,8 @@ namespace testParsing
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
         }
+
+        [TestMethod]
         public void Update()
         {
             string[] wrongQueries = { "UPDATE alumno SET nombre = Nadia nombre = Xabi;" };
@@ -77,7 +85,7 @@ namespace testParsing
 
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
-        }
+         }
 
          [TestMethod]
          public void TestDropDataBase()
@@ -90,7 +98,7 @@ namespace testParsing
 
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
-        }
+         }
 
         [TestMethod]
          public void TestDropTable()
@@ -104,6 +112,7 @@ namespace testParsing
             foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query)); 
          }
+
         /*
           public void TestManageDropTable()
           {
@@ -133,7 +142,7 @@ namespace testParsing
         public void TestCreateTable()
         {
 
-            string[] correctQueries = { "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg) FOREIGN KEY (sdfghj) REFERENCES werty(fghj));" };
+            string[] correctQueries = { "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg), FOREIGN KEY (sdfghj), REFERENCES werty(fghj));" };
             string[] wrongQueries = { "CREATE TABLE qwer(INT PRIMARY KEY(wqerfg) FOREIGN KEY(sdfghj) REFERENCES werty); "};
 
             foreach (string query in wrongQueries)
