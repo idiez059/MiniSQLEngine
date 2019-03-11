@@ -10,7 +10,7 @@ public class BackupDataBase : Query
     {
         pBase = database;
     }
-    public override void Run(BDData bd)
+    public override String Run(BDData bd)
     {
         Table nombre = new Table();
         String nombreTabla = nombre.getTitle();

@@ -14,7 +14,7 @@ public class Insert : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override void Run(BDData db)
+    public override String Run(BDData db)
     {
         Table leTable = new Table();
         String titleTable = leTable.getTitle();

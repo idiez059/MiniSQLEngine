@@ -18,7 +18,7 @@ public class CreateTable : Query
         pFK = fk;
 
     }
-    public override void Run(BDData bd)
+    public override String Run(BDData bd)
     {
         
     }

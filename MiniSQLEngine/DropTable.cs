@@ -12,7 +12,7 @@ public class DropTable : Query
     {
         pTabla = tabla;
     }
-    public override void Run(BDData bd)
+    public override String Run(BDData bd)
     {
         Table nombre = new Table();
         String nombreTabla = nombre.getTitle();
