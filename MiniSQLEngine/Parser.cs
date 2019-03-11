@@ -26,7 +26,7 @@ namespace MiniSQLEngine {
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\))(?:\s+FOREIGN KEY\s+(\()(\w+)(\))\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\),)(?:\s+FOREIGN KEY\s+(\()(\w+)(\),)\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
 
             //We search only one coincidence 
             Console.WriteLine("Regex.Match()");
@@ -106,7 +106,8 @@ namespace MiniSQLEngine {
             if (matchBackupDataBase.Success)
             {                
                 String nombreBD = matchBackupDataBase.Groups[0].Value;
-                new BackupDataBase(nombreBD);
+               return new BackupDataBase(nombreBD);
+
             }
 
             //CreateTable
@@ -118,7 +119,7 @@ namespace MiniSQLEngine {
                 String tipoDato = matchCreateTable.Groups[1].Value;
                 String pk = matchCreateTable.Groups[2].Value;
                 String fk = matchCreateTable.Groups[3].Value;
-                new CreateTable(nombreTabla, tipoDato, pk, fk);
+                return new CreateTable(nombreTabla, tipoDato, pk, fk);
             }
             return null;
         }

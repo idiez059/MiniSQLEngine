@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class Update : Query
 {
@@ -13,8 +14,10 @@ public class Update : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override void Run()
+    public override void Run(BDData bd)
     {
+        Table nombre = new Table();
+        String nombreTabla = nombre.getTitle();
         throw new NotImplementedException();
     }
 

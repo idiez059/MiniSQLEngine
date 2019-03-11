@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class DropDataBase : Query
 {
@@ -10,7 +11,7 @@ public class DropDataBase : Query
     {
         pBase = database;
     }
-    public override void Run()
+    public override void Run(BDData bd)
     {
         throw new NotImplementedException();
     }

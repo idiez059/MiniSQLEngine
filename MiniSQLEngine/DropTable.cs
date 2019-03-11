@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class DropTable : Query
 {
@@ -11,8 +12,10 @@ public class DropTable : Query
     {
         pTabla = tabla;
     }
-    public override void Run()
+    public override void Run(BDData bd)
     {
+        Table nombre = new Table();
+        String nombreTabla = nombre.getTitle();
         throw new NotImplementedException();
     }
 
