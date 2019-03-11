@@ -11,47 +11,56 @@ namespace MiniSQLEngine
 {
     /*
 
-     class FileSystemAbstract
-     {
-         public static String openDataFile(String dbName, String tableName)
-         {
-             String resultingPath = null;
-             if (File.Exists("/../../../" + dbName + tableName + ".txt"))
-             {
-                 resultingPath = "/../../../" + dbName + tableName + ".txt";
-                 return resultingPath;
-             }
-             else
-             {
-                 Console.WriteLine("Error: could not find specified file");
-                 resultingPath = "";
-                 return resultingPath;
-             }
-         }
-         public static String openStructureFile(String dbName, String tableName)
-         {
-             String resultingPath = null;
-             if (File.Exists("/../../../" + dbName + tableName + ".txt"))
-             {
-                 resultingPath = "/../../../" + dbName + tableName + ".txt";
-                 return resultingPath;
-             }
-             else
-             {
-                 Console.WriteLine("Error: could not find specified file");
-                 return resultingPath;
-             }
-         }
-         public void writeToDataFile()
-         {
+    class FileSystemAbstract
+    {
+        public static String openDataFile(String dbName, String tableName)
+        {
 
-         }
-         public void writeToStructureFile()
-         {
+            String resultingPath = null;
+            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+            {
+                resultingPath = "/../../../" + dbName + tableName + ".txt";
+                return resultingPath;
+            }
+            else
+            {
+                Console.WriteLine("Error: could not find specified file");
+                resultingPath = "";
+                return resultingPath;
+            }
+        }
+        public static String openStructureFile(String dbName, String tableName)
+        {
+            String resultingPath = null;
+            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+            {
+                resultingPath = "/../../../" + dbName + tableName + ".txt";
+                return resultingPath;
+            }
+            else
+            {
+                Console.WriteLine("Error: could not find specified file");
+                return resultingPath;
+            }
+        }
+        public void writeToDataFile()
+        {
 
-             int[] indexLines = null;
-             System.IO.File.WriteAllLines(@)
-         }
+        }
+        public void writeToStructureFile(string dbName, string tableName,List<string> colType)
+        {
+            List<string> col = colType;
+            List<string> towrite = new List<string>();
+            int i = 0;
+            String lePath;
+            foreach (var column in col)
+            {
+                i++;
+                towrite.Add(i.ToString() + column.ToString());
+            }
+            lePath = openStructureFile(dbName, tableName);
+            System.IO.File.WriteAllLines(lePath, towrite);
+        }
 
          public ArrayList readDataFile(String dbName, String tableName)
          {
