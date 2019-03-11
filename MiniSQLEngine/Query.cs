@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public abstract class Query
 {	
-         public abstract void Run();    
+         public abstract String Run(BDData bd);    
 }
 
    
