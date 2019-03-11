@@ -10,7 +10,7 @@ public class DropDataBase : Query
     {
         pBase = database;
     }
-    public override void Run()
+    public override String Run()
     {
         throw new NotImplementedException();
     }

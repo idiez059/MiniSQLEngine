@@ -11,7 +11,7 @@ public class Delete : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override void Run()
+    public override String Run(MiniSQLEngine.BDData db)
     {
         throw new NotImplementedException();
     }

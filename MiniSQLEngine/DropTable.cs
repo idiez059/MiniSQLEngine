@@ -11,7 +11,7 @@ public class DropTable : Query
     {
         pTabla = tabla;
     }
-    public override void Run()
+    public override String Run()
     {
         throw new NotImplementedException();
     }
