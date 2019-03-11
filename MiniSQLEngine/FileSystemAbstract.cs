@@ -9,10 +9,11 @@ using System.Collections;
 
 namespace MiniSQLEngine
 {
-   
+    
 
     class FileSystemAbstract
     {
+        //Carga un fichero de datos
         public static String openDataFile(String dbName, String tableName)
         {
 
@@ -29,6 +30,7 @@ namespace MiniSQLEngine
                 return resultingPath;
             }
         }
+        //Carga un fichero de estructura
         public static String openStructureFile(String dbName, String tableName)
         {
             String resultingPath = null;
@@ -47,41 +49,9 @@ namespace MiniSQLEngine
         {
 
         }
-        public void writeToStructureFile(string dbName, string tableName,List<string> colType)
-        {
-            List<string> col = colType;
-            List<string> towrite = new List<string>();
-            int i = 0;
-            String lePath;
-            foreach (var column in col)
-            {
-                i++;
-                towrite.Add(i.ToString() + column.ToString());
-            }
-            lePath = openStructureFile(dbName, tableName);
-            System.IO.File.WriteAllLines(lePath, towrite);
-        }
 
-        public ArrayList readDataFile(String dbName, String tableName)
-        {
-            StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
-            string sLine = "";
-            ArrayList arrText = new ArrayList();
-
-            while (sLine != null)
-            {
-                sLine = objReader.ReadLine();
-                if (sLine != null)
-                    arrText.Add(sLine);
-            }
-            objReader.Close();
-
-            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
-            Console.ReadLine();
-
-            return arrText;
-        }
-        public ArrayList readDatastructure(String dbName, String tableName)
+        //Lee un fichero de estructura al completo
+        public ArrayList readStructureFile(String dbName, String tableName)
         {
             StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
             string sLine = "";
@@ -100,5 +70,58 @@ namespace MiniSQLEngine
 
             return arrText;
         }
-    }
-}
+
+        //Escribe en un fichero de estructura
+        public void writeToStructureFile(string dbName, string tableName,List<string> colType)
+        {
+            List<string> col = colType;
+            List<string> towrite = new List<string>();
+            int i = 0;
+            String lePath;
+            foreach (var column in col)
+            {
+                i++;
+                towrite.Add(i.ToString() + column.ToString());
+            }
+            lePath = openStructureFile(dbName, tableName);
+            System.IO.File.WriteAllLines(lePath, towrite);
+        }
+        //Lee un fichero de datos al completo
+         public ArrayList readDataFile(String dbName, String tableName)
+         {
+             StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
+             string sLine = "";
+             ArrayList arrText = new ArrayList();
+
+             while (sLine != null)
+             {
+                 sLine = objReader.ReadLine();
+                 if (sLine != null)
+                     arrText.Add(sLine);
+             }
+             objReader.Close();
+
+             foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+             Console.ReadLine();
+
+             return arrText;
+         }
+        //Lee de un fichero la información correspondiente a un dato en concreto
+        public ArrayList searchDataFile (String dbName, String tableName, Column columna, String dato)
+        {
+            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
+            string sLine = "";
+            ArrayList arrText = new ArrayList();
+            Boolean encontrado = false;
+
+            while (sLine != null)
+            {
+                sLine = objReader.ReadLine();
+
+            }
+
+        }
+        
+     }
+ }
+ 
