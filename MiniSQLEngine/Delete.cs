@@ -14,7 +14,7 @@ public class Delete : Query
     }
     public override String Run(BDData bd)
     {
-        
+        return null;
     }
 
     public string getTabla()
