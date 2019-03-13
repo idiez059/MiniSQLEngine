@@ -20,180 +20,213 @@ public class Select : Query
         Column bColumn = null;
         //String bContent = pContenido;
         bTable = db.getTableByName(pTabla);
+        String result = String.Empty;
+        String splitChar = "/r/n";
         if(bTable != null)
         {
             bColumn = bTable.findColumnByName(pColumns);
             if(bColumn != null)
             {
-                String type = bColumn.getType();
-                String result = String.Empty;
-                switch (type)
+                if(pContenido[0].Equals(String.Empty) || pContenido[0] == null)
                 {
-                    case "int":
-                        if (pContenido[0] == null || pContenido[0].Equals(String.Empty))
-                        {
-                            
-                            foreach (int buffer in (bColumn as ColumnInt).getList())
+                    String type = bColumn.getType();
+                    switch (type)
+                    {
+                        case "int":
+                            //Add splitting character here!
+                            foreach(int buffer in (bColumn as ColumnInt).getList())
                             {
-                                //Add splitting character after buffer!
-                                result += buffer.ToString();
+                                result = result + buffer.ToString() + splitChar;
                             }
-                        }
-                        else
-                        {
-                            Column cColumn = bTable.findColumnByName(pContenido[0]);
-                            if (cColumn == null)
-                            {
-                                return "Could not find the column specified in where condition";
-                            }
-                            else
-                            {
-                                if(pContenido[1].Equals(">"))
-                                {
-                                    foreach (int buffer in (bColumn as ColumnInt).getList())
-                                    {
-                                        if(buffer > Int32.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
-                                else if(pContenido[1].Equals("<"))
-                                {
-                                    foreach (int buffer in (bColumn as ColumnInt).getList())
-                                    {
-                                        if (buffer < Int32.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (int buffer in (bColumn as ColumnInt).getList())
-                                    {
-                                        if (buffer == Int32.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "String":
-                        if (pContenido[0] == null || pContenido[0].Equals(String.Empty))
-                        {
-
+                            break;
+                        case "String":
+                            //Add splitting character here!
                             foreach (String buffer in (bColumn as ColumnString).getList())
                             {
-                                //Add splitting character after buffer!
-                                result += buffer;
+                                result = result + buffer + splitChar;
                             }
-                        }
-                        else
-                        {
-                            Column cColumn = bTable.findColumnByName(pContenido[0]);
-                            if (cColumn == null)
-                            {
-                                return "Could not find the column specified in where condition";
-                            }
-                            else
-                            {
-                                if (pContenido[1].Equals(">"))
-                                {
-                                    foreach (String buffer in (bColumn as ColumnString).getList())
-                                    {
-                                        if (buffer.CompareTo(pContenido[2]) == 1)
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer;
-                                        }
-                                    }
-                                }
-                                else if (pContenido[1].Equals("<"))
-                                {
-                                    foreach (String buffer in (bColumn as ColumnString).getList())
-                                    {
-                                        if (buffer.CompareTo(pContenido[2]) == -1)
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (String buffer in (bColumn as ColumnString).getList())
-                                    {
-                                        if (buffer.CompareTo(pContenido[2]) == 0)
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "float":
-                        if (pContenido[0] == null || pContenido[0].Equals(String.Empty))
-                        {
-
+                            break;
+                        case "Float":
+                            //Add splitting character here!
                             foreach (float buffer in (bColumn as ColumnFloat).getList())
                             {
-                                //Add splitting character after buffer!
-                                result += buffer.ToString();
+                                result = result + buffer.ToString() + splitChar;
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    String typeSel = bColumn.getType();
+                    Column condColumn = bTable.findColumnByName(pContenido[0]);
+                    if (condColumn == null || condColumn.Equals(String.Empty))
+                    {
+                        return "Could not find the column specified in the where part of the query";
+                    }
+                    else
+                    {
+                        String fromType = condColumn.getType();
+                        String comparator = pContenido[1];
+                        String condition = pContenido[2];
+                        List<int> indexList = new List<int>();
+                        List<String> finalList = new List<String>();
+                        if (fromType.Equals("int"))
+                        {
+                            int cond = Int32.Parse(condition);
+                            if (comparator.Equals("<"))
+                            {
+                                int cont = 0;
+                                foreach(int buffer in (condColumn as ColumnInt).getList())
+                                {
+                                    if (buffer < cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals(">"))
+                            {
+                                int cont = 0;
+                                foreach (int buffer in (condColumn as ColumnInt).getList())
+                                {
+                                    if (buffer > cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals("="))
+                            {
+                                int cont = 0;
+                                foreach (int buffer in (condColumn as ColumnInt).getList())
+                                {
+                                    if (buffer == cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else
+                            {
+                                return "A comparing condition was not provided on WHERE part of the query";
+                            }
+                            foreach(int foo in indexList)
+                            {
+                                finalList.Add((bColumn as ColumnInt).getElementByIndex(foo).ToString());
+                            }
+                            foreach(String atLast in finalList)
+                            {
+                                result = result + atLast + splitChar;
+                            }
+                        }
+                        else if(fromType.Equals("float"))
+                        {
+                            float cond = float.Parse(condition);
+                            if (comparator.Equals("<"))
+                            {
+                                int cont = 0;
+                                foreach (float buffer in (condColumn as ColumnFloat).getList())
+                                {
+                                    if (buffer < cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals(">"))
+                            {
+                                int cont = 0;
+                                foreach (float buffer in (condColumn as ColumnFloat).getList())
+                                {
+                                    if (buffer > cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals("="))
+                            {
+                                int cont = 0;
+                                foreach (float buffer in (condColumn as ColumnFloat).getList())
+                                {
+                                    if (buffer == cond)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else
+                            {
+                                return "A comparing condition was not provided on WHERE part of the query";
+                            }
+                            foreach (int foo in indexList)
+                            {
+                                finalList.Add((bColumn as ColumnInt).getElementByIndex(foo).ToString());
+                            }
+                            foreach (String atLast in finalList)
+                            {
+                                result = result + atLast + splitChar;
                             }
                         }
                         else
                         {
-                            Column cColumn = bTable.findColumnByName(pContenido[0]);
-                            if (cColumn == null)
+                            String cond = condition;
+                            if (comparator.Equals("<"))
                             {
-                                return "Could not find the column specified in where condition";
+                                int cont = 0;
+                                foreach (String buffer in (condColumn as ColumnString).getList())
+                                {
+                                    if (buffer.CompareTo(cond) == -1)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals(">"))
+                            {
+                                int cont = 0;
+                                foreach (String buffer in (condColumn as ColumnString).getList())
+                                {
+                                    if (buffer.CompareTo(cond) == 1)
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
+                            }
+                            else if (comparator.Equals("="))
+                            {
+                                int cont = 0;
+                                foreach (String buffer in (condColumn as ColumnString).getList())
+                                {
+                                    if (buffer.Equals(cond))
+                                    {
+                                        indexList.Add(cont);
+                                    }
+                                    cont++;
+                                }
                             }
                             else
                             {
-                                if (pContenido[1].Equals(">"))
-                                {
-                                    foreach (float buffer in (bColumn as ColumnFloat).getList())
-                                    {
-                                        if (buffer > float.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
-                                else if (pContenido[1].Equals("<"))
-                                {
-                                    foreach (float buffer in (bColumn as ColumnInt).getList())
-                                    {
-                                        if (buffer < float.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (float buffer in (bColumn as ColumnInt).getList())
-                                    {
-                                        if (buffer == float.Parse(pContenido[2]))
-                                        {
-                                            //Add splitting character after buffer!
-                                            result += buffer.ToString();
-                                        }
-                                    }
-                                }
+                                return "A comparing condition was not provided on WHERE part of the query";
+                            }
+                            foreach (int foo in indexList)
+                            {
+                                finalList.Add((bColumn as ColumnInt).getElementByIndex(foo).ToString());
+                            }
+                            foreach (String atLast in finalList)
+                            {
+                                result = result + atLast + splitChar;
                             }
                         }
-                        break;
+                    }
                 }
                 return result;
             }
@@ -201,11 +234,11 @@ public class Select : Query
             {
                 return "Could not find the specified column";
             }
-        }else
-            {
-                return "Could not find specified table";
-            }
-        return String.Empty;
+        }
+        else
+        {
+            return "Could not find specified table";
+        }
     }
 
     public string getColumns()

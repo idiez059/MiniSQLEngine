@@ -198,14 +198,15 @@ namespace MiniSQLEngine
         {
             return col.Contains(element);
         }
-        public List<int> elementsByContent(String content)
+        public List<int> elementsIndexByContent(String content)
         {
             List<int> elements = null;
+            int cont = 0;
             foreach (String element in col)
             {
                 if (element.Equals(content))
                 {
-                    elements.Add(col.IndexOf(content));
+                    elements.Add(cont);
                 }
             }
             return elements;
