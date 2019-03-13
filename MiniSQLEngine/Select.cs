@@ -195,7 +195,7 @@ public class Select : Query
                         }
                         break;
                 }
-                
+                return result;
             }
             else
             {
@@ -205,7 +205,7 @@ public class Select : Query
             {
                 return "Could not find specified table";
             }
-        return null;
+        return String.Empty;
     }
 
     public string getColumns()
