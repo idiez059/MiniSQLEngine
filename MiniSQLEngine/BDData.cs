@@ -59,6 +59,10 @@ namespace MiniSQLEngine
         {
             return forKey;
         }
+        public virtual String getType()
+        {
+            return String.Emtpy;
+        }
 
 
     }
@@ -134,9 +138,9 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public System.Type getType()
+        public override String getType()
         {
-            return col.GetType();
+            return "int";
         }
     }
     //Clases que hereda de otra columna
@@ -206,9 +210,9 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public System.Type getType()
+        public override String getType()
         {
-            return col.GetType();
+            return "String";
         }
     }
     //Clases que hereda de otra columna
@@ -282,9 +286,9 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public System.Type getType()
+        public override String getType()
         {
-            return col.GetType();
+            return "float";
         }
     }
     //Clase tabla 
