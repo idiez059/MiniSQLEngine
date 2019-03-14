@@ -21,8 +21,8 @@ public class Insert : Query
 
         String titleTable = leTable.getTitle();
         db.
-        toReturn = {getTabla, contenido }
-        
+        toReturn = { getTabla, contenido }
+
         throw new NotImplementedException();
     }
 
