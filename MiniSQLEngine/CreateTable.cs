@@ -20,6 +20,12 @@ public class CreateTable : Query
     }
     public override String Run(BDData bd)
     {
+
+
+
+
+
+
         return null;
     }
     public string getFK()

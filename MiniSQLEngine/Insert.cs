@@ -7,12 +7,15 @@ public class Insert : Query
 {
     
     String pTabla;
-    String pContenido;
-    public Insert (String tabla, String contenido)
+    String pColumnas;
+    String pValores;
+
+    public Insert (String tabla, String columnas, String valores)
     {
        
         pTabla = tabla;
-        pContenido = contenido;
+        pColumnas = columnas;
+        pValores = valores;
     }
     public override String Run(BDData db)
     {

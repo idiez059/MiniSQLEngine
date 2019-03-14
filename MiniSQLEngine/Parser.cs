@@ -21,6 +21,7 @@ namespace MiniSQLEngine {
             string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
+            //HAY QUE REPETIRLO
             string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
 
             string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
@@ -74,9 +75,11 @@ namespace MiniSQLEngine {
             {
 
                 String tabla = matchInsert.Groups[0].Value;
-                String contenido = matchInsert.Groups[1].Value;
+                String columnas = matchInsert.Groups[1].Value;
+                String valores = matchInsert.Groups[1].Value;
 
-                return new Insert(tabla, contenido);
+
+                return new Insert(tabla, columnas, valores);
             }
 
             //CreateDataBase
