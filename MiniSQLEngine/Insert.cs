@@ -14,7 +14,7 @@ public class Insert : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override String Run(BDData db)
+    /*public override String Run(BDData db)
     {
         String[] toReturn = new String[3];
         Table leTable = new Table();
@@ -24,7 +24,7 @@ public class Insert : Query
         toReturn = {getTabla, contenido }
         
         throw new NotImplementedException();
-    }
+    }*/
 
     public string getTabla()
     {
