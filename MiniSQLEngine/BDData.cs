@@ -298,7 +298,6 @@ namespace MiniSQLEngine
         private String title;
         private List<Column> table = new List<Column>();
 
-        //XabiLovesOverlord
         //Devuelve el nombre de la tabla 
         public String getTitle()
         {
