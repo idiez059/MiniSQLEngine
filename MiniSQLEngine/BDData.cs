@@ -414,9 +414,11 @@ namespace MiniSQLEngine
             return result;
         }
 
-        public string RunQuery(string line)
+        public String RunQuery(string line) //changed to void
         {
-            throw new NotImplementedException();
+            Query theQuery = Parser.Parse(line);
+            return theQuery.Run(this);       
+            
         }
     }
 
