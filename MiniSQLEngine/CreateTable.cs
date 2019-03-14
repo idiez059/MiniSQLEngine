@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
 
@@ -20,10 +21,11 @@ public class CreateTable : Query
     }
     public override String Run(BDData bd)
     {
+       Table tabla = new Table();
+        //Hay que cambiar el parser 
 
-
-
-
+        tabla.addColumnString(pTabla);
+        
 
 
         return null;
