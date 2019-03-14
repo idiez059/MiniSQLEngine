@@ -59,9 +59,9 @@ namespace MiniSQLEngine
         {
             return forKey;
         }
-        public virtual String getType()
+        public virtual String GetType()
         {
-            return String.Emtpy;
+            return String.Empty;
         }
 
 
@@ -138,7 +138,7 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public override String getType()
+        public override String GetType()
         {
             return "int";
         }
@@ -211,7 +211,7 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public override String getType()
+        public override String GetType()
         {
             return "String";
         }
@@ -287,7 +287,7 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public override String getType()
+        public override String GetType()
         {
             return "float";
         }
@@ -414,9 +414,11 @@ namespace MiniSQLEngine
             return result;
         }
 
-        public string RunQuery(string line)
+        public String RunQuery(string line) //changed to void
         {
-            throw new NotImplementedException();
+            Query theQuery = Parser.Parse(line);
+            return theQuery.Run(this);       
+            
         }
     }
 

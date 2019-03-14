@@ -29,7 +29,7 @@ public class Select : Query
             {
                 if(pContenido[0].Equals(String.Empty) || pContenido[0] == null)
                 {
-                    String type = bColumn.getType();
+                    String type = bColumn.GetType();
                     switch (type)
                     {
                         case "int":
@@ -57,7 +57,7 @@ public class Select : Query
                 }
                 else
                 {
-                    String typeSel = bColumn.getType();
+                    String typeSel = bColumn.GetType();
                     Column condColumn = bTable.findColumnByName(pContenido[0]);
                     if (condColumn == null || condColumn.Equals(String.Empty))
                     {
@@ -65,7 +65,7 @@ public class Select : Query
                     }
                     else
                     {
-                        String fromType = condColumn.getType();
+                        String fromType = condColumn.GetType();
                         String comparator = pContenido[1];
                         String condition = pContenido[2];
                         List<int> indexList = new List<int>();
