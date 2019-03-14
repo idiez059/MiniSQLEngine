@@ -18,9 +18,9 @@ namespace MiniSQLEngine
         {
 
             String resultingPath = null;
-            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+            if (File.Exists("/../../../" + "DB1" + "Personas" + ".txt"))
             {
-                resultingPath = "/../../../" + dbName + tableName + ".txt";
+                resultingPath = "/../../../" + "DB1" + "Personas" + ".txt";
                 return resultingPath;
             }
             else
@@ -34,9 +34,9 @@ namespace MiniSQLEngine
         public static String openStructureFile(String dbName, String tableName)
         {
             String resultingPath = null;
-            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+            if (File.Exists("/../../../" + "DB1" + "Estructura" + ".txt"))
             {
-                resultingPath = "/../../../" + dbName + tableName + ".txt";
+                resultingPath = "/../../../" + "DB1" + "Estructura" + ".txt";
                 return resultingPath;
             }
             else
