@@ -20,7 +20,7 @@ namespace ConsoleApp2
 
             // Read the file and display it line by line.  
             System.IO.StreamReader file =
-                new System.IO.StreamReader(@"C:\Users\ADMIN\source\repos\ABDJINIX\TesterInput.txt");
+                new System.IO.StreamReader(@"C:\Users\ismad\source\repos\ABDJINIX\Prueba.txt");
             while ((line = file.ReadLine()) != null)
             {
                 System.Console.WriteLine(line);
