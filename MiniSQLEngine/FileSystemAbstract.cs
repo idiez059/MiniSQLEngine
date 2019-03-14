@@ -45,8 +45,12 @@ namespace MiniSQLEngine
                 return resultingPath;
             }
         }
-        public void writeToDataFile()
+        public void writeToDataFile( String dbName, String tableName, String param)
         {
+            String lePath;
+            
+            lePath = openStructureFile(dbName, tableName);
+            System.IO.File.WriteAllText(lePath, param);
 
         }
 
@@ -106,22 +110,6 @@ namespace MiniSQLEngine
 
              return arrText;
          }
-        //Lee de un fichero la información correspondiente a un dato en concreto
-        public ArrayList searchDataFile (String dbName, String tableName, Column columna, String dato)
-        {
-            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
-            string sLine = "";
-            ArrayList arrText = new ArrayList();
-            Boolean encontrado = false;
-
-            while (sLine != null)
-            {
-                sLine = objReader.ReadLine();
-
-            }
-
-        }
-        
-     }
+    }
  }
  

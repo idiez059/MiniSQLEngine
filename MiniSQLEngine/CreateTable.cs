@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using MiniSQLEngine;
 
 public class CreateTable : Query
 {
@@ -17,9 +18,9 @@ public class CreateTable : Query
         pFK = fk;
 
     }
-    public override String Run()
+    public override String Run(BDData bd)
     {
-        throw new NotImplementedException();
+        return null;
     }
     public string getFK()
     {

@@ -5,7 +5,8 @@ using MiniSQLEngine;
 
 public abstract class Query
 {	
-         public abstract String Run(BDData db);    
+         public abstract String Run(BDData bd);    
+
 }
 
    
