@@ -16,12 +16,14 @@ public class Insert : Query
     }
     public override String Run(BDData db)
     {
+        /*
         String[] toReturn = new String[3];
         Table leTable = new Table();
 
         String titleTable = leTable.getTitle();
         db.
         toReturn = {getTabla, contenido }
+        */
         
         throw new NotImplementedException();
     }
