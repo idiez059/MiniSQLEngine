@@ -10,7 +10,7 @@ public class CreateDataBase : Query
     {
         pBase = database;
     }
-    public override String Run(BDData bd)
+    public override String Run(Database bd)
     {
         throw new NotImplementedException();
     }

@@ -17,7 +17,7 @@ public class Insert : Query
         pColumnas = columnas;
         pValores = valores;
     }
-    public override String Run(BDData db)
+    public override String Run(Database db)
     {
         /*String[] toReturn = new String[3];
         Table leTable = new Table();
@@ -31,10 +31,5 @@ public class Insert : Query
     public string getTabla()
     {
         return pTabla;
-    }
-
-    public string getContenido()
-    {
-        return pContenido;
     }
 }

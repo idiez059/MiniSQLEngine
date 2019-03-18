@@ -19,12 +19,10 @@ public class CreateTable : Query
         pFK = fk;
 
     }
-    public override String Run(BDData bd)
+    public override String Run(Database bd)
     {
-       Table tabla = new Table();
-        //Hay que cambiar el parser 
 
-        tabla.addColumnString(pTabla);
+        //TODO: Create columns one by one in a list and call bd.CreateDatabase
         
 
 
