@@ -19,12 +19,12 @@ public class Insert : Query
     }
     public override String Run(Database db)
     {
-        String[] toReturn = new String[3];
-        Table leTable = new Table();
+        //String[] toReturn = new String[3];
+        //Table leTable = new Table();
 
-        String tit
-        leTable.setTabla
-        toReturn = {getTabla, contenido }
+        //String tit
+        //leTable.setTabla
+        //toReturn = {getTabla, contenido }
         
         throw new NotImplementedException();
     }
