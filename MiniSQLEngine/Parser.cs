@@ -30,22 +30,10 @@ namespace MiniSQLEngine {
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
             string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\),)(?:\s+FOREIGN KEY\s+(\()(\w+)(\),)\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
 
-            //We search only one coincidence 
-            Console.WriteLine("Regex.Match()");
-
             //Select
             Match matchSelect = Regex.Match(query, select);
             if (matchSelect.Success)
-            {
-                List<String> contenido = new List<String>();
-                String columns = matchSelect.Groups[0].Value;
-                String tabla = matchSelect.Groups[1].Value;
-                contenido.Add(matchSelect.Groups[2].Value);
-                contenido.Add(matchSelect.Groups[3].Value);
-                contenido.Add(matchSelect.Groups[4].Value);
-
-                return new Select(columns, tabla, contenido);
-            }
+                return new Select(matchSelect.Groups[1].Value, matchSelect.Groups[2].Value, matchSelect.Groups[3].Value);
 
             //Update
             Match matchUpdate = Regex.Match(query, update);
