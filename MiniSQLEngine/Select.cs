@@ -5,51 +5,45 @@ using System.Collections.Generic;
 
 public class Select : Query
 {
-    String pColumns;
-    String pTabla;
-    List<String> pContenido;
-    public Select(String columns, String tabla, List<String> contenido)
+    List<string> ColumnNames = new List<string>();
+    String TableName { get; }
+    String Condition;
+    public Select(string columns, string table, string condition)
 	{
-        pColumns = columns;
-        pTabla = tabla;
-        pContenido = contenido;
+        //parse the list of columns
+        string [] columnNames = columns.Split(',');
+        foreach (string columnName in columnNames)
+            ColumnNames.Add(columnName.Trim()); //Trim() removes spaces from the start and end
+
+        TableName = table;
+        this.Condition = condition;
 	}
-    public override String Run(BDData db)
+    public override String Run(Database db)
     {
-        Table bTable = null;
-        Column bColumn = null;
-        //String bContent = pContenido;
-        bTable = db.getTableByName(pTabla);
-        if(bTable != null)
+        //Get the table
+        Table table = db.GetTableByName(TableName);
+        if (table == null) return Messages.TableDoesNotExist;
+
+        List<Column> selectedColumns = new List<Column>();
+
+        if (ColumnNames.Count == 0)
+            return Messages.WrongSyntax;
+        else if (ColumnNames.Count == 1 && ColumnNames[0] == "*")
         {
-            bColumn = bTable.findColumnByName(pColumns);
-            if(bColumn != null)
+            //SELECT *
+            return db.SelectAll(TableName).ToString();
+        }
+        else
+        {
+            //SELECT Name,Age,...
+            try
             {
-                    
+                return db.SelectColumns(TableName, ColumnNames).ToString();
             }
-            else
+            catch
             {
-                return "Could not find the specified column";
+                return Messages.ColumnDoesNotExist;
             }
-        }else
-            {
-                return "Could not find specified table";
-            }
-        return null;
-    }
-
-    public string getColumns()
-    {
-        return pColumns;
-    }
-
-    public string getTabla()
-    {
-        return pTabla;
-    }
-
-    public List<String> getContenido()
-    {
-        return pContenido;
+        }
     }
 }

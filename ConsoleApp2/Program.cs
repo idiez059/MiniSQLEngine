@@ -11,31 +11,46 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("MiniSQLJinix V0.0.0.0.0.1");
+            Database db = new Database("test-db");
 
-            BDData db = BDData.getInstance();
+            List<Column> columns = new List<Column>();
+            Column ages = new ColumnInt("Age");
+            ages.AddValue("23");
+            ages.AddValue("42");
+            columns.Add(ages);
+            Column names = new ColumnString("Name");
+            names.AddValue("Maria");
+            names.AddValue("Ignacio");
+            columns.Add(names);
+            db.CreateTable("People", columns);
+            string query = "SELECT * FROM People;";
+            Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            int counter = 0;
-            string line;
+            query = "SELECT Age FROM People;";
+            Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            // Read the file and display it line by line.  
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(@"C:\Users\ADMIN\source\repos\ABDJINIX\TesterInput.txt");
-            while ((line = file.ReadLine()) != null)
-            {
-                System.Console.WriteLine(line);
-                counter++;
-                string var = db.RunQuery(line);
-            }
+            //Console.WriteLine("MiniSQLJinix V0.0.0.0.0.1");
 
-            file.Close();
-            System.Console.WriteLine("There were {0} lines.", counter);
-            // Suspend the screen.  
-            System.Console.ReadLine();
-         
-                //string var = db.Query("SELECT * FROM .......");
-               // Console.WriteLine(var);
-            
+            //BDData db = BDData.getInstance();
+
+            //int counter = 0;
+            //string line;
+
+            //// Read the file and display it line by line.  
+            //System.IO.StreamReader file =
+            //    new System.IO.StreamReader(@"..\..\..\Prueba.txt");
+            //while ((line = file.ReadLine()) != null)
+            //{
+            //    System.Console.WriteLine(line);
+            //    counter++;
+            //    string result = db.RunQuery(line);
+            //    Console.WriteLine(result);
+            //}
+
+            //file.Close();
+            //System.Console.WriteLine("There were {0} lines.", counter);
+            //// Suspend the screen.  
+            //System.Console.ReadLine();           
         }
     }
 }

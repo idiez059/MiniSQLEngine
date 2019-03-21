@@ -4,7 +4,6 @@ using MiniSQLEngine;
 
 public class Update : Query
 {
-   
     String pColumns;
     String pTabla;
     String pContenido;
@@ -14,10 +13,8 @@ public class Update : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override void Run(BDData bd)
+    public override String Run(Database bd)
     {
-        Table nombre = new Table();
-        String nombreTabla = nombre.getTitle();
         throw new NotImplementedException();
     }
 

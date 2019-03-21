@@ -11,6 +11,7 @@ using MiniSQLEngine;
 
 namespace MiniSQLEngine
 {
+
     public class Column
     {
         public String title;
@@ -58,10 +59,15 @@ namespace MiniSQLEngine
         {
             return forKey;
         }
+        public virtual String GetType()
+        {
+            return String.Empty;
+        }
 
 
     }
 
+    //Clases que hereda de otra columna
     public class ColumnInt : Column
     {
         List<int> col;
@@ -132,12 +138,12 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public System.Type getType()
+        public override String GetType()
         {
-            return col.GetType();
+            return "int";
         }
     }
-
+    //Clases que hereda de otra columna
     public class ColumnString : Column
     {
         private List<String> col;
@@ -192,24 +198,25 @@ namespace MiniSQLEngine
         {
             return col.Contains(element);
         }
-        public List<int> elementsByContent(String content)
+        public List<int> elementsIndexByContent(String content)
         {
             List<int> elements = null;
+            int cont = 0;
             foreach (String element in col)
             {
                 if (element.Equals(content))
                 {
-                    elements.Add(col.IndexOf(content));
+                    elements.Add(cont);
                 }
             }
             return elements;
         }
-        public System.Type getType()
+        public override String GetType()
         {
-            return col.GetType();
+            return "String";
         }
     }
-
+    //Clases que hereda de otra columna
     public class ColumnFloat : Column
     {
         List<float> col;
@@ -280,17 +287,18 @@ namespace MiniSQLEngine
             }
             return elements;
         }
-        public System.Type getType()
+        public override String GetType()
         {
-            return col.GetType();
+            return "float";
         }
     }
+    //Clase tabla 
     public class Table
     {
         private String title;
         private List<Column> table = new List<Column>();
 
-        //XabiLovesOverlord
+        //Devuelve el nombre de la tabla 
         public String getTitle()
         {
             return title;
@@ -331,6 +339,7 @@ namespace MiniSQLEngine
         {
             table.Add(new ColumnFloat(title, lista));
         }
+        //Encontrar una columna sabiendo su nombre
         public Column findColumnByName(String element)
         {
             Column col = null;
@@ -376,6 +385,7 @@ namespace MiniSQLEngine
         {
             bd = pBD;
         }
+        //Lista las referencias a las tablas
         public List<Table> getTables()
         {
             return bd;
@@ -384,10 +394,12 @@ namespace MiniSQLEngine
         {
             name = pName;
         }
+        //nombre de la base de datos
         public String getName()
         {
             return name;
         }
+        //pasandole el nombre te da la tabla
         public Table getTableByName(String pName)
         {
             Table result = null;
@@ -400,57 +412,13 @@ namespace MiniSQLEngine
             }
             return result;
         }
-        
 
-        public string RunQuery(string queryString)
+        public String RunQuery(string line) //changed to void
         {
-            string result;
-
-            Query theQuery = MiniSQLEngine.Parser.Parse(queryString);
-
-            Select queryAsSelect = theQuery as Select;
-            Update queryAsUpdate = theQuery as Update;
-           
-            //Implementar en las subclases de Query, no Aqui!
-            string table;
-            string column;
-            string content;
-            string[] combo;
-            if (queryAsSelect != null)
-            {
-                combo = executeQ(theQuery as Select);
-                table = combo[0];
-                column = combo[1];
-                content = combo[2];
-            }
-            else if(queryAsUpdate != null)
-            {
-                combo = executeQ(theQuery as Update);
-                table = combo[0];
-                column = combo[1];
-                content = combo[2];
-            }
-           
-
-            return null;
-
+            Query theQuery = Parser.Parse(line);
+            return theQuery.Run(this);       
+            
         }
-        public String[] executeQ(Select query)
-        {
-            string table = query.getTabla();
-            string column = query.getColumns();
-            string content = query.getContenido();
-            return new string[]{ table, column, content};
-        }
-        public String[] executeQ(Update query)
-        {
-            string table = query.getTabla();
-            string column = query.getColumns();
-            string content = query.getContenido();
-            return new string[] { table, column, content };
-        }
-        
-        
     }
 
 }

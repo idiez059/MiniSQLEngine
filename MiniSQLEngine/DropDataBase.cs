@@ -11,7 +11,7 @@ public class DropDataBase : Query
     {
         pBase = database;
     }
-    public override void Run(BDData bd)
+    public override String Run(Database bd)
     {
         throw new NotImplementedException();
     }

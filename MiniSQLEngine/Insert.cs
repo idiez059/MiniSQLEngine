@@ -7,28 +7,29 @@ public class Insert : Query
 {
     
     String pTabla;
-    String pContenido;
-    public Insert (String tabla, String contenido)
+    String pColumnas;
+    String pValores;
+
+    public Insert (String tabla, String columnas, String valores)
     {
        
         pTabla = tabla;
-        pContenido = contenido;
+        pColumnas = columnas;
+        pValores = valores;
     }
-    public override void Run(BDData db)
+    public override String Run(Database db)
     {
+        String[] toReturn = new String[3];
         Table leTable = new Table();
-        String titleTable = leTable.getTitle();
+
+        String tit
+        leTable.setTabla
+        toReturn = {getTabla, contenido }
         
         throw new NotImplementedException();
     }
-
     public string getTabla()
     {
         return pTabla;
-    }
-
-    public string getContenido()
-    {
-        return pContenido;
     }
 }

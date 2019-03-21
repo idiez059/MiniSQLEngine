@@ -12,9 +12,9 @@ public class Delete : Query
         pTabla = tabla;
         pContenido = contenido;
     }
-    public override String Run(BDData bd)
+    public override String Run(Database bd)
     {
-        
+        return null;
     }
 
     public string getTabla()
