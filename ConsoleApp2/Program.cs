@@ -26,7 +26,7 @@ namespace ConsoleApp2
             string query = "SELECT * FROM People;";
             Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            query = "SELECT Age FROM People;";
+            query = "SELECT Name FROM People;";
             Console.WriteLine(query + ": " + db.RunQuery(query));
 
             //Console.WriteLine("MiniSQLJinix V0.0.0.0.0.1");
