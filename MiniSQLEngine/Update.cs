@@ -6,35 +6,50 @@ using System.Collections.Generic;
 public class Update : Query
 {
     String pColumns;
-    String TableName { get; }
+    String pTableName { get; }
     String pContenido;
+    String pRigth;
+    String pOp;
+    String pLeft;
     List<string> ColumnNames = new List<string>();
-
-    public Update(String columns, String table, String content)
+    List<string> Values = new List<string>();
+    public Update(String columns, String tableName, String left, String op, String rigth)
     {
         pColumns = columns;
-        TableName = table;
-        pContenido = content;
+        pTableName = tableName;
+        pLeft = left;
+        pOp = op;
+        pRigth = rigth;
+        /*
+        string[] separedValues;
+        separedValues = 
+        */
     }
     public override String Run(Database db)
     {
         //get table
 
-        Table table = db.GetTableByName(TableName);
+        Table table = db.GetTableByName(pTableName);
         if (table == null) return Messages.TableDoesNotExist;
 
         //we need the column list to know the correct column
-
-        List<Column> updateColumns = new List<Column>();
-
         if (ColumnNames.Count == 0)
-            return Messages.WrongSyntax;
-
-        else if (ColumnNames.Count == 1 && ColumnNames[0] == "*")
         {
-            
-            
+            if (table.Columns.Count != Values.Count)
+                return Messages.WrongSyntax;
         }
+        
+
+        //List<Column> updateColumns = new List<Column>();
+
+        //if (ColumnNames.Count == 0)
+        //    return Messages.WrongSyntax;
+
+        //else if (ColumnNames.Count == 1)
+        //{
+              
+            
+        //}
 
 
 

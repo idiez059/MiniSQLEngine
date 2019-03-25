@@ -55,6 +55,19 @@ namespace MiniSQLEngine
             }
             return result;
         }
+        public void Update(String columns, String tableName, String left, String op, String rigth)
+        {
+            Column lacolumna = ColumnByName(columns);
+            int numvalues = lacolumna.GetNumValues();
+
+            for ( int j=0; j< numvalues; j++)
+            {
+                lacolumna.GetValueAsString(j);
+
+            }
+                      
+            return ;
+        }
         public void addValues()
         {
 
