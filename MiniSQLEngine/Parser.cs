@@ -68,7 +68,7 @@ namespace MiniSQLEngine {
                 String op = matchSelect.Groups[2].Value;
                 String right = matchSelect.Groups[3].Value;
 
-                return new Delete(tabla,left,op,right);
+                return new Delete(table,left,op,right);
             }
 
             //Insert
