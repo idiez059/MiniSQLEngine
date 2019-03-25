@@ -63,7 +63,7 @@ namespace MiniSQLEngine
             }
         }
 
-        public void Update(string columns, string tableName, string content)
+        public void Update(String columns, String tableName, String left, String op, String rigth)
         {
             Table table = GetTableByName(tableName);
             table.ColumnByName(columns);
