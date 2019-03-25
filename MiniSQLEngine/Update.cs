@@ -10,12 +10,17 @@ public class Update : Query
     String pContenido;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
+    String pRigth;
+    String pOp;
+    String pLeft;
 
-    public Update(String columns, String tableName, String content)
+    public Update(String columns, String tableName, String left, String op, String rigth)
     {
         pColumns = columns;
         pTableName = tableName;
-        pContenido = content;
+        pLeft = left;
+        pOp = op;
+        pRigth = rigth;
     }
     public override String Run(Database db)
     {
