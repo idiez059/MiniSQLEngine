@@ -22,11 +22,12 @@ public class Insert : Query
         //String[] toReturn = new String[3];
         //Table leTable = new Table();
 
-        //String tit
-        //leTable.setTabla
-        //toReturn = {getTabla, contenido }
-        
-        throw new NotImplementedException();
+        ////String tit
+        ////leTable.setTabla
+        ////toReturn = {getTabla, contenido }
+
+        //throw new NotImplementedException();
+        return null;
     }
     public string getTabla()
     {
