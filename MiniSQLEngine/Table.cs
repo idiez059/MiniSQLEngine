@@ -55,5 +55,9 @@ namespace MiniSQLEngine
             }
             return result;
         }
+        public void addValues()
+        {
+
+        }
     }
 }

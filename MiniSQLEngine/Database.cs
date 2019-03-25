@@ -86,6 +86,8 @@ namespace MiniSQLEngine
             return result;
         }
 
+
+
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);
