@@ -63,6 +63,15 @@ namespace MiniSQLEngine
             }
         }
 
+        public void Update(string columns, string tableName, string content)
+        {
+            Table table = GetTableByName(tableName);
+            table.ColumnByName(columns);
+
+            //paso los mismos parametros que me han enviado 
+
+            table.Update(columns, tableName, content);
+        }
         public Table SelectAll(string tableName)
         {
             return GetTableByName(tableName);
