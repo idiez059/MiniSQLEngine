@@ -8,12 +8,11 @@ public class Update : Query
     String pColumns;
     String pTableName { get; }
     String pContenido;
-    List<string> ColumnNames = new List<string>();
-    List<string> Values = new List<string>();
     String pRigth;
     String pOp;
     String pLeft;
-
+    List<string> ColumnNames = new List<string>();
+    List<string> Values = new List<string>();
     public Update(String columns, String tableName, String left, String op, String rigth)
     {
         pColumns = columns;
@@ -21,6 +20,10 @@ public class Update : Query
         pLeft = left;
         pOp = op;
         pRigth = rigth;
+        /*
+        string[] separedValues;
+        separedValues = 
+        */
     }
     public override String Run(Database db)
     {
