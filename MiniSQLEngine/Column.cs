@@ -77,6 +77,7 @@ namespace MiniSQLEngine
         List<string> values = new List<string>();
         public ColumnString(String name) : base(name)
         {
+
         }
 
         public override int GetNumValues() { return values.Count; }
