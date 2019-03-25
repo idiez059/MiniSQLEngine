@@ -10,7 +10,7 @@ public class Insert : Query
     string Values;
     string TableName { get; }
 
-    public Insert (string columns, string table, string values)
+    public Insert (string table, string values, string left, string op, string right)
     {
        
         Values = values;
