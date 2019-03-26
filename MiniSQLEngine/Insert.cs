@@ -2,35 +2,32 @@
 using System;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
+using System.Collections.Generic;
 
 public class Insert : Query
 {
-    
-    String pTabla;
-    String pColumnas;
-    String pValores;
+    List<string> ColumnNames = new List<string>();
+    string Values;
+    string TableName { get; }
 
-    public Insert (String tabla, String columnas, String valores)
+    public Insert (string table, string values, string left, string op, string right)
     {
        
-        pTabla = tabla;
-        pColumnas = columnas;
-        pValores = valores;
+        Values = values;
+        TableName = table;
+        this.Values = values;
+        string[] valuesSeparated;
+        valuesSeparated = Values.Split(',');
+
+        foreach (string valueSeparated in valuesSeparated)
+            ColumnNames.Add(valueSeparated.Trim());
     }
+
+
     public override String Run(Database db)
     {
-        //String[] toReturn = new String[3];
-        //Table leTable = new Table();
 
-        ////String tit
-        ////leTable.setTabla
-        ////toReturn = {getTabla, contenido }
-
-        //throw new NotImplementedException();
         return null;
     }
-    public string getTabla()
-    {
-        return pTabla;
-    }
+   
 }
