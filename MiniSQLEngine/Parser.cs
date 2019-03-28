@@ -28,17 +28,17 @@ namespace MiniSQLEngine {
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\),)(?:\s+FOREIGN KEY\s+(\()(\w+)(\),)\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()([^\)]+)(\))\s+(\;)";
 
             //Select
             Match matchSelect = Regex.Match(query, select);
             if (matchSelect.Success)
             {
-                String columns = matchSelect.Groups[0].Value;
-                String table = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+                String columns = matchSelect.Groups[1].Value;
+                String table = matchSelect.Groups[2].Value;
+                String left = matchSelect.Groups[3].Value;
+                String op = matchSelect.Groups[4].Value;
+                String right = matchSelect.Groups[5].Value;
 
 
                 return new Select(columns,table,left,op,right);
@@ -49,13 +49,15 @@ namespace MiniSQLEngine {
             Match matchUpdate = Regex.Match(query, update);
             if (matchUpdate.Success)
             {
-                String columns = matchSelect.Groups[0].Value;
-                String table = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+                String table = matchUpdate.Groups[1].Value;
+                String columns = matchUpdate.Groups[2].Value;
+               
+                String updateRigth = matchUpdate.Groups[3].Value;
+                String left = matchUpdate.Groups[4].Value;
+                String op = matchUpdate.Groups[5].Value;
+                String right = matchUpdate.Groups[6].Value;
 
-                return new Update(columns,table,left,op,right);
+                return new Update(table,columns, updateRigth, left,op,right);
             }
 
             //Delete
@@ -63,10 +65,10 @@ namespace MiniSQLEngine {
             if (matchDelete.Success)
             {
 
-                String table = matchSelect.Groups[0].Value;
-                String left = matchSelect.Groups[1].Value;
-                String op = matchSelect.Groups[2].Value;
-                String right = matchSelect.Groups[3].Value;
+                String table = matchDelete.Groups[1].Value;
+                String left = matchDelete.Groups[2].Value;
+                String op = matchDelete.Groups[3].Value;
+                String right = matchDelete.Groups[4].Value;
 
                 return new Delete(table,left,op,right);
             }
@@ -76,11 +78,11 @@ namespace MiniSQLEngine {
             if (matchInsert.Success)
             {
 
-                String table = matchSelect.Groups[0].Value;
-                String values = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+                String table = matchInsert.Groups[1].Value;
+                String values = matchInsert.Groups[2].Value;
+                String left = matchInsert.Groups[3].Value;
+                String op = matchInsert.Groups[4].Value;
+                String right = matchInsert.Groups[5].Value;
 
 
                 return new Insert(table,values,left,op,right);
@@ -126,10 +128,10 @@ namespace MiniSQLEngine {
             if (matchCreateTable.Success)
             {
                 
-                String nombreTabla = matchCreateTable.Groups[0].Value;
-                String tipoDato = matchCreateTable.Groups[1].Value;
-                String pk = matchCreateTable.Groups[2].Value;
-                String fk = matchCreateTable.Groups[3].Value;
+                String nombreTabla = matchCreateTable.Groups[1].Value;
+                String tipoDato = matchCreateTable.Groups[2].Value;
+                String pk = matchCreateTable.Groups[3].Value;
+                String fk = matchCreateTable.Groups[4].Value;
                 return new CreateTable(nombreTabla, tipoDato, pk, fk);
             }
             return null;

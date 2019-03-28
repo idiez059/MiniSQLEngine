@@ -23,11 +23,14 @@ namespace ConsoleApp2
             names.AddValue("Ignacio");
             columns.Add(names);
             db.CreateTable("People", columns);
-            string query = "SELECT * FROM People;";
+            string query = "SELECT * FROM People WHERE Age = 23;";
             Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            query = "SELECT Name FROM People;";
-            Console.WriteLine(query + ": " + db.RunQuery(query));
+            //string queryDelete = "DELETE FROM People WHERE Age > 25;";
+            //Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
+
+            //string query = "SELECT Name FROM People;";
+            //Console.WriteLine(query + ": " + db.RunQuery(query));
 
             //Console.WriteLine("MiniSQLJinix V0.0.0.0.0.1");
 
