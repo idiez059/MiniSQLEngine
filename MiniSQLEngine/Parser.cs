@@ -42,7 +42,7 @@ namespace MiniSQLEngine {
                 String right = matchSelect.Groups[4].Value;
 
 
-                return new Select(columns,table,condition);
+                return new Select(columns,table,left, op, right);
             }
                 
 
