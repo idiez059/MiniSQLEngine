@@ -51,7 +51,6 @@ namespace MiniSQLEngine {
             {
                 String table = matchUpdate.Groups[1].Value;
                 String columns = matchUpdate.Groups[2].Value;
-               
                 String values = matchUpdate.Groups[3].Value;
                 String left = matchUpdate.Groups[4].Value;
                 String op = matchUpdate.Groups[5].Value;
@@ -79,10 +78,11 @@ namespace MiniSQLEngine {
             {
 
                 String table = matchInsert.Groups[1].Value;
-                String values = matchInsert.Groups[2].Value;
-                String left = matchInsert.Groups[3].Value;
-                String op = matchInsert.Groups[4].Value;
-                String right = matchInsert.Groups[5].Value;
+                String columns = matchUpdate.Groups[2].Value;
+                String values = matchInsert.Groups[3].Value;
+                String left = matchInsert.Groups[4].Value;
+                String op = matchInsert.Groups[5].Value;
+                String right = matchInsert.Groups[6].Value;
 
 
                 return new Insert(table,values,left,op,right);

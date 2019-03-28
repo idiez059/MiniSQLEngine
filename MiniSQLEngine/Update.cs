@@ -8,7 +8,6 @@ public class Update : Query
     
     String pTableName { get; }
     String pColumns;
-    
     String pValues;
     String pLeft;
     String pOp;
