@@ -22,7 +22,7 @@ namespace MiniSQLEngine {
             string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             //HAY QUE REPETIRLO
-            string insert = @"INSERT INTO\s+(\*|\w+)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
+            string insert = @"INSERT INTO\s+(\*|\w+)\s+VALUES\s+\(([^\)]+)\)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
 
             string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
@@ -33,17 +33,29 @@ namespace MiniSQLEngine {
             //Select
             Match matchSelect = Regex.Match(query, select);
             if (matchSelect.Success)
-                return new Select(matchSelect.Groups[1].Value, matchSelect.Groups[2].Value, matchSelect.Groups[3].Value);
+            {
+                String columns = matchSelect.Groups[0].Value;
+                String table = matchSelect.Groups[1].Value;
+                String left = matchSelect.Groups[2].Value;
+                String op = matchSelect.Groups[3].Value;
+                String right = matchSelect.Groups[4].Value;
+
+
+                return new Select(columns,table,left,op,right);
+            }
+                
 
             //Update
             Match matchUpdate = Regex.Match(query, update);
             if (matchUpdate.Success)
             {
-                String columns = matchUpdate.Groups[0].Value;
-                String tabla = matchUpdate.Groups[1].Value;
-                String contenido = matchUpdate.Groups[2].Value;
+                String columns = matchSelect.Groups[0].Value;
+                String table = matchSelect.Groups[1].Value;
+                String left = matchSelect.Groups[2].Value;
+                String op = matchSelect.Groups[3].Value;
+                String right = matchSelect.Groups[4].Value;
 
-                return new Update(columns, tabla, contenido);
+                return new Update(columns,table,left,op,right);
             }
 
             //Delete
@@ -51,10 +63,12 @@ namespace MiniSQLEngine {
             if (matchDelete.Success)
             {
 
-                String tabla = matchDelete.Groups[0].Value;
-                String contenido = matchDelete.Groups[1].Value;
+                String table = matchSelect.Groups[0].Value;
+                String left = matchSelect.Groups[1].Value;
+                String op = matchSelect.Groups[2].Value;
+                String right = matchSelect.Groups[3].Value;
 
-                return new Delete(tabla, contenido);
+                return new Delete(table,left,op,right);
             }
 
             //Insert
@@ -62,12 +76,14 @@ namespace MiniSQLEngine {
             if (matchInsert.Success)
             {
 
-                String tabla = matchInsert.Groups[0].Value;
-                String columnas = matchInsert.Groups[1].Value;
-                String valores = matchInsert.Groups[1].Value;
+                String table = matchSelect.Groups[0].Value;
+                String values = matchSelect.Groups[1].Value;
+                String left = matchSelect.Groups[2].Value;
+                String op = matchSelect.Groups[3].Value;
+                String right = matchSelect.Groups[4].Value;
 
 
-                return new Insert(tabla, columnas, valores);
+                return new Insert(table,values,left,op,right);
             }
 
             //CreateDataBase
