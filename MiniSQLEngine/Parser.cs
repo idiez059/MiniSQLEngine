@@ -36,10 +36,9 @@ namespace MiniSQLEngine {
             {
                 String columns = matchSelect.Groups[1].Value;
                 String table = matchSelect.Groups[2].Value;
-                String condition = matchSelect.Groups[3].Value;
-                String left = matchSelect.Groups[4].Value;
-                String op = matchSelect.Groups[5].Value;
-                String right = matchSelect.Groups[6].Value;
+                String left = matchSelect.Groups[3].Value;
+                String op = matchSelect.Groups[4].Value;
+                String right = matchSelect.Groups[5].Value;
 
 
                 return new Select(columns,table,left,op,right);
