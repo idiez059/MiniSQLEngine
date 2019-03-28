@@ -7,15 +7,18 @@ public class CreateTable : Query
 {
     
     String pTabla;
-    String pTipoDato;
-    String pPK;
+    String[] columnNames;
+    String[] pTipoDato;
+    String[] pPK;
     String pFK;
   
-    public CreateTable(String tabla,String tipoDato, String pk,String fk)
+    public CreateTable(String tabla,String columnList, String tipoDato, String pk,String fk)
     {
+
         pTabla = tabla;
-        pTipoDato = tipoDato;
-        pPK = pk;
+        columnNames = columnList.Split(',');
+        pTipoDato = tipoDato.Split(',');
+        pPK = pk.Split(',');
         pFK = fk;
 
     }
@@ -23,6 +26,12 @@ public class CreateTable : Query
     {
 
         //TODO: Create columns one by one in a list and call bd.CreateDatabase
+        if(bd.GetTableByName(pTabla) != null)
+        {
+            return Messages.TableErrorAlreadyExists;
+        }
+        List<Column> columns = new List<Column>();
+
         
 
 
@@ -32,7 +41,7 @@ public class CreateTable : Query
     {
         return pFK;
     }
-    public string getPK()
+    public string[] getPK()
     {
         return pPK;
     }
