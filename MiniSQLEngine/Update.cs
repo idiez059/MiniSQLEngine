@@ -20,10 +20,9 @@ public class Update : Query
         pLeft = left;
         pOp = op;
         pRigth = rigth;
-        /*
-        string[] separedValues;
-        separedValues = 
-        */
+      
+        ColumnNames.Add(pColumns);
+
     }
     public override String Run(Database db)
     {

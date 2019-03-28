@@ -31,18 +31,18 @@ namespace MiniSQLEngine {
             string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\),)(?:\s+FOREIGN KEY\s+(\()(\w+)(\),)\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
 
             //Select
-            Match matchSelect = Regex.Match(query, select);
-            if (matchSelect.Success)
-            {
-                String columns = matchSelect.Groups[0].Value;
-                String table = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+            //Match matchSelect = Regex.Match(query, select);
+            //if (matchSelect.Success)
+            //{
+            //    String columns = matchSelect.Groups[0].Value;
+            //    String table = matchSelect.Groups[1].Value;
+            //    String left = matchSelect.Groups[2].Value;
+            //    String op = matchSelect.Groups[3].Value;
+            //    String right = matchSelect.Groups[4].Value;
 
 
-                return new Select(columns,table,left,op,right);
-            }
+            //    return new Select(columns,table,left,op,right);
+            //}
                 
 
             //Update

@@ -1,7 +1,7 @@
 ﻿using MiniSQLEngine;
 using System;
 using System.Text.RegularExpressions;
-using MiniSQLEngine;
+
 using System.Collections.Generic;
 
 public class Insert : Query
