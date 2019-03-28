@@ -22,13 +22,13 @@ namespace MiniSQLEngine {
             string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             //HAY QUE REPETIRLO
-            string insert = @"INSERT INTO\s+(\*|\w+)\s+VALUES\s+\(([^\)]+)\)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
+            string insert = @"INSERT\s+INTO\s+(\w+)\s+\(((([^\)]+)))\)\s+VALUES\s+\(((([^\)]+)))\);";
 
             string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()([^\)]+)(\))\s+(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+(([^\)]+))\s+(\;)";
 
             //Select
             Match matchSelect = Regex.Match(query, select);
