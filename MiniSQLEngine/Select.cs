@@ -55,30 +55,33 @@ public class Select : Query
         else
         {
             if (ColumnNames.Count == 0)
-                return Messages.WrongSyntax;
-            else if (ColumnNames.Count == 1 && ColumnNames[0] == "*")
             {
-                //SELECT *
-                return db.SelectAll(TableName).ToString();
+                return Messages.WrongSyntax;
             }
             else
             {
                 //SELECT Name,Age,... & condition
                 //Handle condition
                 int numValues = table.ColumnByName(ConditionCol).GetNumValues();
-                for (int i=0; i<numValues; i++) //esto hay que probarlo
+                numValues--;
+                for (int i = 0; i <= numValues; i++) //esto hay que probarlo
                 {
                     string gottenValue =
                         table.ColumnByName(ConditionCol).GetValueAsString(i);
                     bool comparation = CompareOp(gottenValue, ConditionValue, ConditionOp);
                     if (comparation == false)
                     {
-                        table.Columns.RemoveAt(i);  //preguntar en clase
-                                                    //no estoy seguro
+                        //preguntar en clase RemoveAt(i)
+                        //no estoy seguro
+                        foreach (Column delColTuple in table.Columns)
+                        {
+                            delColTuple.RemoveValueAtIndex(i);
+                        }
+                        i--;
+                        numValues--;
                     }
-                    return table.ToString();
                 }
-
+                return table.ToString();
                 try
                 {
                     return db.SelectColumns(TableName, ColumnNames).ToString();

@@ -19,6 +19,7 @@ namespace MiniSQLEngine
         public abstract string GetValueAsString(int index);
         public abstract bool AddValue(string value);
         public abstract void InsertEmpty();
+        public abstract void RemoveValueAtIndex(int index);
     }
 
     public class ColumnInt : Column
@@ -50,6 +51,11 @@ namespace MiniSQLEngine
             AddValue(String.Empty);
         }
     }
+        public override void RemoveValueAtIndex(int index)
+        {
+            values.RemoveAt(index);
+        }
+    }
 
     public class ColumnFloat : Column
     {
@@ -75,6 +81,11 @@ namespace MiniSQLEngine
             }
             return false;
         }
+        public override void RemoveValueAtIndex(int index)
+        {
+            values.RemoveAt(index);
+        }
+    }
         public override void InsertEmpty()
         {
             AddValue(String.Empty);
@@ -101,6 +112,10 @@ namespace MiniSQLEngine
             //no parsing needed
             values.Add(value);
             return true;
+        }
+        public override void RemoveValueAtIndex(int index)
+        {
+            values.RemoveAt(index);
         }
         public override void InsertEmpty()
         {

@@ -15,8 +15,8 @@ namespace MiniSQLEngine
     public class Column
     {
         public String title;
-        private bool fKey;
-        private bool pKey;
+        private bool foreignKey;
+        private bool primaryKey;
         private int? forKey;
 
         public Column(String pTitle)
