@@ -11,13 +11,13 @@ namespace PruebaUpdate
     {
         static void Main(string[] args)
         {
-            /*update
+            /*update*/
             Database db = new Database("test-db");
             db.RunQuery ( "UPDATE People SET Name = Bernado WHERE Name = Maria;");
-            */
-            //insert
+            
+            /*
             Database db = new Database("test-db");
-            db.RunQuery("UPDATE People SET Name = Bernado WHERE Name = Maria;");
+            db.RunQuery("UPDATE People SET Name = Bernado WHERE Name = Maria;");*/
         }
     }
 }
