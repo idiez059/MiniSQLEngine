@@ -22,5 +22,6 @@ namespace MiniSQLEngine
         public const string IncorrectDataType = Error + "Incorrect data type";
         public const string DatabaseErrorAlreadyExists = Error + "Database already exists";
         public const string TableErrorAlreadyExists = Error + "Table already exists";
+        public const string ConditionDoesNotExist = "Introduced condition is incorrect: must be <, > or =.";
     }
 }

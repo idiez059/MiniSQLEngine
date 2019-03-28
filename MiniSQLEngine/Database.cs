@@ -95,6 +95,14 @@ namespace MiniSQLEngine
             return result;
         }
 
+        public Table DeleteRows(String tableName, String left, String op, int right)
+        {
+            Parser.Parse("DELETE FROM People WHERE Age > 25;");
+            Table sourceTable = GetTableByName(tableName);
+            return sourceTable;
+
+        }
+
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);
