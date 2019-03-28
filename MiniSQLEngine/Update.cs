@@ -7,7 +7,6 @@ public class Update : Query
 {
     String pColumns;
     String pTableName { get; }
-    String pContenido;
     String pRigth;
     String pOp;
     String pLeft;
@@ -20,10 +19,9 @@ public class Update : Query
         pLeft = left;
         pOp = op;
         pRigth = rigth;
-        /*
-        string[] separedValues;
-        separedValues = 
-        */
+      
+        ColumnNames.Add(pColumns);
+
     }
     public override String Run(Database db)
     {
