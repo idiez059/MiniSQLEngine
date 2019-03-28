@@ -18,6 +18,7 @@ namespace MiniSQLEngine
         public abstract int GetNumValues();
         public abstract string GetValueAsString(int index);
         public abstract bool AddValue(string value);
+        public abstract void InsertEmpty();
     }
 
     public class ColumnInt : Column
@@ -43,6 +44,10 @@ namespace MiniSQLEngine
                 return true;
             }
             return false;
+        }
+        public override void InsertEmpty()
+        {
+            AddValue(String.Empty);
         }
     }
 
@@ -70,6 +75,10 @@ namespace MiniSQLEngine
             }
             return false;
         }
+        public override void InsertEmpty()
+        {
+            AddValue(String.Empty);
+        }
     }
 
     public class ColumnString : Column
@@ -92,6 +101,10 @@ namespace MiniSQLEngine
             //no parsing needed
             values.Add(value);
             return true;
+        }
+        public override void InsertEmpty()
+        {
+            AddValue(String.Empty);
         }
     }
 

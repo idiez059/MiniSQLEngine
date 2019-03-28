@@ -1,32 +1,55 @@
 ﻿using MiniSQLEngine;
 using System;
 using System.Text.RegularExpressions;
-using MiniSQLEngine;
 using System.Collections.Generic;
 
 public class Insert : Query
 {
     List<string> ColumnNames = new List<string>();
-    string Values;
+    string[] valuesSeparated;
     string TableName { get; }
 
-    public Insert (string table, string values, string left, string op, string right)
+    public Insert(string table,string columns, string values, string left, string op, string right)
     {
-       
-        Values = values;
+        String[] columnList = columns.Split(',');
+        foreach(String col in columnList)
+        {
+            ColumnNames.Add(col);
+        }
+        
         TableName = table;
-        this.Values = values;
-        string[] valuesSeparated;
-        valuesSeparated = Values.Split(',');
+        valuesSeparated = values.Split(',');
 
-        foreach (string valueSeparated in valuesSeparated)
-            ColumnNames.Add(valueSeparated.Trim());
     }
-
 
     public override String Run(Database db)
     {
+        Table table = db.GetTableByName(TableName);
+        if (table == null)
+        {
+            return Messages.TableDoesNotExist;
+        }
+        int cont = 0;
 
+        //if ()
+        //{
+            foreach (Column column in table.Columns)
+            { 
+                if (ColumnNames.Contains(column.Name))
+                {
+                    column.AddValue(valuesSeparated[cont]);
+                    cont++;
+                }
+                else
+                {
+                    column.InsertEmpty();
+
+                }
+            
+            }
+        //}
+        
+    
         return null;
     }
    
