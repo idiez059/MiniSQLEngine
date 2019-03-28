@@ -36,12 +36,13 @@ namespace MiniSQLEngine {
             {
                 String columns = matchSelect.Groups[0].Value;
                 String table = matchSelect.Groups[1].Value;
+                String condition = matchSelect.Groups[2].Value;
                 String left = matchSelect.Groups[2].Value;
                 String op = matchSelect.Groups[3].Value;
                 String right = matchSelect.Groups[4].Value;
 
 
-                return new Select(columns,table,left,op,right);
+                return new Select(columns,table,condition);
             }
                 
 
@@ -49,11 +50,11 @@ namespace MiniSQLEngine {
             Match matchUpdate = Regex.Match(query, update);
             if (matchUpdate.Success)
             {
-                String columns = matchSelect.Groups[0].Value;
-                String table = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+                String columns = matchUpdate.Groups[0].Value;
+                String table = matchUpdate.Groups[1].Value;
+                String left = matchUpdate.Groups[2].Value;
+                String op = matchUpdate.Groups[3].Value;
+                String right = matchUpdate.Groups[4].Value;
 
                 return new Update(columns,table,left,op,right);
             }
@@ -63,10 +64,10 @@ namespace MiniSQLEngine {
             if (matchDelete.Success)
             {
 
-                String table = matchSelect.Groups[0].Value;
-                String left = matchSelect.Groups[1].Value;
-                String op = matchSelect.Groups[2].Value;
-                String right = matchSelect.Groups[3].Value;
+                String table = matchDelete.Groups[0].Value;
+                String left = matchDelete.Groups[1].Value;
+                String op = matchDelete.Groups[2].Value;
+                String right = matchDelete.Groups[3].Value;
 
                 return new Delete(table,left,op,right);
             }
@@ -76,11 +77,11 @@ namespace MiniSQLEngine {
             if (matchInsert.Success)
             {
 
-                String table = matchSelect.Groups[0].Value;
-                String values = matchSelect.Groups[1].Value;
-                String left = matchSelect.Groups[2].Value;
-                String op = matchSelect.Groups[3].Value;
-                String right = matchSelect.Groups[4].Value;
+                String table = matchInsert.Groups[0].Value;
+                String values = matchInsert.Groups[1].Value;
+                String left = matchInsert.Groups[2].Value;
+                String op = matchInsert.Groups[3].Value;
+                String right = matchInsert.Groups[4].Value;
 
 
                 return new Insert(table,values,left,op,right);
