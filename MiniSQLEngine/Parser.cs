@@ -52,12 +52,12 @@ namespace MiniSQLEngine {
                 String table = matchUpdate.Groups[1].Value;
                 String columns = matchUpdate.Groups[2].Value;
                
-                String updateRigth = matchUpdate.Groups[3].Value;
+                String values = matchUpdate.Groups[3].Value;
                 String left = matchUpdate.Groups[4].Value;
                 String op = matchUpdate.Groups[5].Value;
                 String right = matchUpdate.Groups[6].Value;
 
-                return new Update(table,columns, updateRigth, left,op,right);
+                return new Update(table,columns, values, left,op,right);
             }
 
             //Delete
