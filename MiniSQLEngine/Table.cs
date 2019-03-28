@@ -68,9 +68,29 @@ namespace MiniSQLEngine
                       
             return ;
         }
-        public void addValues()
-        {
 
+        public void DeleteRows(String left, String op, int rigth)
+        {
+            for (int i = 0; i < Columns.Count; i++)
+            {
+                if (Columns[i].Name == left)
+                {
+                    int numTuples = Columns[0].GetNumValues();
+                    if (numTuples > 0)
+                    {
+                        for (int tuple = 0; tuple < numTuples; tuple++)
+                        {
+                            
+                            for (int j = 1; j < Columns.Count; j++)
+                            {
+                                Columns[i].AddValue("Borrado");
+                            }
+                            
+                        }
+                    }
+                }
+            }
         }
+
     }
 }
