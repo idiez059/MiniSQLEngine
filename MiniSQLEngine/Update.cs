@@ -12,7 +12,7 @@ public class Update : Query
     String pLeft;
     String pOp;
     String pRigth;
-    
+    String[] valuesSeparated;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
     public Update(String tableName, String columns, String values, String left, String op, String rigth)
@@ -25,8 +25,9 @@ public class Update : Query
         pRigth = rigth;
       
         ColumnNames.Add(pColumns);
-        ColumnNames.Add(pValues);
+        Values.Add(pValues);
 
+        valuesSeparated = values.Split(',');
     }
     public override String Run(Database db)
     {
