@@ -8,26 +8,26 @@ public class Update : Query
     
     String pTableName { get; }
     String pColumns;
-    String PUpdateLeft;
-    String PUpdateRigth;
+    String pValues;
     String pLeft;
     String pOp;
     String pRigth;
-    
+    String[] valuesSeparated;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
-    public Update(String tableName, String columns, String updateRigth, String left, String op, String rigth)
+    public Update(String tableName, String columns, String values, String left, String op, String rigth)
     {
         pTableName = tableName;
-        pColumns = columns;
-        
-        PUpdateRigth = updateRigth;
+        pColumns = columns; 
+        pValues = values;
         pLeft = left;
         pOp = op;
         pRigth = rigth;
       
         ColumnNames.Add(pColumns);
+        Values.Add(pValues);
 
+        valuesSeparated = values.Split(',');
     }
     public override String Run(Database db)
     {

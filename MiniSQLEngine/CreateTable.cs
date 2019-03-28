@@ -7,34 +7,33 @@ public class CreateTable : Query
 {
     
     String pTabla;
-    String pTipoDato;
-    String pPK;
-    String pFK;
+    List<String> columnNames = new List<String>();
+    List<String> pTipoDato = new List<String>();
   
-    public CreateTable(String tabla,String tipoDato, String pk,String fk)
+    public CreateTable(String tabla, String tipoDato)
     {
+
         pTabla = tabla;
-        pTipoDato = tipoDato;
-        pPK = pk;
-        pFK = fk;
+        String[] splitParameters = tipoDato.Split(',');
+        String[] splitNames;
+        String[] splitTypes;
 
     }
     public override String Run(Database bd)
     {
 
         //TODO: Create columns one by one in a list and call bd.CreateDatabase
+        if(bd.GetTableByName(pTabla) != null)
+        {
+            return Messages.TableErrorAlreadyExists;
+        }
+
+        
+
         
 
 
         return null;
-    }
-    public string getFK()
-    {
-        return pFK;
-    }
-    public string getPK()
-    {
-        return pPK;
     }
     public string getTabla()
     {
