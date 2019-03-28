@@ -15,8 +15,11 @@ public class CreateTable : Query
 
         pTabla = tabla;
         String[] splitParameters = tipoDato.Split(',');
-        String[] splitNames;
-        String[] splitTypes;
+        foreach(String toSplit in splitParameters)
+        {
+            pTipoDato.Add(toSplit.Split(' ')[0]);
+            columnNames.Add(toSplit.Split(' ')[1]);
+        }
 
     }
     public override String Run(Database bd)
@@ -27,12 +30,7 @@ public class CreateTable : Query
         {
             return Messages.TableErrorAlreadyExists;
         }
-
         
-
-        
-
-
         return null;
     }
     public string getTabla()
