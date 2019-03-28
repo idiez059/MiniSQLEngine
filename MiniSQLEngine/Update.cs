@@ -5,22 +5,27 @@ using System.Collections.Generic;
 
 public class Update : Query
 {
-    String pColumns;
+    
     String pTableName { get; }
-    String pRigth;
-    String pOp;
+    String pColumns;
+    String pValues;
     String pLeft;
+    String pOp;
+    String pRigth;
+    
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
-    public Update(String columns, String tableName, String left, String op, String rigth)
+    public Update(String tableName, String columns, String values, String left, String op, String rigth)
     {
-        pColumns = columns;
         pTableName = tableName;
+        pColumns = columns; 
+        pValues = values;
         pLeft = left;
         pOp = op;
         pRigth = rigth;
       
         ColumnNames.Add(pColumns);
+        ColumnNames.Add(pValues);
 
     }
     public override String Run(Database db)
