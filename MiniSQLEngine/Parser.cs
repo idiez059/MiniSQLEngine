@@ -28,7 +28,7 @@ namespace MiniSQLEngine {
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()([^\)]+)(\))\s+(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s+(\;)";
 
             //Select
             Match matchSelect = Regex.Match(query, select);
@@ -127,12 +127,9 @@ namespace MiniSQLEngine {
             Match matchCreateTable = Regex.Match(query, createTable);
             if (matchCreateTable.Success)
             {
-                
                 String nombreTabla = matchCreateTable.Groups[1].Value;
                 String tipoDato = matchCreateTable.Groups[2].Value;
-                String pk = matchCreateTable.Groups[3].Value;
-                String fk = matchCreateTable.Groups[4].Value;
-                return new CreateTable(nombreTabla, tipoDato, pk, fk);
+                return new CreateTable(nombreTabla, tipoDato);
             }
             return null;
         }

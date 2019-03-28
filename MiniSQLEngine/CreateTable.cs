@@ -7,19 +7,16 @@ public class CreateTable : Query
 {
     
     String pTabla;
-    String[] columnNames;
-    String[] pTipoDato;
-    String[] pPK;
-    String pFK;
+    List<String> columnNames = new List<String>();
+    List<String> pTipoDato = new List<String>();
   
-    public CreateTable(String tabla,String columnList, String tipoDato, String pk,String fk)
+    public CreateTable(String tabla, String tipoDato)
     {
 
         pTabla = tabla;
-        columnNames = columnList.Split(',');
-        pTipoDato = tipoDato.Split(',');
-        pPK = pk.Split(',');
-        pFK = fk;
+        String[] splitParameters = tipoDato.Split(',');
+        String[] splitNames;
+        String[] splitTypes;
 
     }
     public override String Run(Database bd)
@@ -30,20 +27,13 @@ public class CreateTable : Query
         {
             return Messages.TableErrorAlreadyExists;
         }
-        List<Column> columns = new List<Column>();
+
+        
 
         
 
 
         return null;
-    }
-    public string getFK()
-    {
-        return pFK;
-    }
-    public string[] getPK()
-    {
-        return pPK;
     }
     public string getTabla()
     {
