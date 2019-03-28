@@ -22,7 +22,8 @@ namespace MiniSQLEngine {
             string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             //HAY QUE REPETIRLO
-            string insert = @"INSERT INTO\s+(\*|\w+)\s+VALUES\s+\(([^\)]+)\)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
+            string insert = @"INSERT\s+INTO\s+(\w+)\s+\((\w+)(\,\s+(\w+))+\)\s+VALUES\s+\(([\w\'\s+\.]+)(\,\s+([\w\'\s+\.]+))+\);";
+            // string insert = @"INSERT INTO\s+(\*|\w+)\s+VALUES\s+\(([^\)]+)\)(?:\s+[WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+)]+)?(\;)";
 
             string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
@@ -51,13 +52,12 @@ namespace MiniSQLEngine {
             {
                 String table = matchUpdate.Groups[1].Value;
                 String columns = matchUpdate.Groups[2].Value;
-               
-                String updateRigth = matchUpdate.Groups[3].Value;
+                String values = matchUpdate.Groups[3].Value;
                 String left = matchUpdate.Groups[4].Value;
                 String op = matchUpdate.Groups[5].Value;
                 String right = matchUpdate.Groups[6].Value;
 
-                return new Update(table,columns, updateRigth, left,op,right);
+                return new Update(table,columns, values, left,op,right);
             }
 
             //Delete
@@ -79,10 +79,11 @@ namespace MiniSQLEngine {
             {
 
                 String table = matchInsert.Groups[1].Value;
-                String values = matchInsert.Groups[2].Value;
-                String left = matchInsert.Groups[3].Value;
-                String op = matchInsert.Groups[4].Value;
-                String right = matchInsert.Groups[5].Value;
+                String columns = matchUpdate.Groups[2].Value;
+                String values = matchInsert.Groups[3].Value;
+                String left = matchInsert.Groups[4].Value;
+                String op = matchInsert.Groups[5].Value;
+                String right = matchInsert.Groups[6].Value;
 
 
                 return new Insert(table,values,left,op,right);
