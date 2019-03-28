@@ -7,7 +7,6 @@ public class Update : Query
 {
     String pColumns;
     String pTableName { get; }
-    String pContenido;
     String pRigth;
     String pOp;
     String pLeft;

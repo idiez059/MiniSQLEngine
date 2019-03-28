@@ -12,7 +12,7 @@ namespace PruebaUpdate
         static void Main(string[] args)
         {
             Database db = new Database("test-db");
-            db.RunQuery ( "Update People set Name = Bernado where Name = Maria");
+            db.RunQuery ( "UPDATE People SET Name = Bernado WHERE Name = Maria;");
         }
     }
 }
