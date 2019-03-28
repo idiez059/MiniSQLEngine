@@ -36,10 +36,9 @@ namespace MiniSQLEngine {
             {
                 String columns = matchSelect.Groups[1].Value;
                 String table = matchSelect.Groups[2].Value;
-                String condition = matchSelect.Groups[3].Value;
-                String left = matchSelect.Groups[4].Value;
-                String op = matchSelect.Groups[5].Value;
-                String right = matchSelect.Groups[6].Value;
+                String left = matchSelect.Groups[3].Value;
+                String op = matchSelect.Groups[4].Value;
+                String right = matchSelect.Groups[5].Value;
 
 
                 return new Select(columns,table,left,op,right);
@@ -50,13 +49,15 @@ namespace MiniSQLEngine {
             Match matchUpdate = Regex.Match(query, update);
             if (matchUpdate.Success)
             {
-                String columns = matchUpdate.Groups[1].Value;
-                String table = matchUpdate.Groups[2].Value;
-                String left = matchUpdate.Groups[3].Value;
-                String op = matchUpdate.Groups[4].Value;
-                String right = matchUpdate.Groups[5].Value;
+                String table = matchUpdate.Groups[1].Value;
+                String columns = matchUpdate.Groups[2].Value;
+               
+                String updateRigth = matchUpdate.Groups[3].Value;
+                String left = matchUpdate.Groups[4].Value;
+                String op = matchUpdate.Groups[5].Value;
+                String right = matchUpdate.Groups[6].Value;
 
-                return new Update(columns,table,left,op,right);
+                return new Update(table,columns, updateRigth, left,op,right);
             }
 
             //Delete
