@@ -73,8 +73,12 @@ public class Select : Query
                     bool comparation = CompareOp(gottenValue, ConditionValue, ConditionOp);
                     if (comparation == false)
                     {
-                        table.Columns.RemoveAt(i);  //preguntar en clase
-                                                    //no estoy seguro
+                        //preguntar en clase RemoveAt(i)
+                        //no estoy seguro
+                        foreach(Column delColTuple in table.Columns)
+                        {
+                            delColTuple.RemoveValueAtIndex(i);
+                        }
                     }
                     return table.ToString();
                 }
