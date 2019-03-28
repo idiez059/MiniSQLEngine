@@ -28,7 +28,7 @@ namespace MiniSQLEngine {
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()(INT|DOUBLE|TEXT)\s+PRIMARY KEY(\()(\w+)(\),)(?:\s+FOREIGN KEY\s+(\()(\w+)(\),)\s+REFERENCES\s+(\w+)(\()(\w+)(\)))?(\))(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+(\()([^\)]+)(\))\s+(\;)";
 
             //Select
             Match matchSelect = Regex.Match(query, select);
