@@ -23,7 +23,7 @@ namespace ConsoleApp2
             names.AddValue("Ignacio");
             columns.Add(names);
             db.CreateTable("People", columns);
-            string query = "SELECT * FROM People WHERE Age = 23;";
+            string query = "SELECT * FROM People WHERE Age < 30;";
             Console.WriteLine(query + ": " + db.RunQuery(query));
 
             //string queryDelete = "DELETE FROM People WHERE Age > 25;";
