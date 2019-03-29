@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class Update : Query
 {
@@ -15,6 +16,10 @@ public class Update : Query
     String[] valuesSeparated;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
+    String end;
+    String error = "ERROR: ";
+    Boolean mistake;
+
     public Update(String tableName, String columns, String values, String left, String op, String rigth)
     {
         pTableName = tableName;
@@ -42,22 +47,40 @@ public class Update : Query
             if (table.Columns.Count != Values.Count)
                 return Messages.WrongSyntax;
         }
-        
+       //Directorio
+        if (!File.Exists("..//..//..//data//" + db.Name + "//" + Table.Name + ".data"))
+        {
+            end = error + "Table does not exist";
+            mistake = true;
+        }
+        if (mistake == false)
+        {
+            String[] tupla = System.IO.File.ReadAllLines("..//..//..//data//" + db.Name + "//" + Table + ".def");
+            foreach (String la in pColumns)
+            {
+                String[]  splitIt= la.Split('=');
+                String find = splitIt[0];
+                if (tupla[0].Contains(find) == false)
+                {
+                    end = error + "Column does not exist";
+                    mistake = true;
+                }
+            }
+        }
+            //List<Column> updateColumns = new List<Column>();
 
-        //List<Column> updateColumns = new List<Column>();
+            //if (ColumnNames.Count == 0)
+            //    return Messages.WrongSyntax;
 
-        //if (ColumnNames.Count == 0)
-        //    return Messages.WrongSyntax;
+            //else if (ColumnNames.Count == 1)
+            //{
 
-        //else if (ColumnNames.Count == 1)
-        //{
-              
-            
-        //}
+
+            //}
 
 
 
-        throw new NotImplementedException();
+            throw new NotImplementedException();
     }
 
 }

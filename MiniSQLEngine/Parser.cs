@@ -19,7 +19,8 @@ namespace MiniSQLEngine {
             //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
             string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
-            string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+            string update = @"UPDATE\s + (\w +)\s + SET\s + (\w +)\s * (\=)\s * (\w +)(\,\s + (\w +)\s * (\=)\s * (\w +)\s +)WHERE\s + (\w +)\s * (=|<|>)\s * (\w +)(\;)";
+           // string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             //HAY QUE REPETIRLO
             string insert = @"INSERT\s+INTO\s+(\w+)\s+\((\w+)(\,\s+(\w+))+\)\s+VALUES\s+\(([\w\'\s+\.]+)(\,\s+([\w\'\s+\.]+))+\);";
