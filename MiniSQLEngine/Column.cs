@@ -50,7 +50,7 @@ namespace MiniSQLEngine
         {
             AddValue(String.Empty);
         }
-    }
+
         public override void RemoveValueAtIndex(int index)
         {
             values.RemoveAt(index);
@@ -85,13 +85,12 @@ namespace MiniSQLEngine
         {
             values.RemoveAt(index);
         }
-    }
+
         public override void InsertEmpty()
         {
             AddValue(String.Empty);
         }
     }
-
     public class ColumnString : Column
     {
         List<string> values = new List<string>();
@@ -122,6 +121,6 @@ namespace MiniSQLEngine
             AddValue(String.Empty);
         }
     }
-
-
 }
+
+
