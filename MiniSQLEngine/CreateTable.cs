@@ -34,7 +34,6 @@ public class CreateTable : Query
         {
             return Messages.WrongSyntax + ", Ammount of column names provided and column types does not match.";
         }
-        pTabla = pTabla;
         int cont = 0;
         List<Column> listOfCreation = new List<Column>();
         foreach(String tipo in pTipoDato)
