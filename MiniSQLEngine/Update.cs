@@ -36,6 +36,14 @@ public class Update : Query
     }
     public override String Run(Database db)
     {
+        /*
+         * MIRAR SI EXISTE LA TABLA COMPRANDO LA TABLA DADA EN LA LISTA DE TABLAS
+         * MIRAR SI EXISTE LA COLUMNA COMPARANDO LAS COLUMNAS DADAS CON LAS QUE HAY SEPARADAS POR COMAS EN LA LISTA DE COLUMNAS
+         * SI ALGUNA NO EXISTE RESPONDER MENSAJE 
+         * SI TODO EXISTE Y ESTA BIEN MODIFICARLO 
+         * 
+         * /
+
         //get table
 
         Table table = db.GetTableByName(pTableName);
