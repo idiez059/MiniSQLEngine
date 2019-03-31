@@ -71,6 +71,7 @@ namespace MiniSQLEngine
             //paso los mismos parametros que me han enviado 
 
             table.Update(columns,tableName, left, op, rigth);
+            
         }
         public Table SelectAll(string tableName)
         {

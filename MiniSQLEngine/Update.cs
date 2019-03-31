@@ -51,13 +51,22 @@ public class Update : Query
         {
             if (table.Columns.Count != Values.Count)
                 return Messages.WrongSyntax;
+            else if (ColumnNames.Count == 1 && Values[] = pValues)
+            {
+                return db.Update(columns, tableName, left, op, rigth);
+            }
+
         }
-       //Directorio
-        if (!File.Exists("..//..//..//data//" + db.Name + "//" + Table.Name + ".data"))
-        {
-            end = error + "Table does not exist";
-            mistake = true;
-        }
+          
+        //Directorio
+        /*
+         * Ya esta hecho 
+             if (pColumns.c)
+             {
+                 end = error + "Table does not exist";
+                 mistake = true;
+             }
+         */
         if (mistake == false)
         {
             String[] tupla = System.IO.File.ReadAllLines("..//..//..//data//" + db.Name + "//" + Table + ".def");
