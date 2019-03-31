@@ -6,14 +6,12 @@ using System.IO;
 
 public class Update : Query
 {
-    
     String pTableName { get; }
     String pColumns;
     String pValues;
     String pLeft;
     String pOp;
     String pRigth;
-    String[] valuesSeparated;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
     String end;
@@ -28,11 +26,11 @@ public class Update : Query
         pLeft = left;
         pOp = op;
         pRigth = rigth;
-      
-        ColumnNames.Add(pColumns);
-        Values.Add(pValues);
 
-        valuesSeparated = values.Split(',');
+        String[] valuesSeparated = values.Split(',');
+        foreach (string valueUpdate in valuesSeparated)
+            Values.Add(valueUpdate.Trim());
+        
     }
     public override String Run(Database db)
     {
@@ -41,8 +39,7 @@ public class Update : Query
          * MIRAR SI EXISTE LA COLUMNA COMPARANDO LAS COLUMNAS DADAS CON LAS QUE HAY SEPARADAS POR COMAS EN LA LISTA DE COLUMNAS
          * SI ALGUNA NO EXISTE RESPONDER MENSAJE 
          * SI TODO EXISTE Y ESTA BIEN MODIFICARLO 
-         * 
-         * /
+         */
 
         //get table
 
