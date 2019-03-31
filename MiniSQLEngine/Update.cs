@@ -7,7 +7,7 @@ using System.IO;
 public class Update : Query
 {
     String pTableName { get; }
-    String pColumns;
+    String pColumns; 
     String pValues;
     String pLeft;
     String pOp;
@@ -51,9 +51,9 @@ public class Update : Query
         {
             if (table.Columns.Count != Values.Count)
                 return Messages.WrongSyntax;
-            else if (ColumnNames.Count == 1 && Values[] = pValues)
+            else if (ColumnNames.Count == 1 )
             {
-                return db.Update(columns, tableName, left, op, rigth);
+                return db.Update(pColumns, pTableName, pLeft, pOp, pRigth);
             }
 
         }
@@ -67,20 +67,22 @@ public class Update : Query
                  mistake = true;
              }
          */
-        if (mistake == false)
-        {
-            String[] tupla = System.IO.File.ReadAllLines("..//..//..//data//" + db.Name + "//" + Table + ".def");
-            foreach (String la in pColumns)
-            {
-                String[]  splitIt= la.Split('=');
-                String find = splitIt[0];
-                if (tupla[0].Contains(find) == false)
-                {
-                    end = error + "Column does not exist";
-                    mistake = true;
-                }
-            }
-        }
+       
+        //if (mistake == false)
+        //{
+        //    String[] tupla = System.IO.File.ReadAllLines("..//..//..//data//" + db.Name + "//" + Table + ".def");
+        //    foreach (String la in pColumns)
+        //    {
+        //        String[]  splitIt= la.Split('=');
+        //        String find = splitIt[0];
+        //        if (tupla[0].Contains(find) == false)
+        //        {
+        //            end = error + "Column does not exist";
+        //            mistake = true;
+        //        }
+        //    }
+        //}
+        
             //List<Column> updateColumns = new List<Column>();
 
             //if (ColumnNames.Count == 0)

@@ -63,7 +63,7 @@ namespace MiniSQLEngine
             }
         }
 
-        public void Update(String columns, String tableName, String left, String op, String rigth)
+        public string Update(String columns, String tableName, String left, String op, String rigth)
         {
             Table table = GetTableByName(tableName);
             table.ColumnByName(columns);
@@ -71,7 +71,7 @@ namespace MiniSQLEngine
             //paso los mismos parametros que me han enviado 
 
             table.Update(columns,tableName, left, op, rigth);
-            
+            return "hay que cambiarlo";
         }
         public Table SelectAll(string tableName)
         {
