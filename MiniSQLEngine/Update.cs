@@ -12,13 +12,16 @@ public class Update : Query
     String pRight;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
+    List<string> ColumnNamesWhere = new List<string>();
 
-    public Update(String tableName, String updates, String left, String op, String rigth)
+    List<string> ValuesWhere = new List<string>();
+    public Update(String tableName, String updates, String left, String op, String right)
     {
         pTableName = tableName;
         pLeft = left;
         pOp = op;
-        pRight = rigth;
+        pRight = right;
+
 
         String[] updatesSeparated = updates.Split(',');
         foreach (string update in updatesSeparated)
@@ -29,6 +32,7 @@ public class Update : Query
             Values.Add(parts[1]);
         }
         
+
     }
     public override String Run(Database db)
     {

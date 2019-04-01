@@ -34,7 +34,7 @@ namespace testParsing
         public void Insert()
         {
             string[] wrongQueries = { "INSERT FROM alumno WHERE nombre = Xabi;" };
-            string[] correctQueries = { "INSERT INTO alumno;", "INSERT INTO alumno WHERE nombre = Xabi;" };
+            string[] correctQueries = { "INSERT INTO myTable VALUES ('Rafa', 'rafa@gmail.com', 23);", "INSERT INTO table_name (column1, column2, column3) VALUES (value1, value2, value3); ; " };
         
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
@@ -47,7 +47,7 @@ namespace testParsing
         public void Delete()
         {
             string[] wrongQueries = { "DELETE FROM ;" };
-            string[] correctQueries = { "DELETE FROM alumno;", "DELETE FROM alumno WHERE nombre=Xabi;" };
+            string[] correctQueries = { "DELETE FROM alumno;", "DELETE FROM alumno WHERE nombre = Xabi;" };
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
@@ -60,7 +60,8 @@ namespace testParsing
         public void Update()
         {
             string[] wrongQueries = { "UPDATE alumno SET nombre = Nadia nombre = Xabi;" };
-            string[] correctQueries = { " UPDATE alumno SET nombre = Nadia WHERE nombre = Xabi;"};
+            string[] correctQueries = { "UPDATE People SET Name=Bernado,Edad=23 WHERE Name=Maria,Edad<23;" };
+            
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
