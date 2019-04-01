@@ -60,7 +60,8 @@ namespace testParsing
         public void Update()
         {
             string[] wrongQueries = { "UPDATE alumno SET nombre = Nadia nombre = Xabi;" };
-            string[] correctQueries = { " UPDATE alumno SET nombre = Nadia WHERE nombre = Xabi;"};
+            string[] correctQueries = { "UPDATE People SET Name=Bernado,Edad=23 WHERE Name=Maria,Edad<23;" };
+            
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
