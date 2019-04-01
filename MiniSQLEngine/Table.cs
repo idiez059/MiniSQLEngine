@@ -60,37 +60,42 @@ namespace MiniSQLEngine
             Column lacolumna = ColumnByName(columns);
             int numvalues = lacolumna.GetNumValues();
 
-            for ( int j=0; j< numvalues; j++)
+            for (int j = 0; j < numvalues; j++)
             {
                 lacolumna.GetValueAsString(j);
 
             }
-                      
-            return ;
+
+            return;
         }
 
-        public void DeleteRows(String left, String op, int rigth)
+        public void DeleteRows(String left, String op, int right)
         {
             for (int i = 0; i < Columns.Count; i++)
             {
-                if (Columns[i].Name == left)
+
+                int numTuples = Columns[0].GetNumValues();
+                if (numTuples > 0)
                 {
-                    int numTuples = Columns[0].GetNumValues();
-                    if (numTuples > 0)
+                    for (int tuple = 0; tuple < numTuples; tuple++)
                     {
-                        for (int tuple = 0; tuple < numTuples; tuple++)
+
+                        if (Columns[i].Name == left)
                         {
-                            
-                            for (int j = 1; j < Columns.Count; j++)
+                            if (op==">")
                             {
-                                Columns[i].AddValue("Borrado");
+                                if (Int32.Parse(Columns[i].GetValueAsString(tuple)) > right)
+                                {
+                                    for (int tupleDelete = 0; tupleDelete < numTuples; tupleDelete++)
+                                    {
+                                        Columns[i].RemoveValueAtIndex(tupleDelete);
+                                    }
+                                }
                             }
-                            
                         }
                     }
                 }
             }
         }
-
     }
 }

@@ -85,7 +85,7 @@ namespace MiniSQLEngine {
                 String right = matchInsert.Groups[6].Value;
 
 
-                return new Insert(table,values,left,op,right);
+                return new Insert(table,columns,values,left,op,right);
             }
 
             //CreateDataBase

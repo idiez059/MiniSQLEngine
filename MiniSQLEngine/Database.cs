@@ -99,6 +99,7 @@ namespace MiniSQLEngine
         {
             Parser.Parse("DELETE FROM People WHERE Age > 25;");
             Table sourceTable = GetTableByName(tableName);
+            sourceTable.DeleteRows(left, op, right);
             return sourceTable;
 
         }
@@ -109,5 +110,4 @@ namespace MiniSQLEngine
             return theQuery.Run(this);
         }
     }
-
 }
