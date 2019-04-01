@@ -8,14 +8,14 @@ public class Delete : Query
     String pTableName;
     String pLeft;
     String pOp;
-    int pRight;   
+    String pRight;   
     
     public Delete(String table, String left, String op, String right)
     {
         pTableName = table;
         pLeft = left;
         pOp = op;
-        pRight = int.Parse(right);     
+        pRight = right;     
     }
 
     public override String Run(Database bd)

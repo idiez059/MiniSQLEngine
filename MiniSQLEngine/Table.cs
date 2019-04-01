@@ -69,28 +69,44 @@ namespace MiniSQLEngine
             return;
         }
 
-        public void DeleteRows(String left, String op, int right)
+        private bool CompareOp(string elem1, string elem2, string operat)
+        {
+            switch (operat)
+            {
+                case "=":
+                    return elem1 == elem2;
+                case "<":
+                    int j = string.Compare(elem1, elem2);
+                    if (j == -1) { return true; }
+                    else { return false; }
+                case ">":
+                    int k = string.Compare(elem1, elem2);
+                    if (k == 1) { return true; }
+                    else { return false; }
+                default:
+                    System.Console.WriteLine("Error comparing tuples, in Compare() method");
+                    return false;
+            }
+        }
+
+        public void DeleteRows(string left, string op, string right)
         {
             for (int i = 0; i < Columns.Count; i++)
             {
-
                 int numTuples = Columns[0].GetNumValues();
+                numTuples--;
                 if (numTuples > 0)
                 {
-                    for (int tuple = 0; tuple < numTuples; tuple++)
-                    {
-
-                        if (Columns[i].Name == left)
+                    if (Columns[i].Name == left) {
+                        for (int tuple = 0; tuple < numTuples; tuple++)
                         {
-                            if (op==">")
+                          bool delete = CompareOp(Columns[i].GetValueAsString(tuple), right,  op);
+
+                            if(delete == true)
                             {
-                                if (Int32.Parse(Columns[i].GetValueAsString(tuple)) > right)
-                                {
-                                    for (int tupleDelete = 0; tupleDelete < numTuples; tupleDelete++)
-                                    {
-                                        Columns[i].RemoveValueAtIndex(tupleDelete);
-                                    }
-                                }
+                                Columns[i].RemoveValueAtIndex(tuple);
+                                tuple--;
+                                i--;
                             }
                         }
                     }

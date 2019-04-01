@@ -26,7 +26,7 @@ namespace ConsoleApp2
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            string queryDelete = "DELETE FROM People WHERE Age > 25;";
+            string queryDelete = "DELETE FROM People WHERE Age < 25;";
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
 
             //string query = "SELECT Name FROM People;";
