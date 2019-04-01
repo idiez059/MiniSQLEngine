@@ -96,6 +96,24 @@ namespace MiniSQLEngine
             return result;
         }
 
+        public string Insert(string tableName, string [] values)
+        {
+            Table table = GetTableByName(tableName);
+            if (table == null)
+            {
+                return Messages.TableDoesNotExist;
+            }
+            int cont = 0;
+
+            foreach (Column column in table.Columns)
+            {
+                column.AddValue(values[cont]);
+                cont++;
+            }
+            return Messages.InsertSuccess;
+        }
+
+
         public Table DeleteRows(String tableName, String left, String op, int right)
         {
             Parser.Parse("DELETE FROM People WHERE Age > 25;");

@@ -19,99 +19,114 @@ namespace MiniSQLEngine {
             //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
             string select = @"SELECT\s+(\*|\w+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
-            string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s*(\=)\s*(\w+)(\,\s+(\w+)\s*(\=)\s*(\w+)\s+)WHERE\s+(\w+)\s*(=|<|>)\s*(\w+);";
+            string update = @"UPDATE\s+(\w+)\s+SET\s+([\w\,\=]+)\s+WHERE\s+(\w+)\s*(=|<|>)\s*(\w+);";
            // string update = @"UPDATE\s+(\w+)\s+SET\s+(\w+)\s+=\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             //HAY QUE REPETIRLO
-            string insert = @"INSERT\s+INTO\s+(\w+)\s+\(((([^\)]+)))\)\s+VALUES\s+\(((([^\)]+)))\);";
+            string insert = @"INSERT\s+INTO\s+(\w+)\s+\(([^\)]+)\)\s+VALUES\s+\(([^\)]+)\);";
+            string insert2 = @"INSERT\s+INTO\s+(\w+)\s+VALUES\s+\(([^\)]+)\);";
 
             string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
-            string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s+(\;)";
+            string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s*\;";
 
             //Select
-            Match matchSelect = Regex.Match(query, select);
-            if (matchSelect.Success)
+            Match match = Regex.Match(query, select);
+            if (match.Success)
             {
-                String columns = matchSelect.Groups[1].Value;
-                String table = matchSelect.Groups[2].Value;
-                String left = matchSelect.Groups[3].Value;
-                String op = matchSelect.Groups[4].Value;
-                String right = matchSelect.Groups[5].Value;
+                String columns = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String left = match.Groups[3].Value;
+                String op = match.Groups[4].Value;
+                String right = match.Groups[5].Value;
 
 
                 return new Select(columns,table,left,op,right);
             }
-                
+
 
             //Update
-            Match matchUpdate = Regex.Match(query, update);
-            if (matchUpdate.Success)
+            match = Regex.Match(query, update);
+            if (match.Success)
             {
-                String table = matchUpdate.Groups[1].Value;
-                String columns = matchUpdate.Groups[2].Value;
-                String values = matchUpdate.Groups[3].Value;
-                String left = matchUpdate.Groups[4].Value;
-                String op = matchUpdate.Groups[5].Value;
-                String right = matchUpdate.Groups[6].Value;
+                String table = match.Groups[1].Value;
+                String updates = match.Groups[2].Value;
+                String left = match.Groups[3].Value;
+                String op = match.Groups[4].Value;
+                String right = match.Groups[5].Value;
 
-                return new Update(table,columns, values, left,op,right);
+                return new Update(table,updates, left,op,right);
             }
 
             //Delete
-            Match matchDelete = Regex.Match(query, delete);
-            if (matchDelete.Success)
+            match = Regex.Match(query, delete);
+            if (match.Success)
             {
 
-                String table = matchDelete.Groups[1].Value;
-                String left = matchDelete.Groups[2].Value;
-                String op = matchDelete.Groups[3].Value;
-                String right = matchDelete.Groups[4].Value;
+                String table = match.Groups[1].Value;
+                String left = match.Groups[2].Value;
+                String op = match.Groups[3].Value;
+                String right = match.Groups[4].Value;
 
                 return new Delete(table,left,op,right);
             }
 
-            //Insert
-            Match matchInsert = Regex.Match(query, insert);
-            if (matchInsert.Success)
+            //insert without columns
+            match = Regex.Match(query, insert2);
+            if (match.Success)
             {
 
-                String table = matchInsert.Groups[1].Value;
-                String columns = matchUpdate.Groups[2].Value;
-                String values = matchInsert.Groups[3].Value;
-                String left = matchInsert.Groups[4].Value;
-                String op = matchInsert.Groups[5].Value;
-                String right = matchInsert.Groups[6].Value;
+                String table = match.Groups[1].Value;
+                String values = match.Groups[2].Value;
+                String left = match.Groups[3].Value;
+                String op = match.Groups[4].Value;
+                String right = match.Groups[5].Value;
 
 
-                return new Insert(table,values,left,op,right);
+                return new Insert(table, values, left, op, right);
+            }
+
+            //Insert with columns
+            match = Regex.Match(query, insert);
+            if (match.Success)
+            {
+
+                String table = match.Groups[1].Value;
+                String columns = match.Groups[2].Value;
+                String values = match.Groups[3].Value;
+                String left = match.Groups[4].Value;
+                String op = match.Groups[5].Value;
+                String right = match.Groups[6].Value;
+
+
+                return new Insert(table,columns, values,left,op,right);
             }
 
             //CreateDataBase
-            Match matchCreateDataBase = Regex.Match(query, createDataBase);
-            if (matchCreateDataBase.Success)
+            match = Regex.Match(query, createDataBase);
+            if (match.Success)
             {
-                String nombreBD = matchCreateDataBase.Groups[0].Value;
+                String nombreBD = match.Groups[0].Value;
 
                 return new CreateDataBase(nombreBD);
             }
 
             //DropDataBase
-            Match matchDropDataBase = Regex.Match(query, dropDataBase);
-            if (matchDropDataBase.Success)
+            match = Regex.Match(query, dropDataBase);
+            if (match.Success)
             {
-                String nombreDB = matchDropDataBase.Groups[0].Value;
+                String nombreDB = match.Groups[0].Value;
                 return new DropDataBase(nombreDB);
             }
 
             //DropTable
-            Match matchDropTable = Regex.Match(query, dropTable);
-            if (matchDropTable.Success)
+            match = Regex.Match(query, dropTable);
+            if (match.Success)
             {
                 
-                String nombreTabla = matchDropTable.Groups[0].Value;
+                String nombreTabla = match.Groups[0].Value;
                 return new DropTable(nombreTabla);
             }
 
