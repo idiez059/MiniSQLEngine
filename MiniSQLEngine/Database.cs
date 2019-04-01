@@ -138,9 +138,8 @@ namespace MiniSQLEngine
         }
 
 
-        public Table DeleteRows(String tableName, String left, String op, int right)
+        public Table DeleteRows(String tableName, String left, String op, string right)
         {
-            Parser.Parse("DELETE FROM People WHERE Age > 25;");
             Table sourceTable = GetTableByName(tableName);
             sourceTable.DeleteRows(left, op, right);
             return sourceTable;
