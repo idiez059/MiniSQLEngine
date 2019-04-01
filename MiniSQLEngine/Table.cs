@@ -104,7 +104,10 @@ namespace MiniSQLEngine
 
                             if(delete == true)
                             {
-                                Columns[i].RemoveValueAtIndex(tuple);
+                                for (int j = 0; j < Columns.Count; j++)
+                                {
+                                    Columns[j].RemoveValueAtIndex(tuple);                                    
+                                }
                                 tuple--;
                                 i--;
                             }
