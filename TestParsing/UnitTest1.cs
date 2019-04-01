@@ -47,7 +47,7 @@ namespace testParsing
         public void Delete()
         {
             string[] wrongQueries = { "DELETE FROM ;" };
-            string[] correctQueries = { "DELETE FROM alumno;", "DELETE FROM alumno WHERE nombre = Xabi;" };
+            string[] correctQueries = { "DELETE FROM alumno;", "DELETE FROM alumno WHERE nombre=Xabi;" };
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));

@@ -6,34 +6,29 @@ using System.IO;
 
 public class Update : Query
 {
-    
     String pTableName { get; }
-    String pColumns;
-    String pValues;
     String pLeft;
     String pOp;
-    String pRigth;
-    String[] valuesSeparated;
+    String pRight;
     List<string> ColumnNames = new List<string>();
     List<string> Values = new List<string>();
-    String end;
-    String error = "ERROR: ";
-    Boolean mistake;
 
-    public Update(String tableName, String columns, String values, String left, String op, String rigth)
+    public Update(String tableName, String updates, String left, String op, String rigth)
     {
         pTableName = tableName;
-        pColumns = columns; 
-        pValues = values;
         pLeft = left;
         pOp = op;
-        pRigth = rigth;
-        foreach (string columnName in columnNames)
-            ColumnNames.Add(columnName.Trim());
-        //ColumnNames.Add(pColumns);
-        Values.Add(pValues);
+        pRight = rigth;
 
-        valuesSeparated = values.Split(',');
+        String[] updatesSeparated = updates.Split(',');
+        foreach (string update in updatesSeparated)
+        {
+            //Name='Bernardo'
+            string[] parts = update.Split('=');
+            ColumnNames.Add(parts[0]);
+            Values.Add(parts[1]);
+        }
+        
     }
     public override String Run(Database db)
     {
@@ -42,7 +37,6 @@ public class Update : Query
          * MIRAR SI EXISTE LA COLUMNA COMPARANDO LAS COLUMNAS DADAS CON LAS QUE HAY SEPARADAS POR COMAS EN LA LISTA DE COLUMNAS
          * SI ALGUNA NO EXISTE RESPONDER MENSAJE 
          * SI TODO EXISTE Y ESTA BIEN MODIFICARLO 
-         * 
          */
 
         //get table
@@ -50,46 +44,24 @@ public class Update : Query
         Table table = db.GetTableByName(pTableName);
         if (table == null) return Messages.TableDoesNotExist;
 
+        if (ColumnNames.Count != Values.Count)
+            return Messages.WrongSyntax;
+
         //we need the column list to know the correct column
-        if (ColumnNames.Count == 0)
+        foreach (Column column in table.Columns)
         {
-            if (table.Columns.Count != Values.Count)
-                return Messages.WrongSyntax;
-        }
-       //Directorio
-        if (!File.Exists("..//..//..//data//" + db.Name + "//" + Table.Name + ".data"))
-        {
-            end = error + "Table does not exist";
-            mistake = true;
-        }
-        if (mistake == false)
-        {
-            String[] tupla = System.IO.File.ReadAllLines("..//..//..//data//" + db.Name + "//" + Table + ".def");
-            foreach (String la in pColumns)
+            if (ColumnNames.Contains(column.Name))
             {
-                String[]  splitIt= la.Split('=');
-                String find = splitIt[0];
-                if (tupla[0].Contains(find) == false)
+                int columnIndex = ColumnNames.IndexOf(column.Name);
+                for (int i= 0; i<column.GetNumValues(); i++)
                 {
-                    end = error + "Column does not exist";
-                    mistake = true;
+                    column.SetValueAsString(i, Values[columnIndex]);
                 }
             }
+
         }
-            //List<Column> updateColumns = new List<Column>();
-
-            //if (ColumnNames.Count == 0)
-            //    return Messages.WrongSyntax;
-
-            //else if (ColumnNames.Count == 1)
-            //{
-
-
-            //}
-
-
-
-            throw new NotImplementedException();
+        return Messages.TupleUpdateSuccess;
+    
     }
 
 }
