@@ -17,8 +17,9 @@ public class CreateTable : Query
         String[] splitParameters = tipoDato.Split(',');
         foreach(String toSplit in splitParameters)
         {
-            pTipoDato.Add(toSplit.Split(' ')[0]);
-            columnNames.Add(toSplit.Split(' ')[1]);
+            string trimmedToSplit = toSplit.Trim(' ');
+            pTipoDato.Add(trimmedToSplit.Split(' ')[1]);
+            columnNames.Add(trimmedToSplit.Split(' ')[0]);
         }
 
     }
@@ -43,13 +44,13 @@ public class CreateTable : Query
             {
                 return Messages.WrongSyntax + "; Empty, null or whitespace Strings are not accepted as column names.";
             }
-            if(String.Equals(tipo,"String",StringComparison.OrdinalIgnoreCase))
+            if(String.Equals(tipo,"TEXT",StringComparison.OrdinalIgnoreCase))
             {
                 column = new ColumnString(columnNames[cont]);
-            }else if(String.Equals(tipo, "Int", StringComparison.OrdinalIgnoreCase))
+            }else if(String.Equals(tipo, "INT", StringComparison.OrdinalIgnoreCase))
             {
                 column = new ColumnInt(columnNames[cont]);
-            }else if(String.Equals(tipo, "Double", StringComparison.OrdinalIgnoreCase))
+            }else if(String.Equals(tipo, "DOUBLE", StringComparison.OrdinalIgnoreCase))
             {
                 column = new ColumnFloat(columnNames[cont]);
             }

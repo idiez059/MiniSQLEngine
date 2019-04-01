@@ -20,37 +20,22 @@ public class Insert : Query
         
         TableName = table;
         valuesSeparated = values.Split(',');
-
+        
+        for (int i = 0; i<valuesSeparated.Length; i++)
+            valuesSeparated[i] = valuesSeparated[i].Trim(' ');
+    }
+    public Insert(string table, string values, string left, string op, string right)
+    {
+        TableName = table;
+        valuesSeparated = values.Split(',');
+        for (int i = 0; i < valuesSeparated.Length; i++)
+            valuesSeparated[i] = valuesSeparated[i].Trim(' ');
     }
 
     public override String Run(Database db)
     {
-        Table table = db.GetTableByName(TableName);
-        if (table == null)
-        {
-            return Messages.TableDoesNotExist;
-        }
-        int cont = 0;
-
-        //if ()
-        //{
-            foreach (Column column in table.Columns)
-            { 
-                if (ColumnNames.Contains(column.Name))
-                {
-                    column.AddValue(valuesSeparated[cont]);
-                    cont++;
-                }
-                else
-                {
-                    column.InsertEmpty();
-
-                }
-            
-            }
-        //}
+        db.Insert(TableName, valuesSeparated);
         
-    
         return null;
     }
    
