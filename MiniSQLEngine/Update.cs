@@ -28,8 +28,9 @@ public class Update : Query
         pLeft = left;
         pOp = op;
         pRigth = rigth;
-      
-        ColumnNames.Add(pColumns);
+        foreach (string columnName in columnNames)
+            ColumnNames.Add(columnName.Trim());
+        //ColumnNames.Add(pColumns);
         Values.Add(pValues);
 
         valuesSeparated = values.Split(',');
@@ -42,7 +43,7 @@ public class Update : Query
          * SI ALGUNA NO EXISTE RESPONDER MENSAJE 
          * SI TODO EXISTE Y ESTA BIEN MODIFICARLO 
          * 
-         * /
+         */
 
         //get table
 
