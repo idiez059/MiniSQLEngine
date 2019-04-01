@@ -93,8 +93,7 @@ namespace MiniSQLEngine
         {
             for (int i = 0; i < Columns.Count; i++)
             {
-                int numTuples = Columns[0].GetNumValues();
-                numTuples--;
+                int numTuples = Columns[0].GetNumValues();                
                 if (numTuples > 0)
                 {
                     if (Columns[i].Name == left) {
