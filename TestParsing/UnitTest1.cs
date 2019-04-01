@@ -143,8 +143,8 @@ namespace testParsing
         public void TestCreateTable()
         {
 
-            string[] correctQueries = { "CREATE TABLE qwer (INT PRIMARY KEY(wqerfg), FOREIGN KEY (sdfghj), REFERENCES werty(fghj));" };
-            string[] wrongQueries = { "CREATE TABLE qwer(INT PRIMARY KEY(wqerfg) FOREIGN KEY(sdfghj) REFERENCES werty); "};
+            string[] correctQueries = { "CREATE TABLE qwer (ages INT, names TEXT, average DOUBLE);" };
+            string[] wrongQueries = { "CREATE TABLE qwer(INT ages, names TEXT average); ", "CREATE TABLE qwer(ages INT names TEXT, average DOUBLE);"};
 
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));

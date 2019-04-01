@@ -145,7 +145,13 @@ namespace MiniSQLEngine {
             {
                 String nombreTabla = matchCreateTable.Groups[1].Value;
                 String tipoDato = matchCreateTable.Groups[2].Value;
-                return new CreateTable(nombreTabla, tipoDato);
+                try
+                {
+                    return new CreateTable(nombreTabla, tipoDato);
+                }catch(IndexOutOfRangeException)
+                {
+                    return null;
+                }
             }
             return null;
         }
