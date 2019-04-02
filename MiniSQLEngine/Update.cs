@@ -55,6 +55,7 @@ public class Update : Query
         //get table
         List<int> position = new List<int>();
         Table table = db.GetTableByName(pTableName);
+
         if (table == null) return Messages.TableDoesNotExist;
 
         if (ColumnNames.Count != Values.Count)
@@ -63,14 +64,18 @@ public class Update : Query
         //we need the column list to know the correct column
         int numValues = table.ColumnByName(pLeft).GetNumValues();
         numValues--;
-        for (int i = 0; i <= numValues; i++) //esto hay que probarlo
+        for (int i = 0; i <= numValues; i++) 
         {
-            string value = table.ColumnByName(pLeft).GetValueAsString(i);
+            
+            string value = table.ColumnByName(pLeft).GetValueAsString(i).Trim('\'');
             bool comparation = CompareOp(value, pRight, pOp);
             if (comparation == true)
             {
-                for (int j=0; j< table.Columns.Count; j++)
+                for (int j=0; j< Values.Count; j++)
                 {
+                    //por qué lo cambia al final
+                    table.ColumnByName(ColumnNames[j]).SetValueAsString(j,Values[j]);
+
                     
                 }
             }

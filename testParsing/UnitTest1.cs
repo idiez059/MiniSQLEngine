@@ -60,7 +60,7 @@ namespace testParsing
         public void Update()
         {
             string[] wrongQueries = { "UPDATE alumno SET nombre = Nadia nombre = Xabi;" };
-            string[] correctQueries = { "UPDATE People SET Name=Bernado,Edad=23 WHERE Name=Maria,Edad<23;" };
+            string[] correctQueries = { "UPDATE People SET Name=Bernado,Edad=23 WHERE Name=Maria;" };
             
 
             foreach (string query in wrongQueries)
