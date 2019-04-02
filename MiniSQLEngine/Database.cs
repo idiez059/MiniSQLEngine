@@ -146,6 +146,19 @@ namespace MiniSQLEngine
 
         }
 
+        public Table DeleteTable(string name)
+        {
+            for (int i = 0; i < Tables.Count; i++)
+            {
+                if (Tables[i].Name.Equals(name))
+                {
+                    Tables.RemoveAt(i);
+                }
+            }
+            return null;
+        }
+
+
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);

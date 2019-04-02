@@ -6,20 +6,25 @@ public class DropTable : Query
 {
     
     String pColumns;
-    String pTabla;
-    String pContenido;
-    public DropTable(String tabla)
+    String pTable;
+    
+    public DropTable(String table)
     {
-        pTabla = tabla;
+        pTable = table;
     }
     public override String Run(Database bd)
     {
 
-        throw new NotImplementedException();
+        bd.GetTableByName(pTable);
+        if (pTable == null) return Messages.TableDoesNotExist;
+        bd.DeleteTable(pTable);
+        return null;
+
+
     }
 
-    public string getTabla()
+    public string getTable()
     {
-        return pTabla;
+        return pTable;
     }
 }
