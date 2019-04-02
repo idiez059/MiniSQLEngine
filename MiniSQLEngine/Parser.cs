@@ -95,7 +95,7 @@ namespace MiniSQLEngine {
                 
 
 
-                return new Insert(table,columns, values);
+                return new Insert(table, columns, values);
             }
 
             //CreateDataBase

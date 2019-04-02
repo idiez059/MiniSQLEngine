@@ -113,6 +113,30 @@ namespace MiniSQLEngine
             return Messages.InsertSuccess;
         }
 
+        public string Insert(string tableName, List<string> columnNames, string[] values)
+        {
+            Table table = GetTableByName(tableName);
+            if (table == null)
+            {
+                return Messages.TableDoesNotExist;
+            }
+            
+
+            foreach (Column column in table.Columns)
+            {
+                for (int i = 0; i < columnNames.Count; i++)
+                {
+                    if (column.Name == columnNames[i])
+                    {
+                        column.AddValue(values[i]);
+                    }
+                }
+               
+
+            }
+            return Messages.InsertSuccess;
+        }
+
 
         public Table DeleteRows(String tableName, String left, String op, string right)
         {
