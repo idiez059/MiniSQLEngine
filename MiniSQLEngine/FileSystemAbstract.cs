@@ -13,20 +13,13 @@ namespace MiniSQLEngine
 
     class FileSystemAbstract
     {
-        public static String Init(string name, string pUser, string pPassword)
+        public static void Init(string name)
         {
             string res;
             if (!Directory.Exists("..//..//..//data//" + name))
             {
-                if (pUser.Equals("admin") && pPassword.Equals("admin"))
-                {
-                    return null;
-                }
-                else
-                {
-                    res = "notAdmin";
-                    return res;
-                }
+                new Database(name);
+           
             }
             else
             {
@@ -40,16 +33,10 @@ namespace MiniSQLEngine
                         while ((line = sr.ReadLine()) != null)
                         {
                             string[] parts = line.Split(',');
-                            if (parts[0].Equals(pUser) && parts[1].Equals(pPassword))
-                            {
-                                res = "UserOpen";
-                                return res;
-                            }
+                            
                         }
                     }
-                }
-                res = "notUserOrPassw";
-                return res;
+                }                               
             }
         }
 
