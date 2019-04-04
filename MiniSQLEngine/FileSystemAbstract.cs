@@ -10,30 +10,31 @@ using System.Collections;
 namespace MiniSQLEngine
 {
     
-
+    
     class FileSystemAbstract
     {
         public static void Init(string name)
         {
-            string res;
-            if (!Directory.Exists("..//..//..//data//" + name))
+            
+            if (!Directory.Exists("/../../../" + name + ".txt")) //If it doesnt work this way put double transversal bar
             {
+                //Create a new database
                 new Database(name);
            
             }
             else
             {
-                string pathfile = @"..//..//..//data//" + name + "//profiles";
+                //Load existing data 
+                string pathfile = @"/../../../" + name + ".txt";
 
-                foreach (string file in Directory.EnumerateFiles(pathfile, "*.pf"))
+                foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
                 {
                     string line;
                     using (StreamReader sr = new StreamReader(file))
                     {
                         while ((line = sr.ReadLine()) != null)
                         {
-                            string[] parts = line.Split(',');
-                            
+                            string[] parts = line.Split(',');                            
                         }
                     }
                 }                               
