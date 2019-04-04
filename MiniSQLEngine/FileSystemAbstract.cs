@@ -13,103 +13,143 @@ namespace MiniSQLEngine
 
     class FileSystemAbstract
     {
-        //Carga un fichero de datos
-        public static String openDataFile(String dbName, String tableName)
+        public static String Init(string name, string pUser, string pPassword)
         {
-
-            String resultingPath = null;
-            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+            string res;
+            if (!Directory.Exists("..//..//..//data//" + name))
             {
-                resultingPath = "/../../../" + dbName + tableName + ".txt";
-                return resultingPath;
+                if (pUser.Equals("admin") && pPassword.Equals("admin"))
+                {
+                    return null;
+                }
+                else
+                {
+                    res = "notAdmin";
+                    return res;
+                }
             }
             else
             {
-                Console.WriteLine("Error: could not find specified file");
-                resultingPath = "";
-                return resultingPath;
+                string pathfile = @"..//..//..//data//" + name + "//profiles";
+
+                foreach (string file in Directory.EnumerateFiles(pathfile, "*.pf"))
+                {
+                    string line;
+                    using (StreamReader sr = new StreamReader(file))
+                    {
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            string[] parts = line.Split(',');
+                            if (parts[0].Equals(pUser) && parts[1].Equals(pPassword))
+                            {
+                                res = "UserOpen";
+                                return res;
+                            }
+                        }
+                    }
+                }
+                res = "notUserOrPassw";
+                return res;
             }
         }
-        //Carga un fichero de estructura
-        public static String openStructureFile(String dbName, String tableName)
-        {
-            String resultingPath = null;
-            if (File.Exists("/../../../" + dbName + tableName + ".txt"))
-            {
-                resultingPath = "/../../../" + dbName + tableName + ".txt";
-                return resultingPath;
-            }
-            else
-            {
-                Console.WriteLine("Error: could not find specified file");
-                return resultingPath;
-            }
-        }
-        public void writeToDataFile( String dbName, String tableName, String param)
-        {
-            String lePath;
-            
-            lePath = openStructureFile(dbName, tableName);
-            System.IO.File.WriteAllText(lePath, param);
 
-        }
+        //    //Carga un fichero de datos
+        //    public static String openDataFile(String dbName, String tableName)
+        //    {
 
-        //Lee un fichero de estructura al completo
-        public ArrayList readStructureFile(String dbName, String tableName)
-        {
-            StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
-            string sLine = "";
-            ArrayList arrText = new ArrayList();
+        //        String resultingPath = null;
+        //        if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+        //        {
+        //            resultingPath = "/../../../" + dbName + tableName + ".txt";
+        //            return resultingPath;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Error: could not find specified file");
+        //            resultingPath = "";
+        //            return resultingPath;
+        //        }
+        //    }
+        //    //Carga un fichero de estructura
+        //    public static String openStructureFile(String dbName, String tableName)
+        //    {
+        //        String resultingPath = null;
+        //        if (File.Exists("/../../../" + dbName + tableName + ".txt"))
+        //        {
+        //            resultingPath = "/../../../" + dbName + tableName + ".txt";
+        //            return resultingPath;
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("Error: could not find specified file");
+        //            return resultingPath;
+        //        }
+        //    }
+        //    public void writeToDataFile( String dbName, String tableName, String param)
+        //    {
+        //        String lePath;
 
-            while (sLine != null)
-            {
-                sLine = objReader.ReadLine();
-                if (sLine != null)
-                    arrText.Add(sLine);
-            }
-            objReader.Close();
+        //        lePath = openStructureFile(dbName, tableName);
+        //        System.IO.File.WriteAllText(lePath, param);
 
-            foreach (string sOutput in arrText) Console.WriteLine(sOutput);
-            Console.ReadLine();
+        //    }
 
-            return arrText;
-        }
+        //    //Lee un fichero de estructura al completo
+        //    public ArrayList readStructureFile(String dbName, String tableName)
+        //    {
+        //        StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
+        //        string sLine = "";
+        //        ArrayList arrText = new ArrayList();
 
-        //Escribe en un fichero de estructura
-        public void writeToStructureFile(string dbName, string tableName,List<string> colType)
-        {
-            List<string> col = colType;
-            List<string> towrite = new List<string>();
-            int i = 0;
-            String lePath = openStructureFile(dbName, tableName);
-            foreach (var column in col)
-            {
-                i++;
-                towrite.Add(i.ToString() + column.ToString());
-            }
-            lePath = openStructureFile(dbName, tableName);
-            System.IO.File.WriteAllLines(lePath, towrite);
-        }
-        //Lee un fichero de datos al completo
-         public ArrayList readDataFile(String dbName, String tableName)
-         {
-             StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
-             string sLine = "";
-             ArrayList arrText = new ArrayList();
+        //        while (sLine != null)
+        //        {
+        //            sLine = objReader.ReadLine();
+        //            if (sLine != null)
+        //                arrText.Add(sLine);
+        //        }
+        //        objReader.Close();
 
-             while (sLine != null)
-             {
-                 sLine = objReader.ReadLine();
-                 if (sLine != null)
-                     arrText.Add(sLine);
-             }
-             objReader.Close();
+        //        foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+        //        Console.ReadLine();
 
-             foreach (string sOutput in arrText) Console.WriteLine(sOutput);
-             Console.ReadLine();
+        //        return arrText;
+        //    }
 
-             return arrText;
-         }
+        //    //Escribe en un fichero de estructura
+        //    public void writeToStructureFile(string dbName, string tableName,List<string> colType)
+        //    {
+        //        List<string> col = colType;
+        //        List<string> towrite = new List<string>();
+        //        int i = 0;
+        //        String lePath = openStructureFile(dbName, tableName);
+        //        foreach (var column in col)
+        //        {
+        //            i++;
+        //            towrite.Add(i.ToString() + column.ToString());
+        //        }
+        //        lePath = openStructureFile(dbName, tableName);
+        //        System.IO.File.WriteAllLines(lePath, towrite);
+        //    }
+        //    //Lee un fichero de datos al completo
+        //     public ArrayList readDataFile(String dbName, String tableName)
+        //     {
+        //         StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
+        //         string sLine = "";
+        //         ArrayList arrText = new ArrayList();
+
+        //         while (sLine != null)
+        //         {
+        //             sLine = objReader.ReadLine();
+        //             if (sLine != null)
+        //                 arrText.Add(sLine);
+        //         }
+        //         objReader.Close();
+
+        //         foreach (string sOutput in arrText) Console.WriteLine(sOutput);
+        //         Console.ReadLine();
+
+        //         return arrText;
+        //     }
+        //}
     }
- }
  
