@@ -82,14 +82,14 @@ public class Select : Query
                     }
                 }
                 return table.ToString();
-                try
-                {
-                    return db.SelectColumns(TableName, ColumnNames).ToString();
-                }
-                catch
-                {
-                    return Messages.ColumnDoesNotExist;
-                }
+                //try
+                //{
+                //    return db.SelectColumns(TableName, ColumnNames).ToString();
+                //}
+                //catch
+                //{
+                //    return Messages.ColumnDoesNotExist;
+                //}
             }
         }
     }
