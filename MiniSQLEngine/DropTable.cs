@@ -5,7 +5,7 @@ using MiniSQLEngine;
 public class DropTable : Query
 {
     
-    String pColumns;
+    
     String pTable;
     
     public DropTable(String table)
