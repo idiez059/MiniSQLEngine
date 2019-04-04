@@ -74,30 +74,16 @@ public class Update : Query
                 for (int j=0; j< Values.Count; j++)
                 {
                     //por qué lo cambia al final
-                    table.ColumnByName(ColumnNames[j]).SetValueAsString(j,Values[j]);
+                    Column column = table.ColumnByName(ColumnNames[j]);
+
+                    column.SetValueAsString(i,Values[j]);
 
                     
                 }
             }
         }
 
-        foreach (Column column in table.Columns)
-        {
-            if (ColumnNames.Contains(column.Name))
-            {
-                int columnIndex = ColumnNames.IndexOf(column.Name);
-               
-                for( int i=0; i < position.Capacity; i++)
-                {
-                    int numPosition = position[i];
-                    column.SetValueAsString(i, Values[columnIndex]);
-                }
-                for (int i = 0; i < column.GetNumValues(); i++)
-                {
-                    column.SetValueAsString(i, Values[columnIndex]);
-                }
-            }
-        }
+        
         return Messages.TupleUpdateSuccess;
     
     }
