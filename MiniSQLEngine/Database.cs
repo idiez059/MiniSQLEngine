@@ -7,26 +7,56 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
+using System.ComponentModel;
 
 
 namespace MiniSQLEngine
 {
-    public class Database
+    public class Database : IDisposable
     {
         public String Name { get; }
         private List<Table> Tables = new List<Table>();
+        // Track whether Dispose has been called.
+        private bool disposed = false;
 
         public Database(string dbName)
         {
             Name = dbName;
         }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        /// <summary>
-        /// Get a table by its name
-        /// </summary>
-        /// <param name="name">The name of the table</param>
-        /// <returns>Returns the table or null if not found</returns>
-        public Table GetTableByName(String name)
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (!this.disposed)
+            {
+                // If disposing equals true, dispose all managed
+                // and unmanaged resources.
+                if (disposing)
+                {
+                    // Dispose managed resources.
+
+                    FileSystemAbstract.Init();
+                }
+
+
+                // Note disposing has been done.
+                disposed = true;
+
+            }
+        }
+
+            /// <summary>
+            /// Get a table by its name
+            /// </summary>
+            /// <param name="name">The name of the table</param>
+            /// <returns>Returns the table or null if not found</returns>
+            public Table GetTableByName(String name)
         {
             foreach (Table table in Tables)
             {
