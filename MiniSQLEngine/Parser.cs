@@ -95,7 +95,7 @@ namespace MiniSQLEngine {
                 
 
 
-                return new Insert(table,columns, values);
+                return new Insert(table, columns, values);
             }
 
             //CreateDataBase
@@ -120,8 +120,8 @@ namespace MiniSQLEngine {
             if (match.Success)
             {
                 
-                String nombreTabla = match.Groups[0].Value;
-                return new DropTable(nombreTabla);
+                String tableName = match.Groups[1].Value;
+                return new DropTable(tableName);
             }
 
             //BackupDataBase
