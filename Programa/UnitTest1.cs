@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text.RegularExpressions;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MiniSQLEngine;
-
 
 namespace Programa
 {
@@ -18,8 +15,7 @@ namespace Programa
 
         [TestMethod]
         public void Update()
-        {
-            Database db = new Database("test-db");
+        { Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
             db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
@@ -28,16 +24,45 @@ namespace Programa
             //db.RunQuery("UPDATE People SET Name=Bernardino,Age=21;");
             //db.RunQuery("UPDATE People SET Name=Bernado WHERE Name=Rafa;");
 
-            /*
-            string[] wrongAnswer = {  };
-            string[] correctAnswer = { Messages.TupleUpdateSuccess;     };
 
-            foreach (string query in wrongAnswer)
-                Assert.IsNull(MiniSQLEngine.);
+            //string[] value = {"Rafa", "rafa@gmail.com", "23"};
+            
+            //foreach (string data in value)
+            //{
+            //    Column column = table.ColumnByName(ColumnNames[j]);
 
-            foreach (string query in correctAnswer)
-                Assert.IsNotNull(MiniSQLEngine);
-                */
+            //    column.SetValueAsString(i, Values[j]);
+
+            //    //ColumnNames.Add(parts[0]);
+            //    //Values.Add(parts[1]);
+            //}
+            //foreach ()
+            //{
+
+            //}
+              
+            //for (int i = 0; i <= numValues; i++)
+            //{  
+            //        for (int j = 0; j < Values.Count; j++)
+            //        {
+            //            //por qué lo cambia al final
+            //            Column column = table.ColumnByName(ColumnNames[j]);
+
+            //            column.SetValueAsString(i, Values[j]);
+
+
+            //        }
+                
+            //}
+            //Assert.IsNotNull();
+            
+           
+
+
+            
+            
         }
+
+
     }
 }
