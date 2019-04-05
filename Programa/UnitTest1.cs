@@ -19,6 +19,17 @@ namespace Programa
         [TestMethod]
         public void Update()
         {
+             Database db = new Database("test-db");
+            db.RunQuery(@"UPDATE People SET Name=Bernardino,Email=bernardino@gmail.com WHERE Age<27;");
+            Table table = table.ColumnByName(j);
+
+            Assert.AreEqual("People", table.Name);
+            Assert.AreEqual("nombre=Name=Bernardino", table.ColumnByName(j)[0]);
+            Assert.AreEqual("Email=bernardino@gmail.com", table.ColumnByName(j)[1]);
+            Assert.AreEqual("Age<27", table.);
+
+
+            /*
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
@@ -28,15 +39,7 @@ namespace Programa
             //db.RunQuery("UPDATE People SET Name=Bernardino,Age=21;");
             //db.RunQuery("UPDATE People SET Name=Bernado WHERE Name=Rafa;");
 
-            /*
-            string[] wrongAnswer = {  };
-            string[] correctAnswer = { Messages.TupleUpdateSuccess;     };
-
-            foreach (string query in wrongAnswer)
-                Assert.IsNull(MiniSQLEngine.);
-
-            foreach (string query in correctAnswer)
-                Assert.IsNotNull(MiniSQLEngine);
+               
                 */
         }
     }
