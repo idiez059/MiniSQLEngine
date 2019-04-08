@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Collections;
 
 namespace MiniSQLEngine
 {
-    
-    
+
+
     class FileSystemAbstract
     {
         public static void Init(string name)
@@ -39,105 +33,40 @@ namespace MiniSQLEngine
                     }
                 }                               
             }
-        }
+        }   
+        
+        public static void saveData(string dbName,List<Table> tables)
+        {
+            foreach (Table table in tables)
+            {
+                List<Column> columns = table.Columns;
+                string tableName = table.Name;
+                string path = @"..\..\..\Storage\" + dbName + tableName + ".txt";
+                string[] lines = { };
 
-        //    //Carga un fichero de datos
-        //    public static String openDataFile(String dbName, String tableName)
-        //    {
 
-        //        String resultingPath = null;
-        //        if (File.Exists("/../../../" + dbName + tableName + ".txt"))
-        //        {
-        //            resultingPath = "/../../../" + dbName + tableName + ".txt";
-        //            return resultingPath;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Error: could not find specified file");
-        //            resultingPath = "";
-        //            return resultingPath;
-        //        }
-        //    }
-        //    //Carga un fichero de estructura
-        //    public static String openStructureFile(String dbName, String tableName)
-        //    {
-        //        String resultingPath = null;
-        //        if (File.Exists("/../../../" + dbName + tableName + ".txt"))
-        //        {
-        //            resultingPath = "/../../../" + dbName + tableName + ".txt";
-        //            return resultingPath;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Error: could not find specified file");
-        //            return resultingPath;
-        //        }
-        //    }
-        //    public void writeToDataFile( String dbName, String tableName, String param)
-        //    {
-        //        String lePath;
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+                {
+                    for (int i = 0; i < columns.Count; i++)
+                    {
+                        file.Write(columns[i].Name + " ");
+                    }
 
-        //        lePath = openStructureFile(dbName, tableName);
-        //        System.IO.File.WriteAllText(lePath, param);
-
-        //    }
-
-        //    //Lee un fichero de estructura al completo
-        //    public ArrayList readStructureFile(String dbName, String tableName)
-        //    {
-        //        StreamReader objReader = new StreamReader(openStructureFile(dbName, tableName));
-        //        string sLine = "";
-        //        ArrayList arrText = new ArrayList();
-
-        //        while (sLine != null)
-        //        {
-        //            sLine = objReader.ReadLine();
-        //            if (sLine != null)
-        //                arrText.Add(sLine);
-        //        }
-        //        objReader.Close();
-
-        //        foreach (string sOutput in arrText) Console.WriteLine(sOutput);
-        //        Console.ReadLine();
-
-        //        return arrText;
-        //    }
-
-        //    //Escribe en un fichero de estructura
-        //    public void writeToStructureFile(string dbName, string tableName,List<string> colType)
-        //    {
-        //        List<string> col = colType;
-        //        List<string> towrite = new List<string>();
-        //        int i = 0;
-        //        String lePath = openStructureFile(dbName, tableName);
-        //        foreach (var column in col)
-        //        {
-        //            i++;
-        //            towrite.Add(i.ToString() + column.ToString());
-        //        }
-        //        lePath = openStructureFile(dbName, tableName);
-        //        System.IO.File.WriteAllLines(lePath, towrite);
-        //    }
-        //    //Lee un fichero de datos al completo
-        //     public ArrayList readDataFile(String dbName, String tableName)
-        //     {
-        //         StreamReader objReader = new StreamReader(openDataFile(dbName, tableName));
-        //         string sLine = "";
-        //         ArrayList arrText = new ArrayList();
-
-        //         while (sLine != null)
-        //         {
-        //             sLine = objReader.ReadLine();
-        //             if (sLine != null)
-        //                 arrText.Add(sLine);
-        //         }
-        //         objReader.Close();
-
-        //         foreach (string sOutput in arrText) Console.WriteLine(sOutput);
-        //         Console.ReadLine();
-
-        //         return arrText;
-        //     }
+                    int numTuples = columns[0].GetNumValues();
+                    if (numTuples > 0)
+                    {
+                        for (int tuple = 0; tuple < numTuples; tuple++)
+                        {
+                            file.WriteLine("");
+                            for (int j = 0; j < columns.Count; j++)
+                            {
+                                file.Write(columns[j].GetValueAsString(tuple) + " ");
+                            }                            
+                        }
+                    }                    
+                }
+            }
         }
     }
+}
  
