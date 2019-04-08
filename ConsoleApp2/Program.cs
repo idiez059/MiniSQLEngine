@@ -12,7 +12,7 @@ namespace ConsoleApp2
         static void Main(string[] args)
         {
             Database db = new Database("test-db");
-
+            Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
             List<Column> columns = new List<Column>();
             Column ages = new ColumnInt("Age");
             ages.AddValue("23");
@@ -28,6 +28,10 @@ namespace ConsoleApp2
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 
+            string querySelect1 = "SELECT * FROM tabla1;";
+            string querySelect2 = "SELECT * FROM tabla2;";
+            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
+            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
             string queryDelete = "DROP TABLE People;";
             db.Dispose();
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
