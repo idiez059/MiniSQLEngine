@@ -1,7 +1,7 @@
 ﻿
 namespace MiniSQLEngine
 {
-    class Messages
+    public class Messages
     {
         public const string CreateDatabaseSuccess = "Database created";
         public const string DeleteDatabaseSuccess = "Database deleted";

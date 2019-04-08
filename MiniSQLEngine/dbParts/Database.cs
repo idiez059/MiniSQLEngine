@@ -41,7 +41,7 @@ namespace MiniSQLEngine
                 {
                     // Dispose managed resources.
 
-                    FileSystemAbstract.Init(Name);
+                    FileSystemAbstract.LoadOrCreateDB(Name);
                 }
 
 

@@ -45,7 +45,7 @@ public class Update : Query
                 if (k == 1) { return true; }
                 else { return false; }
             default:
-                System.Console.WriteLine("Error comparing tuples, in Compare() method");
+                Console.WriteLine("Error comparing tuples, in Compare() method");
                 return false;
         }
     }
