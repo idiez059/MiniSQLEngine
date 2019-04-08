@@ -44,6 +44,7 @@
     <Compile Include="BackupDataBase.cs" />
     <Compile Include="dbParts\Database.cs" />
     <Compile Include="dbParts\Column.cs" />
+    <Compile Include="profiles\Profile.cs" />
     <Compile Include="querys\CreateDataBase.cs" />
     <Compile Include="querys\CreateTable.cs" />
     <Compile Include="querys\Delete.cs" />
@@ -55,7 +56,7 @@
     <Compile Include="Messages.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query.cs" />
+    <Compile Include="querys\Query.cs" />
     <Compile Include="querys\Select.cs" />
     <Compile Include="dbParts\Table.cs" />
     <Compile Include="querys\Update.cs" />
