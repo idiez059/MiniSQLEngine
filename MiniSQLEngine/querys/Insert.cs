@@ -10,7 +10,15 @@ public class Insert : Query
     string[] valuesSeparated;
     string TableName { get; }
 
-    public Insert(string table,string columns, string values, string left, string op, string right)
+    public Insert(string table, string values)
+    {
+        TableName = table;
+        valuesSeparated = values.Split(',');
+        for (int i = 0; i < valuesSeparated.Length; i++)
+            valuesSeparated[i] = valuesSeparated[i].Trim(' ');
+    }
+
+    public Insert(string table,string columns, string values)
     {
         String[] columnList = columns.Split(',');
         foreach(String col in columnList)
@@ -24,18 +32,23 @@ public class Insert : Query
         for (int i = 0; i<valuesSeparated.Length; i++)
             valuesSeparated[i] = valuesSeparated[i].Trim(' ');
     }
-    public Insert(string table, string values, string left, string op, string right)
-    {
-        TableName = table;
-        valuesSeparated = values.Split(',');
-        for (int i = 0; i < valuesSeparated.Length; i++)
-            valuesSeparated[i] = valuesSeparated[i].Trim(' ');
-    }
+    
+    
 
     public override String Run(Database db)
     {
-        db.Insert(TableName, valuesSeparated);
+
+        if(ColumnNames.Count == 0)
+        {
+            db.Insert(TableName, valuesSeparated);
+        }
+        else
+        {
+            db.Insert(TableName, ColumnNames, valuesSeparated);
+        }
         
+        
+
         return null;
     }
    

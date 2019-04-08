@@ -7,26 +7,56 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
+using System.ComponentModel;
 
 
 namespace MiniSQLEngine
 {
-    public class Database
+    public class Database : IDisposable
     {
         public String Name { get; }
         private List<Table> Tables = new List<Table>();
+        // Track whether Dispose has been called.
+        private bool disposed = false;
 
         public Database(string dbName)
         {
             Name = dbName;
         }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        /// <summary>
-        /// Get a table by its name
-        /// </summary>
-        /// <param name="name">The name of the table</param>
-        /// <returns>Returns the table or null if not found</returns>
-        public Table GetTableByName(String name)
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (!this.disposed)
+            {
+                // If disposing equals true, dispose all managed
+                // and unmanaged resources.
+                if (disposing)
+                {
+                    // Dispose managed resources.
+
+                    FileSystemAbstract.Init(Name);
+                }
+
+
+                // Note disposing has been done.
+                disposed = true;
+
+            }
+        }
+
+            /// <summary>
+            /// Get a table by its name
+            /// </summary>
+            /// <param name="name">The name of the table</param>
+            /// <returns>Returns the table or null if not found</returns>
+            public Table GetTableByName(String name)
         {
             foreach (Table table in Tables)
             {
@@ -63,14 +93,14 @@ namespace MiniSQLEngine
             }
         }
 
-        public string Update(String columns, String tableName, String left, String op, String rigth)
+        public string Update(String columns, String tableName, String left, String op, String right)
         {
             Table table = GetTableByName(tableName);
             table.ColumnByName(columns);
 
             //paso los mismos parametros que me han enviado 
 
-            table.Update(columns,tableName, left, op, rigth);
+            table.Update(columns,tableName, left, op, right);
             return "hay que cambiarlo";
         }
         public Table SelectAll(string tableName)
@@ -113,14 +143,51 @@ namespace MiniSQLEngine
             return Messages.InsertSuccess;
         }
 
-
-        public Table DeleteRows(String tableName, String left, String op, int right)
+        public string Insert(string tableName, List<string> columnNames, string[] values)
         {
-            Parser.Parse("DELETE FROM People WHERE Age > 25;");
+            Table table = GetTableByName(tableName);
+            if (table == null)
+            {
+                return Messages.TableDoesNotExist;
+            }
+            
+
+            foreach (Column column in table.Columns)
+            {
+                for (int i = 0; i < columnNames.Count; i++)
+                {
+                    if (column.Name == columnNames[i])
+                    {
+                        column.AddValue(values[i]);
+                    }
+                }
+               
+
+            }
+            return Messages.InsertSuccess;
+        }
+
+
+        public Table DeleteRows(String tableName, String left, String op, string right)
+        {
             Table sourceTable = GetTableByName(tableName);
+            sourceTable.DeleteRows(left, op, right);
             return sourceTable;
 
         }
+
+        public Table DeleteTable(string name)
+        {
+            for (int i = 0; i < Tables.Count; i++)
+            {
+                if (Tables[i].Name.Equals(name))
+                {
+                    Tables.RemoveAt(i);
+                }
+            }
+            return null;
+        }
+
 
         public String RunQuery(string line)
         {
@@ -128,5 +195,4 @@ namespace MiniSQLEngine
             return theQuery.Run(this);
         }
     }
-
 }

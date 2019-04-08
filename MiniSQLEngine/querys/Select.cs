@@ -82,14 +82,14 @@ public class Select : Query
                     }
                 }
                 return table.ToString();
-                try
-                {
-                    return db.SelectColumns(TableName, ColumnNames).ToString();
-                }
-                catch
-                {
-                    return Messages.ColumnDoesNotExist;
-                }
+                //try
+                //{
+                //    return db.SelectColumns(TableName, ColumnNames).ToString();
+                //}
+                //catch
+                //{
+                //    return Messages.ColumnDoesNotExist;
+                //}
             }
         }
     }
@@ -108,7 +108,7 @@ public class Select : Query
                 if (k == 1) { return true; }
                 else { return false; }
             default:
-                System.Console.WriteLine("Error comparing tuples, in Compare() method");
+                Console.WriteLine("Error comparing tuples, in Compare() method");
                 return false;
         }
     }

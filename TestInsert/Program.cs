@@ -13,7 +13,8 @@ namespace TestInsert
         {
             MiniSQLEngine.Database db = new Database("harl");
             db.RunQuery("CREATE TABLE myTable (Name TEXT, Email TEXT, Age INT);");
-            db.RunQuery("INSERT INTO myTable VALUES ('Rafa', 'rafa@gmail.com', 23);");
+            //db.RunQuery("INSERT INTO myTable VALUES ('Rafa', 'rafa@gmail.com', 23);");
+            db.RunQuery("INSERT INTO myTable (Name, Email, Age) VALUES ('Rafa', 'rafa@gmail.com', 23);");
         }
     }
 }
