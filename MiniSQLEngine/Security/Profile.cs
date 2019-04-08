@@ -56,21 +56,10 @@ namespace MiniSQLEngine
                     break;
             }
         }
-        public List<string> getDeleteList()
-        {
-            return deleteIn;
-        }
-        public List<string> getInsertList()
-        {
-            return insertIn;
-        }
-        public List<string> getUpdateList()
-        {
-            return updateIn;
-        }
-        public List<string> getSelectList()
-        {
-            return selectIn;
-        }
+
+        public List<string> getDeleteList(){return deleteIn;}
+        public List<string> getInsertList(){return insertIn;}
+        public List<string> getUpdateList(){return updateIn;}
+        public List<string> getSelectList(){return selectIn;}
     }
 }
