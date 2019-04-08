@@ -8,7 +8,7 @@ namespace MiniSQLEngine
 {
     class Profile
     {
-        private string profileName { get; set;}
+        private string profileName { get; set; }
         private bool eraseable { get; set; }
         List<string> deleteIn = new List<string>();
         List<string> updateIn = new List<string>();
@@ -35,12 +35,28 @@ namespace MiniSQLEngine
                     break;
                 case "SELECT":
                     selectIn.Add(tableName);
-                    break;                
+                    break;
+            }
+        }
+        public void removeTableFromList(string tableName, string wichQuery)
+        {
+            switch (wichQuery)
+            {
+                case "DELETE":
+                    deleteIn.Remove(tableName);
+                    break;
+                case "INSERT":
+                    insertIn.Remove(tableName);
+                    break;
+                case "UPDATE":
+                    updateIn.Remove(tableName);
+                    break;
+                case "SELECT":
+                    selectIn.Remove(tableName);
+                    break;
             }
 
 
         }
-
-
     }
 }
