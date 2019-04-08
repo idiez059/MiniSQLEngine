@@ -17,17 +17,21 @@ namespace ConsoleApp2
             Column ages = new ColumnInt("Age");
             ages.AddValue("23");
             ages.AddValue("42");
+            ages.AddValue("50");
             columns.Add(ages);
             Column names = new ColumnString("Name");
             names.AddValue("Maria");
             names.AddValue("Ignacio");
+            names.AddValue("Ricardo");
             columns.Add(names);
             db.CreateTable("People", columns);
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 
             string queryDelete = "DROP TABLE People;";
+            db.Dispose();
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
+            db.Dispose();
 
             //string query = "SELECT Name FROM People;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));

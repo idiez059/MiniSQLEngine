@@ -1,3 +1,0 @@
-Age Name 
-23 Maria 
-42 Ignacio 
