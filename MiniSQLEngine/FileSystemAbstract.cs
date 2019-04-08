@@ -13,31 +13,52 @@ namespace MiniSQLEngine
     
     class FileSystemAbstract
     {
-        public static void Init(string name)
+        public static Database LoadOrCreateDB(string name)
         {
-            
-            if (!Directory.Exists("/../../../" + name + ".txt")) //If it doesnt work this way put double transversal bar
+            string pathfile = @"..\..\..\Storage\" + name;
+            //If given database does NOT exist (notice exclamation mark at the beginning)
+            if (!Directory.Exists(pathfile)) //If it doesnt work this way put double transversal bar
             {
                 //Create a new database
-                new Database(name);
-           
+                Console.WriteLine("Database was not found, creating new database named: " + name);
+                Directory.CreateDirectory(name);
+                return new Database(name);
             }
+            //If it DOES exist
             else
             {
-                //Load existing data 
-                string pathfile = @"/../../../" + name + ".txt";
-
+                //Load existing data
+                Database loadedDB = new Database(name);
                 foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
                 {
                     string line;
                     using (StreamReader sr = new StreamReader(file))
                     {
+                        List<String> columnNames = new List<String>();
+                        int cont = -1;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            string[] parts = line.Split(',');                            
+                            string[] parts = line.Split(',');
+                            if (cont == -1)
+                            {
+                                List<Column> columns = new List<Column>();
+                                foreach(string columnName in parts)
+                                {
+                                    //ATM, we'll just create columnStrings for correcting affairs, however, this is subject to change as we'll need to define the type of column to be created later on
+                                    columns.Add(new ColumnString(columnName));
+                                    columnNames.Add(columnName);
+                                }
+                                loadedDB.CreateTable(file, columns);
+                            }
+                            else
+                            {
+                                loadedDB.Insert(file,columnNames,parts);
+                            }
+                        cont++;
                         }
                     }
-                }                               
+                }
+                return loadedDB;
             }
         }
 
@@ -73,6 +94,7 @@ namespace MiniSQLEngine
         //            return resultingPath;
         //        }
         //    }
+
         //    public void writeToDataFile( String dbName, String tableName, String param)
         //    {
         //        String lePath;
