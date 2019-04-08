@@ -6,7 +6,7 @@ namespace MiniSQLEngine
 {
 
 
-    class FileSystemAbstract
+    public class FileSystemAbstract
     {
         public static Database LoadOrCreateDB(string name)
         {
