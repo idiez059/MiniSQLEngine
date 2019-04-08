@@ -26,10 +26,16 @@ namespace MiniSQLEngine
             {
                 case "DELETE":
                     deleteIn.Add(tableName);
+                    break;
                 case "INSERT":
                     insertIn.Add(tableName);
-
-                
+                    break;
+                case "UPDATE":
+                    updateIn.Add(tableName);
+                    break;
+                case "SELECT":
+                    selectIn.Add(tableName);
+                    break;                
             }
 
 
