@@ -150,7 +150,7 @@ namespace testParsing
             foreach (string query in wrongQueries)
                 Assert.IsNull(MiniSQLEngine.Parser.Parse(query));
 
-            foreach (string query in correctQueries) 
+            foreach (string query in correctQueries)
                 Assert.IsNotNull(MiniSQLEngine.Parser.Parse(query));
         }
         
