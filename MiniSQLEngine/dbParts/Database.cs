@@ -78,9 +78,10 @@ namespace MiniSQLEngine
             }
         }
         
-        public bool checkPrivileges(string user, String query)
+        public bool checkPrivileges(string user, string query, string pTable)
         {
-            Profile profile;
+            Profile profile = null;
+            List<string> list = new List<string>();
             foreach (User us in users)
             {
                 if (us.getUserName() == user)
@@ -88,7 +89,29 @@ namespace MiniSQLEngine
                     profile = us.getUserProfile();
                 }
             }
-            return false;
+            switch(query)
+            {
+                case "DELETE":
+                    list = profile.getDeleteList();
+                break;
+                case "INSERT":
+                     list = profile.getInsertList();
+                break;
+                case "UPDATE":
+                     list = profile.getUpdateList();
+                break;
+                case "SELECT":
+                     list = profile.getSelectList(); 
+                break;
+            }
+            foreach (string table in list)
+            {
+                if(table == pTable)
+                {
+                    return true;
+                }
+            }
+            throw new System.ArgumentException("The user has no privileges over this table");
 
         }
         public void Dispose()
@@ -196,7 +219,7 @@ namespace MiniSQLEngine
 
         public string Insert(string tableName, string [] values)
         {
-            checkPrivileges(loggedUser, "Insert");
+            checkPrivileges(loggedUser, "Insert", tableName);
             Table table = GetTableByName(tableName);
             if (table == null)
             {
