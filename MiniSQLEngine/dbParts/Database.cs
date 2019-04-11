@@ -192,7 +192,7 @@ namespace MiniSQLEngine
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);
-            FileSystemAbstract.saveData("a",Tables);
+            FileSystemAbstract.saveData(Name, Tables);
             return theQuery.Run(this);
             
         }
