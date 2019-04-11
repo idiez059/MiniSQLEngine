@@ -18,38 +18,78 @@ namespace MiniSQLEngine
         private List<Table> Tables = new List<Table>();
         private List<User> users = new List<User>();
         private List<Profile> profiles = new List<Profile>();
+        private string loggedUser;
 
         // Track whether Dispose has been called.
         private bool disposed = false;
 
-        public Database(string dbName, User user, string password)
+        public Database(string dbName, string user, string password)
         {
             Name = dbName;
-            foreach (User us in users)
+            string admPass;
+            if (user == null)
             {
-                if (user == null)
+                throw new System.ArgumentException("Must introduce a user");
+            }
+            else
+            {
+                if(user == "admin")
                 {
-                    throw new System.ArgumentException("Must introduce a user");
+                    foreach (User us in users)
+                    {
+                        if (us.getUserName() == "admin")
+                        {
+                            admPass = us.getUserPass();
+                            if (admPass == password)
+                            {
+                                loggedUser = "admin";
+                            }else
+                            {
+                                throw new System.ArgumentException("Admin password incorrect");
+                            } 
+                        }                    
+                    }
                 }
                 else
                 {
-                    if (us == user)
+                    foreach (User us in users)
                     {
-                        if (us.getUserPass() == password)
-                        {
 
-                        }
-                        else
                         {
-                            throw new System.ArgumentException("User and password do not mach");
+                            if (us.ToString() == user)
+                            {
+                                if (us.getUserPass() == password)
+                                {
+                                    loggedUser = user;
+                                }
+                                else
+                                {
+                                    throw new System.ArgumentException("User and password do not mach");
+                                }
+                            }
+                            else
+                            {
+                                throw new System.ArgumentException("User does not exist");
+                            }
                         }
-                    }
-                    else
-                    {
-                        throw new System.ArgumentException("User does not exist");
                     }
                 }
+
             }
+        }
+        
+        public bool checkPrivileges(string user, String query)
+        {
+            Profile profile;
+            foreach (User us in users)
+            {
+                if (us.getUserName() == user)
+                {
+                    profile = us.getUserProfile();
+                }
+            }
+            return false;
+
         }
         public void Dispose()
         {
@@ -156,6 +196,7 @@ namespace MiniSQLEngine
 
         public string Insert(string tableName, string [] values)
         {
+            checkPrivileges(loggedUser, "Insert");
             Table table = GetTableByName(tableName);
             if (table == null)
             {

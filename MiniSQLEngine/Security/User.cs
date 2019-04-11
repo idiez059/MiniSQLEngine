@@ -12,10 +12,8 @@ namespace MiniSQLEngine.Security
         private string userPass{get; set;}
         private Profile profile { get; set; } //not shure: type, string or Profile
 
-        public string getUserProfile()
-        {
-            return profile.ToString();
-        }
+        public Profile getUserProfile() {return profile;}
+        public string getUserProfileString() { return profile.ToString(); }
         public string getUserPass() { return userPass; }
         public string getUserName() { return userName; }
 
