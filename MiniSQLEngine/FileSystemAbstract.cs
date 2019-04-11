@@ -63,7 +63,7 @@ namespace MiniSQLEngine
             {
                 List<Column> columns = table.Columns;
                 string tableName = table.Name;
-                string path = @"..\..\..\Storage\" + dbName + tableName + ".txt";
+                string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
                 string[] lines = { };
 
 

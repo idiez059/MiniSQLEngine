@@ -35,7 +35,7 @@ namespace ConsoleApp2
             string queryDelete = "DROP TABLE People;";
             db.Dispose();
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
-            db.Dispose();
+            
 
             //string query = "SELECT Name FROM People;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
