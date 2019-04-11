@@ -30,7 +30,7 @@ public class Select : Query
         //List<Column> selectedColumns = new List<Column>();
 
 
-        if(ConditionOp == null)
+        if(String.IsNullOrEmpty(ConditionOp))
         {        
             if (ColumnNames.Count == 0)
                 return Messages.WrongSyntax;

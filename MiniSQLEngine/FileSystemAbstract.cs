@@ -16,7 +16,7 @@ namespace MiniSQLEngine
             {
                 //Create a new database
                 Console.WriteLine("Database was not found, creating new database named: " + name);
-                Directory.CreateDirectory(name);
+                Directory.CreateDirectory(pathfile);
                 return new Database(name);
             }
             //If it DOES exist
@@ -24,8 +24,11 @@ namespace MiniSQLEngine
             {
                 //Load existing data
                 Database loadedDB = new Database(name);
+                Console.WriteLine("Database: " + name + "was found, will proceed to open now...");
                 foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
                 {
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    Console.WriteLine("Building table: " + fileName);
                     string line;
                     using (StreamReader sr = new StreamReader(file))
                     {
@@ -36,6 +39,7 @@ namespace MiniSQLEngine
                             string[] parts = line.Split(',');
                             if (cont == -1)
                             {
+                                Console.WriteLine("First line loaded, columns: " + line);
                                 List<Column> columns = new List<Column>();
                                 foreach(string columnName in parts)
                                 {
@@ -43,11 +47,12 @@ namespace MiniSQLEngine
                                     columns.Add(new ColumnString(columnName));
                                     columnNames.Add(columnName);
                                 }
-                                loadedDB.CreateTable(file, columns);
+                                loadedDB.CreateTable(fileName, columns);
                             }
                             else
                             {
-                                loadedDB.Insert(file,columnNames,parts);
+                                Console.WriteLine("Line loaded: " + line);
+                                loadedDB.Insert(fileName,columnNames,parts);
                             }
                         cont++;
                         }
@@ -63,7 +68,7 @@ namespace MiniSQLEngine
             {
                 List<Column> columns = table.Columns;
                 string tableName = table.Name;
-                string path = @"..\..\..\Storage\" + dbName + tableName + ".txt";
+                string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
                 string[] lines = { };
 
 

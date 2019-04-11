@@ -13,14 +13,18 @@ namespace ConsoleApp2
         {
             Database db = new Database("test-db");
             Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
+            //A ver si peta
+            FileSystemAbstract.LoadOrCreateDB("AscoDeVida");
             List<Column> columns = new List<Column>();
             Column ages = new ColumnInt("Age");
             ages.AddValue("23");
             ages.AddValue("42");
+            ages.AddValue("50");
             columns.Add(ages);
             Column names = new ColumnString("Name");
             names.AddValue("Maria");
             names.AddValue("Ignacio");
+            names.AddValue("Ricardo");
             columns.Add(names);
             db.CreateTable("People", columns);
             //string query = "SELECT * FROM People WHERE Age < 30;";
@@ -30,6 +34,10 @@ namespace ConsoleApp2
             string querySelect2 = "SELECT * FROM tabla2;";
             Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
             Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
+            string queryDelete = "DROP TABLE People;";
+            db.Dispose();
+            Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
+            
 
             //string query = "SELECT Name FROM People;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
