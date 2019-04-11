@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using MiniSQLEngine;
 using System.ComponentModel;
-
+using MiniSQLEngine.Security;
 
 namespace MiniSQLEngine
 {
@@ -16,12 +16,40 @@ namespace MiniSQLEngine
     {
         public String Name { get; }
         private List<Table> Tables = new List<Table>();
+        private List<User> users = new List<User>();
+        private List<Profile> profiles = new List<Profile>();
+
         // Track whether Dispose has been called.
         private bool disposed = false;
 
-        public Database(string dbName)
+        public Database(string dbName, User user, string password)
         {
             Name = dbName;
+            foreach (User us in users)
+            {
+                if (user == null)
+                {
+                    throw new System.ArgumentException("Must introduce a user");
+                }
+                else
+                {
+                    if (us == user)
+                    {
+                        if (us.getUserPass() == password)
+                        {
+
+                        }
+                        else
+                        {
+                            throw new System.ArgumentException("User and password do not mach");
+                        }
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException("User does not exist");
+                    }
+                }
+            }
         }
         public void Dispose()
         {
