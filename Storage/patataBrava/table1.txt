@@ -1,0 +1,4 @@
+names ages 
+D4NK_Robot 23 
+TAD4NKA 25 
+D4NK_Nadius 22 

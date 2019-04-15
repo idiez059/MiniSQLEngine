@@ -36,7 +36,8 @@ namespace MiniSQLEngine
                         int cont = -1;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            string[] parts = line.Split(',');
+                            line = line.Trim();
+                            string[] parts = line.Split(' ');
                             if (cont == -1)
                             {
                                 Console.WriteLine("First line loaded, columns: " + line);
@@ -68,11 +69,12 @@ namespace MiniSQLEngine
             {
                 List<Column> columns = table.Columns;
                 string tableName = table.Name;
-                string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
+                string path = @"..\..\..\Storage\" + dbName + "\\" + tableName + ".txt";
                 string[] lines = { };
+                Directory.CreateDirectory(@"..\..\..\Storage\" + dbName);
 
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(path,false))
                 {
                     for (int i = 0; i < columns.Count; i++)
                     {

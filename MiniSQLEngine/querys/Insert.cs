@@ -23,7 +23,7 @@ public class Insert : Query
         String[] columnList = columns.Split(',');
         foreach(String col in columnList)
         {
-            ColumnNames.Add(col);
+            ColumnNames.Add(col.Trim());
         }
         
         TableName = table;

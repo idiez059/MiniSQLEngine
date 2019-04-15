@@ -16,7 +16,7 @@ namespace MiniSQLEngine
     {
         private Boolean disposed = false;
         public String Name { get; }
-        private List<Table> Tables = new List<Table>();
+        public List<Table> Tables { get; } = new List<Table>();
         // Track whether Dispose has been called.        
 
         public Database(string dbName)
@@ -212,7 +212,6 @@ namespace MiniSQLEngine
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);
-            FileSystemAbstract.saveData(Name, Tables);
             return theQuery.Run(this);
             
         }

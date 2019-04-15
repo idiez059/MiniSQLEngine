@@ -30,10 +30,18 @@ namespace ConsoleApp2
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            string querySelect1 = "SELECT * FROM tabla1;";
-            string querySelect2 = "SELECT * FROM tabla2;";
+            string querySelect1 = "SELECT * FROM table1;";
+            string querySelect2 = "SELECT * FROM table2;";
+            string queryInsert1 = "INSERT INTO table1 (names, ages) VALUES (D4NK_Nadius, 22);";
+            string queryInsert2 = "INSERT INTO table2 (Kills, KDA) VALUES (5000, 0.9);";
             Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
             Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
+            Console.WriteLine(queryInsert1 + ": " + db1.RunQuery(queryInsert1));
+            Console.WriteLine(queryInsert2 + ": " + db1.RunQuery(queryInsert2));
+            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
+            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
+            db1.Dispose();
+            Console.WriteLine("Test finalizado.");
             string queryDelete = "DROP TABLE People;";
             db.Dispose();
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
