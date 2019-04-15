@@ -18,14 +18,23 @@ public class CreateTable : Query
         foreach(String toSplit in splitParameters)
         {
             string trimmedToSplit = toSplit.Trim(' ');
-            pTipoDato.Add(trimmedToSplit.Split(' ')[1]);
-            columnNames.Add(trimmedToSplit.Split(' ')[0]);
+            try
+            {
+                pTipoDato.Add(trimmedToSplit.Split(' ')[1]);
+                columnNames.Add(trimmedToSplit.Split(' ')[0]);
+            }catch(IndexOutOfRangeException)
+            {
+                pTabla = null;
+            }
         }
 
     }
     public override String Run(Database bd)
     {
-
+        if(pTabla == null)
+        {
+            return Messages.WrongSyntax;
+        }
         //TODO: Create columns one by one in a list and call bd.CreateDatabase
         if(bd.GetTableByName(pTabla) != null)
         {
@@ -56,14 +65,14 @@ public class CreateTable : Query
             }
             else
             {
-                return Messages.WrongSyntax + ", given type is not recognized by our system, please introduce the type in the form of 'String', 'Int' or 'Double' (System will ignore letter case)";
+                return Messages.WrongSyntax + ", given type is not recognized by our system, please introduce the type in the form of 'Text', 'Int' or 'Double' (System will ignore letter case)";
             }
             Console.WriteLine("Column created, type: " + tipo + ", column name: " + columnNames[cont]);
             listOfCreation.Add(column);
             cont++;
         }
-        bd.CreateTable(pTabla, listOfCreation);
-        return "CREATE TABLE Query was successful, on standby for Database CreateTable method to validate";
+        Console.WriteLine("CREATE TABLE Query was successful, on standby for Database CreateTable method to validate");
+        return bd.CreateTable(pTabla, listOfCreation);
     }
     public string getTabla()
     {

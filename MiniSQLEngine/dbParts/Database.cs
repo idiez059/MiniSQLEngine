@@ -14,15 +14,16 @@ namespace MiniSQLEngine
 {
     public class Database : IDisposable
     {
+        private Boolean disposed = false;
         public String Name { get; }
-        private List<Table> Tables = new List<Table>();
-        // Track whether Dispose has been called.
-        private bool disposed = false;
+        public List<Table> Tables { get; } = new List<Table>();
+        // Track whether Dispose has been called.        
 
         public Database(string dbName)
         {
             Name = dbName;
         }
+
         public void Dispose()
         {
             Dispose(true);
@@ -32,31 +33,50 @@ namespace MiniSQLEngine
 
         protected virtual void Dispose(bool disposing)
         {
-            // Check to see if Dispose has already been called.
-            if (!this.disposed)
+            if (!disposed)
             {
-                // If disposing equals true, dispose all managed
-                // and unmanaged resources.
-                if (disposing)
+                if (disposing == true)
                 {
-                    // Dispose managed resources.
-
-                    FileSystemAbstract.Init(Name);
+                    //someone want the deterministic release of all resources
+                    //Let us release all the managed resources
+                    ReleaseManagedResources();
                 }
+                else
+                {
+                    // Do nothing, no one asked a dispose, the object went out of
+                    // scope and finalized is called so lets next round of GC 
+                    // release these resources
 
-
-                // Note disposing has been done.
+                }
+                // Release the unmanaged resource in any case as they will not be 
+                // released by GC
                 disposed = true;
+                ReleaseUnmanagedResources();
 
             }
         }
 
-            /// <summary>
-            /// Get a table by its name
-            /// </summary>
-            /// <param name="name">The name of the table</param>
-            /// <returns>Returns the table or null if not found</returns>
-            public Table GetTableByName(String name)
+        private void ReleaseUnmanagedResources()
+        {
+            Console.WriteLine("Releasing Managed Resources");
+            if (this != null)
+            {
+                this.Dispose();
+            }
+        }
+        private void ReleaseManagedResources()
+        {
+            FileSystemAbstract.saveData(Name,Tables);
+            Console.WriteLine("Releasing Unmanaged Resources");
+        }
+
+
+        /// <summary>
+        /// Get a table by its name
+        /// </summary>
+        /// <param name="name">The name of the table</param>
+        /// <returns>Returns the table or null if not found</returns>
+        public Table GetTableByName(String name)
         {
             foreach (Table table in Tables)
             {
@@ -193,6 +213,7 @@ namespace MiniSQLEngine
         {
             Query theQuery = Parser.Parse(line);
             return theQuery.Run(this);
+            
         }
     }
 }
