@@ -55,42 +55,65 @@ namespace MiniSQLEngine
             }
             return result;
         }
-        public void Update(String columns, String tableName, String left, String op, String rigth)
+        public void Update(String columns, String tableName, String left, String op, String right)
         {
             Column lacolumna = ColumnByName(columns);
             int numvalues = lacolumna.GetNumValues();
 
-            for ( int j=0; j< numvalues; j++)
+            for (int j = 0; j < numvalues; j++)
             {
                 lacolumna.GetValueAsString(j);
 
             }
-                      
-            return ;
+
+            return;
         }
 
-        public void DeleteRows(String left, String op, int rigth)
+        private bool CompareOp(string elem1, string elem2, string operat)
+        {
+            switch (operat)
+            {
+                case "=":
+                    return elem1 == elem2;
+                case "<":
+                    int j = string.Compare(elem1, elem2);
+                    if (j == -1) { return true; }
+                    else { return false; }
+                case ">":
+                    int k = string.Compare(elem1, elem2);
+                    if (k == 1) { return true; }
+                    else { return false; }
+                default:
+                    Console.WriteLine("Error comparing tuples, in Compare() method");
+                    return false;
+            }
+        }
+
+        public void DeleteRows(string left, string op, string right)
         {
             for (int i = 0; i < Columns.Count; i++)
             {
-                if (Columns[i].Name == left)
+                int numTuples = Columns[0].GetNumValues();                
+                if (numTuples > 0)
                 {
-                    int numTuples = Columns[0].GetNumValues();
-                    if (numTuples > 0)
-                    {
+                    if (Columns[i].Name == left) {
                         for (int tuple = 0; tuple < numTuples; tuple++)
                         {
-                            
-                            for (int j = 1; j < Columns.Count; j++)
+                          bool delete = CompareOp(Columns[i].GetValueAsString(tuple), right,  op);
+
+                            if(delete == true)
                             {
-                                Columns[i].AddValue("Borrado");
+                                for (int j = 0; j < Columns.Count; j++)
+                                {
+                                    Columns[j].RemoveValueAtIndex(tuple);                                    
+                                }
+                                tuple--;
+                                i--;
                             }
-                            
                         }
                     }
                 }
             }
         }
-
     }
 }

@@ -17,6 +17,7 @@ namespace MiniSQLEngine
 
         public abstract int GetNumValues();
         public abstract string GetValueAsString(int index);
+        public abstract void SetValueAsString(int index, string value);
         public abstract bool AddValue(string value);
         public abstract void InsertEmpty();
         public abstract void RemoveValueAtIndex(int index);
@@ -36,6 +37,11 @@ namespace MiniSQLEngine
                 return values[index].ToString();
             return null;
         }
+        public override void SetValueAsString(int index, string value)
+        {
+            if (index >= 0 && index < values.Count)
+                values[index] = int.Parse(value);
+        }
         public override bool AddValue(string value)
         {
             int parsedValue;
@@ -50,7 +56,7 @@ namespace MiniSQLEngine
         {
             AddValue(String.Empty);
         }
-    
+
         public override void RemoveValueAtIndex(int index)
         {
             values.RemoveAt(index);
@@ -59,7 +65,7 @@ namespace MiniSQLEngine
 
     public class ColumnFloat : Column
     {
-        List<int> values = new List<int>();
+        List<float> values = new List<float>();
         public ColumnFloat(String name) : base(name)
         {
         }
@@ -71,6 +77,11 @@ namespace MiniSQLEngine
                 return values[index].ToString();
             return null;
         }
+        public override void SetValueAsString(int index, string value)
+        {
+            if (index >= 0 && index < values.Count)
+                values[index] = float.Parse(value);
+        }
         public override bool AddValue(string value)
         {
             int parsedValue;
@@ -85,13 +96,12 @@ namespace MiniSQLEngine
         {
             values.RemoveAt(index);
         }
-    
+
         public override void InsertEmpty()
         {
             AddValue(String.Empty);
         }
     }
-
     public class ColumnString : Column
     {
         List<string> values = new List<string>();
@@ -106,6 +116,11 @@ namespace MiniSQLEngine
             if (index >= 0 && index < values.Count)
                 return values[index];
             return null;
+        }
+        public override void SetValueAsString(int index, string value)
+        {
+            if (index >= 0 && index < values.Count)
+                values[index] = value;
         }
         public override bool AddValue(string value)
         {
@@ -122,6 +137,6 @@ namespace MiniSQLEngine
             AddValue(String.Empty);
         }
     }
-
-
 }
+
+
