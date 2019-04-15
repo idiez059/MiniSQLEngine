@@ -32,8 +32,11 @@ public class Insert : Query
         }
         int cont = 0;
 
-        //if ()
-        //{
+        if (ColumnNames != null)
+        {
+
+
+            //modificar para columnas desordenadas
             foreach (Column column in table.Columns)
             { 
                 if (ColumnNames.Contains(column.Name))
@@ -48,9 +51,27 @@ public class Insert : Query
                 }
             
             }
-        //}
-        
-    
+        }
+        else
+        {
+           
+            foreach (Column column in table.Columns)
+            {
+                if (ColumnNames.Contains(column.Name))
+                {
+                    column.AddValue(valuesSeparated[cont]);
+                    cont++;
+                }
+                else
+                {
+                    column.InsertEmpty();
+
+                }
+
+            }
+        }
+
+
         return null;
     }
    
