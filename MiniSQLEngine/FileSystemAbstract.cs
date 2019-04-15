@@ -19,7 +19,7 @@ namespace MiniSQLEngine
             if (!Directory.Exists("/../../../" + name + ".txt")) //If it doesnt work this way put double transversal bar
             {
                 //Create a new database
-                new Database(name);
+                new Database(name,"trt","gy");
            
             }
             else

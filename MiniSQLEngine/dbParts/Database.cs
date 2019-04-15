@@ -159,6 +159,32 @@ namespace MiniSQLEngine
             return null ;
         }
 
+        public bool ExistProfile(string nameProfile)
+        {
+            bool exist = false;
+            foreach(Profile prof in profiles)
+            {
+                if (prof.ToString() == nameProfile)
+                {
+                    exist = true;
+                }
+            }
+            return exist;
+        }
+        public string CreateSecProfile(string name)
+        {
+            if (ExistProfile(name))
+            {
+                return Messages.ProfileErrorAlreadyExists;
+            }
+            else
+            {
+                Profile profile = new Profile(name);
+                profiles.Add(profile);
+                return Messages.CreateProfileSuccess;
+            }
+        }
+
         /// <summary>
         /// Creates a table
         /// </summary>

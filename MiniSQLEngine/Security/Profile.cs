@@ -9,16 +9,15 @@ namespace MiniSQLEngine
     class Profile
     {
         private string profileName { get; set; }
-        private bool eraseable { get; set; }
         List<string> deleteIn = new List<string>();
         List<string> updateIn = new List<string>();
         List<string> insertIn = new List<string>();
         List<string> selectIn = new List<string>();
 
-        public Profile(string pName, bool pErase)
+        public Profile(string pName)
         {
             profileName = pName;
-            eraseable = pErase;
+            
         }
         public void addTableToList(string tableName, string wichQuery)
         {

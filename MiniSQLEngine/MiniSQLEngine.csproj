@@ -44,6 +44,7 @@
     <Compile Include="BackupDataBase.cs" />
     <Compile Include="dbParts\Database.cs" />
     <Compile Include="dbParts\Column.cs" />
+    <Compile Include="querys\CreateSecProfile.cs" />
     <Compile Include="Security\Profile.cs" />
     <Compile Include="querys\CreateDataBase.cs" />
     <Compile Include="querys\CreateTable.cs" />

@@ -30,6 +30,8 @@ namespace MiniSQLEngine {
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
             string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s*\;";
 
+            string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
+
             //Select
             Match match = Regex.Match(query, select);
             if (match.Success)
@@ -140,6 +142,14 @@ namespace MiniSQLEngine {
                 String nombreTabla = match.Groups[1].Value;
                 String tipoDato = match.Groups[2].Value;
                 return new CreateTable(nombreTabla, tipoDato);
+            }
+
+            //CreateTable
+            match = Regex.Match(query, createSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;               
+                return new CreateSecProfile(profileName);
             }
             return null;
         }
