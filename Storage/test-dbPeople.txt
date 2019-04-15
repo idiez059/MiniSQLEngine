@@ -1,3 +1,5 @@
+Name Email Age 
+'Rafa' 'rafa@gmail.com' 23 
 Age Name 
 23 Maria 
 42 Ignacio 

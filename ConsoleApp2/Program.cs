@@ -13,6 +13,8 @@ namespace ConsoleApp2
         {
             Database db = new Database("test-db");
             Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
+            //A ver si peta
+            FileSystemAbstract.LoadOrCreateDB("AscoDeVida");
             List<Column> columns = new List<Column>();
             Column ages = new ColumnInt("Age");
             ages.AddValue("23");
