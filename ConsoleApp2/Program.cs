@@ -24,6 +24,9 @@ namespace ConsoleApp2
             columns.Add(names);
             db.CreateTable("People", columns);
             db.CreateSecProfile("TAD4NKA");
+            db.CreateSecProfile("TAD4NKA2");
+            //enable to verify that a second copy is not created. //db.CreateSecProfile("TAD4NKA2");
+            db.DropSecProfile("TAD4NKA2");
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 

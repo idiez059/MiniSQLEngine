@@ -31,6 +31,7 @@ namespace MiniSQLEngine {
             string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s*\;";
 
             string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
+            string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
 
             //Select
             Match match = Regex.Match(query, select);
@@ -144,13 +145,23 @@ namespace MiniSQLEngine {
                 return new CreateTable(nombreTabla, tipoDato);
             }
 
-            //CreateTable
+            //CreateSecProfile
             match = Regex.Match(query, createSecProfile);
             if (match.Success)
             {
                 String profileName = match.Groups[1].Value;               
                 return new CreateSecProfile(profileName);
             }
+
+            //DropSecProfile
+            match= Regex.Match(query, dropSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;
+                return new DropSecProfile(profileName);
+            }
+
+
             return null;
         }
     }

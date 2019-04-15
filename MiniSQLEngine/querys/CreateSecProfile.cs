@@ -14,19 +14,13 @@ class CreateSecProfile : Query
 
     public CreateSecProfile(string nameProfile)
         {
-            string pNameProfile = nameProfile;
+            pNameProfile = nameProfile;
         }
 
     public override string Run(Database bd)
     {
-
-
-       
-            bd.CreateSecProfile(pNameProfile);
-        return "CREATE SECURITY PROFILE Query was successful, on standby for Database CreateTable method to validate";
-
-
-
+        bd.CreateSecProfile(pNameProfile);
+        return "CREATE SECURITY PROFILE Query was successful, on standby for Database CreateSecProfile method to validate";
     }
 
 }

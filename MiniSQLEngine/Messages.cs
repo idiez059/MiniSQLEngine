@@ -8,7 +8,7 @@ namespace MiniSQLEngine
         public const string BackupDatabaseSuccess = "Database backed up";
 
         public const string CreateProfileSuccess = "Profile created succesfully";
-
+        public const string DropProfileSuccess = "Profile droped succesfully";
         public const string CreateTableSuccess = "Table created";
         public const string InsertSuccess = "Tuple added";
         public const string TupleDeleteSuccess = "Tuple(s) deleted";
@@ -17,6 +17,7 @@ namespace MiniSQLEngine
         public const string Error = "ERROR: ";
 
         public const string ProfileErrorAlreadyExists = Error + "Profile already exists";
+        
 
         public const string WrongSyntax = Error + "Syntactical error";
         public const string DatabaseDoesNotExist = Error + "Database does not exist";

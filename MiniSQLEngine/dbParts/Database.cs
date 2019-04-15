@@ -119,8 +119,6 @@ namespace MiniSQLEngine
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-
         protected virtual void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called.
@@ -141,13 +139,12 @@ namespace MiniSQLEngine
 
             }
         }
-
-            /// <summary>
+        /// <summary>
             /// Get a table by its name
             /// </summary>
             /// <param name="name">The name of the table</param>
             /// <returns>Returns the table or null if not found</returns>
-            public Table GetTableByName(String name)
+        public Table GetTableByName(String name)
         {
             foreach (Table table in Tables)
             {
@@ -158,13 +155,12 @@ namespace MiniSQLEngine
             }
             return null ;
         }
-
         public bool ExistProfile(string nameProfile)
         {
             bool exist = false;
             foreach(Profile prof in profiles)
             {
-                if (prof.ToString() == nameProfile)
+                if (prof.profileName == nameProfile)
                 {
                     exist = true;
                 }
@@ -184,7 +180,22 @@ namespace MiniSQLEngine
                 return Messages.CreateProfileSuccess;
             }
         }
+        public string DropSecProfile(string name)
+        {
+           
+                foreach (Profile prof in profiles)
+                {
+                if (prof.profileName == name)
+                     {
+                        profiles.Remove(prof);
+                        return Messages.DropProfileSuccess;
 
+                     }
+                }
+               
+            
+            return null;
+        }
         /// <summary>
         /// Creates a table
         /// </summary>
@@ -209,7 +220,6 @@ namespace MiniSQLEngine
                 }
             }
         }
-
         public string Update(String columns, String tableName, String left, String op, String right)
         {
             checkPrivileges(loggedUser, "UPDATE", tableName);
@@ -245,7 +255,6 @@ namespace MiniSQLEngine
             Table result = new Table("Result",selectedColumns);
             return result;
         }
-
         public string Insert(string tableName, string [] values)
         {
             checkPrivileges(loggedUser, "INSERT", tableName);
@@ -263,7 +272,6 @@ namespace MiniSQLEngine
             }
             return Messages.InsertSuccess;
         }
-
         public string Insert(string tableName, List<string> columnNames, string[] values)
         {
             checkPrivileges(loggedUser, "INSERT", tableName);
@@ -288,8 +296,6 @@ namespace MiniSQLEngine
             }
             return Messages.InsertSuccess;
         }
-
-
         public Table DeleteRows(String tableName, String left, String op, string right)
         {
             checkPrivileges(loggedUser, "DELETE", tableName);
@@ -298,7 +304,6 @@ namespace MiniSQLEngine
             return sourceTable;
 
         }
-
         public Table DeleteTable(string name)
         {
             checkPrivileges(loggedUser, "DELETE", name);
@@ -311,8 +316,6 @@ namespace MiniSQLEngine
             }
             return null;
         }
-
-
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);

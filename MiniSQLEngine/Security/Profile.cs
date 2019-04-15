@@ -8,7 +8,7 @@ namespace MiniSQLEngine
 {
     class Profile
     {
-        private string profileName { get; set; }
+        public string profileName { get; set; }
         List<string> deleteIn = new List<string>();
         List<string> updateIn = new List<string>();
         List<string> insertIn = new List<string>();
