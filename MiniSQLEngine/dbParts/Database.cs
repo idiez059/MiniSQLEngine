@@ -186,6 +186,7 @@ namespace MiniSQLEngine
 
         public string Update(String columns, String tableName, String left, String op, String right)
         {
+            checkPrivileges(loggedUser, "UPDATE", tableName);
             Table table = GetTableByName(tableName);
             table.ColumnByName(columns);
 
@@ -196,10 +197,12 @@ namespace MiniSQLEngine
         }
         public Table SelectAll(string tableName)
         {
+            checkPrivileges(loggedUser, "SELECT", tableName);
             return GetTableByName(tableName);
         }
         public Table SelectColumns(string tableName, List<string> columnNames)
         {
+            checkPrivileges(loggedUser, "SELECT", tableName);
             Table sourceTable = GetTableByName(tableName);
             List<Column> selectedColumns = new List<Column>();
             //Else only selected ones
@@ -219,7 +222,7 @@ namespace MiniSQLEngine
 
         public string Insert(string tableName, string [] values)
         {
-            checkPrivileges(loggedUser, "Insert", tableName);
+            checkPrivileges(loggedUser, "INSERT", tableName);
             Table table = GetTableByName(tableName);
             if (table == null)
             {
@@ -237,6 +240,7 @@ namespace MiniSQLEngine
 
         public string Insert(string tableName, List<string> columnNames, string[] values)
         {
+            checkPrivileges(loggedUser, "INSERT", tableName);
             Table table = GetTableByName(tableName);
             if (table == null)
             {
@@ -262,6 +266,7 @@ namespace MiniSQLEngine
 
         public Table DeleteRows(String tableName, String left, String op, string right)
         {
+            checkPrivileges(loggedUser, "DELETE", tableName);
             Table sourceTable = GetTableByName(tableName);
             sourceTable.DeleteRows(left, op, right);
             return sourceTable;
@@ -270,6 +275,7 @@ namespace MiniSQLEngine
 
         public Table DeleteTable(string name)
         {
+            checkPrivileges(loggedUser, "DELETE", name);
             for (int i = 0; i < Tables.Count; i++)
             {
                 if (Tables[i].Name.Equals(name))
