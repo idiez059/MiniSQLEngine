@@ -91,17 +91,15 @@ namespace MiniSQLEngine
                             }                            
                         }
                     }                    
-                }
-
-                
+                }                
             }
         }
-        public void saveUSerInfo(List<User> users)
+        /*public void saveUSerInfo(List<User> users)
         {
             string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
             string[] lines = { };
 
-        }
+        }*/
     }
 }
  
