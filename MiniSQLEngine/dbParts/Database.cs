@@ -196,6 +196,14 @@ namespace MiniSQLEngine
             
             return null;
         }
+        public string AddUser(string userName, string userPassword, string userProfileName)
+        {
+            
+                User user = new User(userName, userPassword, userProfileName);
+                users.Add(user);
+                return Messages.UserAddedSuccess;
+            
+        }
         /// <summary>
         /// Creates a table
         /// </summary>

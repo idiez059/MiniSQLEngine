@@ -9,6 +9,7 @@ namespace MiniSQLEngine
 
         public const string CreateProfileSuccess = "Profile created succesfully";
         public const string DropProfileSuccess = "Profile droped succesfully";
+        public const string UserAddedSuccess = "User added succesfully";
         public const string CreateTableSuccess = "Table created";
         public const string InsertSuccess = "Tuple added";
         public const string TupleDeleteSuccess = "Tuple(s) deleted";
