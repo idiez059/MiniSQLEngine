@@ -28,6 +28,7 @@ namespace ConsoleApp2
             db.DropSecProfile("TAD4NKA2");
             Profile prof = db.GetProfileByName("TAD4NKA");
             db.AddUser("dfjdhf", "hfdj", prof);
+            db.AddUser("dfjdhf", "hfdj", prof);
 
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
