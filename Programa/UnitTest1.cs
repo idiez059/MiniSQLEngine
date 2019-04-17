@@ -54,7 +54,7 @@ namespace Programa
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
             string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
-            Assert.AreEqual(
+            //
         }
         /*
         [TestMethod]
