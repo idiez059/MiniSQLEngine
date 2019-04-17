@@ -15,7 +15,7 @@ namespace Programa
 
         [TestMethod]
         public void Update()
-        { Database db = new Database("test-db");
+        { Database db = new Database("test-db" ,"uuuser", "password");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
             db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
