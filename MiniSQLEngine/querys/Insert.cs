@@ -49,7 +49,7 @@ public class Insert : Query
         
         
 
-        return null;
+        return Messages.InsertSuccess;
     }
    
 }

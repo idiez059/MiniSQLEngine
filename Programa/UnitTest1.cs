@@ -31,7 +31,7 @@ namespace Programa
             //el insert no devuelve nada
             //Assert.AreNotEqual("{Name}{'Rafa','rafa@gmail.com', 23}", result2);
             //No funciona, devuelve null
-            Assert.AreEqual(" Messages.InsertSuccess;", result2);
+            Assert.AreEqual(Messages.InsertSuccess, result2);
         }
 
         [TestMethod]
@@ -41,10 +41,9 @@ namespace Programa
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
             string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
-            //Assert.AreNotEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',21}", result1);
-            //No funciona, devuelve null
-            //return Messages.TupleUpdateSuccess;
-            Assert.AreEqual(" Messages.TupleUpdateSuccess;", result1);
+            Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
+            result1 = db.RunQuery("SELECT * FROM People;");
+            Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
         }
         
         [TestMethod]
@@ -54,7 +53,7 @@ namespace Programa
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
             string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
-            //
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
         }
         /*
         [TestMethod]

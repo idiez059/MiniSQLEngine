@@ -188,11 +188,11 @@ namespace MiniSQLEngine
         }
 
 
-        public Table DeleteRows(String tableName, String left, String op, string right)
+        public string  DeleteRows(String tableName, String left, String op, string right)
         {
             Table sourceTable = GetTableByName(tableName);
             sourceTable.DeleteRows(left, op, right);
-            return sourceTable;
+            return Messages.TupleDeleteSuccess;
 
         }
 
