@@ -33,7 +33,7 @@ namespace MiniSQLEngine
             }
             else
             {
-                if(user == "admin")
+                if (user == "admin")
                 {
                     foreach (User us in users)
                     {
@@ -43,11 +43,11 @@ namespace MiniSQLEngine
                             if (admPass == password)
                             {
                                 loggedUser = "admin";
-                            }else
+                            } else
                             {
                                 throw new System.ArgumentException("Admin password incorrect");
-                            } 
-                        }                    
+                            }
+                        }
                     }
                 }
                 else
@@ -77,7 +77,7 @@ namespace MiniSQLEngine
 
             }
         }
-        
+
         public bool checkPrivileges(string user, string query, string pTable)
         {
             Profile profile = null;
@@ -89,24 +89,24 @@ namespace MiniSQLEngine
                     profile = us.getUserProfile();
                 }
             }
-            switch(query)
+            switch (query)
             {
                 case "DELETE":
                     list = profile.getDeleteList();
-                break;
+                    break;
                 case "INSERT":
-                     list = profile.getInsertList();
-                break;
+                    list = profile.getInsertList();
+                    break;
                 case "UPDATE":
-                     list = profile.getUpdateList();
-                break;
+                    list = profile.getUpdateList();
+                    break;
                 case "SELECT":
-                     list = profile.getSelectList(); 
-                break;
+                    list = profile.getSelectList();
+                    break;
             }
             foreach (string table in list)
             {
-                if(table == pTable)
+                if (table == pTable)
                 {
                     return true;
                 }
@@ -140,25 +140,25 @@ namespace MiniSQLEngine
             }
         }
         /// <summary>
-            /// Get a table by its name
-            /// </summary>
-            /// <param name="name">The name of the table</param>
-            /// <returns>Returns the table or null if not found</returns>
+        /// Get a table by its name
+        /// </summary>
+        /// <param name="name">The name of the table</param>
+        /// <returns>Returns the table or null if not found</returns>
         public Table GetTableByName(String name)
         {
             foreach (Table table in Tables)
             {
-                if (table.Name==name)
+                if (table.Name == name)
                 {
                     return table;
                 }
             }
-            return null ;
+            return null;
         }
         public bool ExistProfile(string nameProfile)
         {
             bool exist = false;
-            foreach(Profile prof in profiles)
+            foreach (Profile prof in profiles)
             {
                 if (prof.profileName == nameProfile)
                 {
@@ -182,23 +182,23 @@ namespace MiniSQLEngine
         }
         public string DropSecProfile(string name)
         {
-           
-                foreach (Profile prof in profiles)
-                {
-                if (prof.profileName == name)
-                     {
-                        profiles.Remove(prof);
-                        return Messages.DropProfileSuccess;
 
-                     }
+            foreach (Profile prof in profiles)
+            {
+                if (prof.profileName == name)
+                {
+                    profiles.Remove(prof);
+                    return Messages.DropProfileSuccess;
+
                 }
-               
-            
+            }
+
+
             return null;
         }
         public string AddUser(string userName, string userPassword, Profile userProfileName)
         {
-            foreach(User us in users)
+            foreach (User us in users)
             {
                 if (us.getUserName() == userName)
                 {
@@ -208,11 +208,11 @@ namespace MiniSQLEngine
             User user = new User(userName, userPassword, userProfileName);
             users.Add(user);
             return Messages.UserAddedSuccess;
-            
+
         }
         public string DeleteUser(string userName)
         {
-            foreach(User us in users)
+            foreach (User us in users)
             {
                 if (us.getUserName() == userName)
                 {
@@ -222,6 +222,140 @@ namespace MiniSQLEngine
             }
             return Messages.UserNotDeleted;
         }
+        public string GrantOnTo(string privilege, string table, Profile prof)
+        {
+            foreach (Table theTable in Tables)
+            {
+                if (theTable.Name == table)
+                {
+                    foreach (Profile profi in profiles)
+                    {
+                        if (profi == prof)
+                        {
+                            if (privilege.Equals("INSERT") || privilege.Equals("DELETE") || privilege.Equals("SELECT") || privilege.Equals("UPDATE"))
+                            {
+                                switch (privilege)
+                                {
+                                    case "DELETE":
+                                        foreach (string tab in profi.getDeleteList())
+                                        {
+                                            if (tab == table)
+                                            {
+                                                return Messages.ErrorPrivilegeGrant;
+                                            }
+                                        }
+                                        break;
+                                    case "INSERT":
+                                        foreach (string tab in profi.getInsertList())
+                                        {
+                                            if (tab == table)
+                                            {
+                                                return Messages.ErrorPrivilegeGrant;
+                                            }
+                                        }
+                                        break;
+                                    case "UPDATE":
+                                        foreach (string tab in profi.getUpdateList())
+                                        {
+                                            if (tab == table)
+                                            {
+                                                return Messages.ErrorPrivilegeGrant;
+                                            }
+                                        }
+                                        break;
+                                    case "SELECT":
+                                        foreach (string tab in profi.getSelectList())
+                                        {
+                                            if (tab == table)
+                                            {
+                                                return Messages.ErrorPrivilegeGrant;
+                                            }
+                                        }
+                                        break;
+                                }
+                                profi.addTableToList(table, privilege);
+                            }
+                            else
+                            {
+                                return Messages.ErrorPrivilegeGrant;
+                            }
+
+                        }
+                    }
+                    return Messages.GrantedCorrectly;
+                }
+            }
+            return Messages.TableDoesNotExist;
+        }
+        public string RevokeOnTo(string privilege, string table, Profile prof)
+        {
+
+            foreach (Profile profi in profiles)
+            {
+                if (profi == prof)
+                {
+                    if (privilege.Equals("INSERT") || privilege.Equals("DELETE") || privilege.Equals("SELECT") || privilege.Equals("UPDATE"))
+                    {
+                        switch (privilege)
+                        {
+                            case "DELETE":
+                                foreach (string tab in profi.getDeleteList())
+                                {
+                                    if (tab == table)
+                                    {
+                                        profi.removeTableFromList(table, privilege);
+                                        return Messages.RevokeedCorrectly;
+
+                                    }
+                                }
+                                break;
+                            case "INSERT":
+                                foreach (string tab in profi.getInsertList())
+                                {
+                                    if (tab == table)
+                                    {
+                                        profi.removeTableFromList(table, privilege);
+                                        return Messages.RevokeedCorrectly;
+
+                                    }
+                                }
+                                break;
+                            case "UPDATE":
+                                foreach (string tab in profi.getUpdateList())
+                                {
+                                    if (tab == table)
+                                    {
+                                        profi.removeTableFromList(table, privilege);
+                                        return Messages.RevokeedCorrectly;
+
+                                    }
+                                }
+                                break;
+                            case "SELECT":
+                                foreach (string tab in profi.getSelectList())
+                                {
+                                    if (tab == table)
+                                    {
+                                        profi.removeTableFromList(table, privilege);
+                                        return Messages.RevokeedCorrectly;
+
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        return Messages.ErrorPrivilegeRevoke;
+                    }
+
+                }
+            }
+            return Messages.RevokeedCorrectly;
+        }
+    
+
+
         public Profile GetProfileByName(String theName)
         {
             foreach(Profile prof in profiles)

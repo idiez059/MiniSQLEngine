@@ -31,6 +31,10 @@ namespace ConsoleApp2
             db.AddUser("dfjdhf", "hfdj", prof);
             db.DeleteUser("dfjdhf");
             db.DeleteUser("chocolate");
+            db.GrantOnTo("DELETE", "People", prof);
+            db.GrantOnTo("INSERT", "People", prof);
+            db.RevokeOnTo("DELETE", "People", prof);
+
 
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));

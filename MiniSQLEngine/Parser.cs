@@ -34,6 +34,8 @@ namespace MiniSQLEngine {
             string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
             string addUser = @"ADD USER\s+\(([^\)]+)\)\s*\;";
             string deleteUser = @"DELETE USER\s+(\w+)\;";
+            string grantOnTo = @"GRANT\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
+            string revokeOnTo = @"REVOKE\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
 
             //Select
             Match match = Regex.Match(query, select);
@@ -178,6 +180,25 @@ namespace MiniSQLEngine {
             {
                 String userName = match.Groups[1].Value;
                 return new DeleteUser(userName);
+            }
+            //GrantOnTo
+            match = Regex.Match(query, grantOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new GrantOnTo(privilege, table, profName);
+            }
+
+            // RevokeOnTo
+            match = Regex.Match(query, revokeOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new RevokeOnTo(privilege, table, profName);
             }
 
 
