@@ -33,6 +33,7 @@ namespace MiniSQLEngine {
             string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
             string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
             string addUser = @"ADD USER\s+\(([^\)]+)\)\s*\;";
+            string deleteUser = @"DELETE USER\s+(\w+)\;";
 
             //Select
             Match match = Regex.Match(query, select);
@@ -170,6 +171,13 @@ namespace MiniSQLEngine {
                 String userPassword = match.Groups[2].Value;
                 String userProfileName = match.Groups[3].Value;
                 return new AddUser(userName, userPassword, userProfileName);
+            }
+            //DeleteUser
+            match = Regex.Match(query, deleteUser);
+            if (match.Success)
+            {
+                String userName = match.Groups[1].Value;
+                return new DeleteUser(userName);
             }
 
 

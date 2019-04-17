@@ -19,6 +19,8 @@ namespace MiniSQLEngine
 
         public const string ProfileErrorAlreadyExists = Error + "Profile already exists";
         public const string UserErrorAlreadyExists = Error + "User already exists";
+        public const string UserDeletedCorrectly =  "User deleted correctly";
+        public const string UserNotDeleted = "User to delete not found";
 
         public const string WrongSyntax = Error + "Syntactical error";
         public const string DatabaseDoesNotExist = Error + "Database does not exist";

@@ -29,6 +29,8 @@ namespace ConsoleApp2
             Profile prof = db.GetProfileByName("TAD4NKA");
             db.AddUser("dfjdhf", "hfdj", prof);
             db.AddUser("dfjdhf", "hfdj", prof);
+            db.DeleteUser("dfjdhf");
+            db.DeleteUser("chocolate");
 
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));

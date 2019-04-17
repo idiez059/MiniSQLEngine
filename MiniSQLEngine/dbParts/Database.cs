@@ -210,6 +210,18 @@ namespace MiniSQLEngine
             return Messages.UserAddedSuccess;
             
         }
+        public string DeleteUser(string userName)
+        {
+            foreach(User us in users)
+            {
+                if (us.getUserName() == userName)
+                {
+                    users.Remove(us);
+                    return Messages.UserDeletedCorrectly;
+                }
+            }
+            return Messages.UserNotDeleted;
+        }
         public Profile GetProfileByName(String theName)
         {
             foreach(Profile prof in profiles)
