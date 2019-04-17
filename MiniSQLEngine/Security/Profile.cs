@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiniSQLEngine
 {
-    class Profile
+    public class Profile
     {
         public string profileName { get; set; }
         List<string> deleteIn = new List<string>();

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MiniSQLEngine;
 
-class AddUser : Query
+public class AddUser : Query
 {
     
     string pUserName;
@@ -20,7 +20,8 @@ class AddUser : Query
     }
     public override string Run(Database bd)
     {
-        bd.AddUser(pUserName, pUserPassword, pUserProfileName);
+        Profile prof = bd.GetProfileByName(pUserProfileName);
+        bd.AddUser(pUserName, pUserPassword, prof);
         return "ADD USER Query was successful, on standby for Database AddUser method to validate";
     }
 }

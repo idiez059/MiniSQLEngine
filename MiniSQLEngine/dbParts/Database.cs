@@ -196,13 +196,28 @@ namespace MiniSQLEngine
             
             return null;
         }
-        public string AddUser(string userName, string userPassword, string userProfileName)
+        public string AddUser(string userName, string userPassword, Profile userProfileName)
         {
             
                 User user = new User(userName, userPassword, userProfileName);
                 users.Add(user);
                 return Messages.UserAddedSuccess;
             
+        }
+        public Profile GetProfileByName(String theName)
+        {
+            foreach(Profile prof in profiles)
+            {
+                if (prof.profileName == theName)
+                {
+                    return prof;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
         }
         /// <summary>
         /// Creates a table
