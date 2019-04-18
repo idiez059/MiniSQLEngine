@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace MiniSQLEngine.Security
 {
-    class User
+    public class User
     {
         private string userName{get; set;}
         private string userPass{get; set;}
-        private Profile profile { get; set; } //not shure: type, string or Profile
-
+        private Profile profile { get; set; } //not sure: type, string or Profile
+        public User(string pUserName, string pUserPass, Profile pProfile)
+        {
+            userName = pUserName;
+            userPass = pUserPass;
+            profile = pProfile;
+        }
         public Profile getUserProfile() {return profile;}
         public string getUserProfileString() { return profile.ToString(); }
         public string getUserPass() { return userPass; }

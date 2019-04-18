@@ -12,7 +12,7 @@ namespace PruebaUpdate
         static void Main(string[] args)
         {
             /*update*/
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "dfjdhf", "hfdj");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
             //db.RunQuery(@"UPDATE People SET Name=Bernardino,Email=delvalle@gmail.com WHERE Age<27;");

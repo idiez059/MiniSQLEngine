@@ -13,7 +13,7 @@ public class CreateDataBase : Query
     public override String Run(Database bd)
     {
         //This is not correct, further storage of the created database is required, but access it from outside as the method returns a string
-        Database database = new Database(pBase);
+        Database database = new Database(pBase,"uhgdfyg","jhfh");
         return "Database: " + pBase + " created successfully.";
     }
 

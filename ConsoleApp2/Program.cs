@@ -11,7 +11,7 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db","dfjdhf","hfdj");
 
             List<Column> columns = new List<Column>();
             Column ages = new ColumnInt("Age");
@@ -23,6 +23,19 @@ namespace ConsoleApp2
             names.AddValue("Ignacio");
             columns.Add(names);
             db.CreateTable("People", columns);
+            db.CreateSecProfile("TAD4NKA");
+            db.CreateSecProfile("TAD4NKA2");
+            db.DropSecProfile("TAD4NKA2");
+            Profile prof = db.GetProfileByName("TAD4NKA");
+            db.AddUser("dfjdhf", "hfdj", prof);
+            db.AddUser("dfjdhf", "hfdj", prof);
+            db.DeleteUser("dfjdhf");
+            db.DeleteUser("chocolate");
+            db.GrantOnTo("DELETE", "People", prof);
+            db.GrantOnTo("INSERT", "People", prof);
+            db.RevokeOnTo("DELETE", "People", prof);
+
+
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 

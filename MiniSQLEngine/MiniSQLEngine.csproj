@@ -44,6 +44,12 @@
     <Compile Include="BackupDataBase.cs" />
     <Compile Include="dbParts\Database.cs" />
     <Compile Include="dbParts\Column.cs" />
+    <Compile Include="querys\AddUser.cs" />
+    <Compile Include="querys\CreateSecProfile.cs" />
+    <Compile Include="querys\DeleteUser.cs" />
+    <Compile Include="querys\DropSecProfile.cs" />
+    <Compile Include="querys\GrantOnTo.cs" />
+    <Compile Include="querys\RevokeOnTo.cs" />
     <Compile Include="Security\Profile.cs" />
     <Compile Include="querys\CreateDataBase.cs" />
     <Compile Include="querys\CreateTable.cs" />
