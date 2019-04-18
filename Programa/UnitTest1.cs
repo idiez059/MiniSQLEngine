@@ -29,13 +29,15 @@ namespace Programa
             string result1 = db.RunQuery("SELECT Name FROM People WHERE Age = 23;");
             string result2 = db.RunQuery("SELECT Name FROM People WHERE Age > 21;");
             string result3 = db.RunQuery("SELECT Name FROM People WHERE Age < 19;");
-            string result4 = db.RunQuery("SELECT Name FROM People WHERE Age < 23;");
+            string result4 = db.RunQuery("SELECT Name FROM People WHERE Age < 22;");
             string result5 = db.RunQuery("SELECT Name FROM People WHERE Age < 18;");
             string result6 = db.RunQuery("SELECT Name FROM People WHERE Age = 25;");
             string result7 = db.RunQuery("SELECT Name FROM People WHERE Age > 26;");
             string result8 = db.RunQuery("SELECT Name FROM People WHERE Age = 11;");
             string result9 = db.RunQuery("SELECT Name FROM People WHERE Age < 10;");
             string resultn = db.RunQuery("SELECT Name FROM People;");
+            string resulta = db.RunQuery("SELECT Age FROM People;");
+            string resultTodo = db.RunQuery("SELECT * FROM People;");
 
             //-------------Test funcionalesdel con 1 solo where ----------
 
@@ -49,10 +51,10 @@ namespace Programa
 
             // Assert.AreEqual("{Name,Email,Age}{'Leire','leire@gmail.com',9}", result9);
 
-            // sin where ------ NO FUNCIONA, DICE QUE esperaba {Name})
+            // sin where ------solo hay que ponerle name y devuelve solo los nombres)
 
-            //Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',23}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}", resultn);
-
+            Assert.AreEqual("{Name}{'Jon'}{'Nuria'}{'Rafa'}", resultn);
+            Assert.AreEqual("{Age}{18}{20}{23}", resulta);
 
             //-------------Test funcionales con 2 where ----------
             // = ---FUNCIONA
@@ -62,16 +64,19 @@ namespace Programa
             //> ---FUNCIONA
             Assert.AreEqual("{Name,Email,Age}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}", result7);
 
-            //-------------Test funcionales con 3 where ----------
+            //-------------Test funcionales con 3 o + where ----------
             // FUNCIONAAAAAAAA
             Assert.AreEqual("{Name,Email,Age}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}", result8);
+            //<  Tengo que probarlo
+            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}", result4);
 
             //-------------Test funcionales con * ----------
-            //  solo te da los nombres no toda la tabla
+            //  funciona
 
-            Assert.AreEqual("{Name}{'Nerea'}{'Jon'}{'Nuria'}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}{'Leire'}", resultn);
+           Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Rafa','rafa@gmail.com',23}{'Maria','maria@gmail.com',25}{'Arrate','arrate@gmail.com',25}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}{'Leire','leire@gmail.com',9}", resultTodo);
+              
             //SI LE CAMBIAS EL ORDEN YA NO FUNCIONA
-            // Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
+          Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
 
 
         }
