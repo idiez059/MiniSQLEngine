@@ -40,7 +40,6 @@ namespace Programa
             string resultTodo = db.RunQuery("SELECT * FROM People;");
 
             //-------------Test funcionalesdel con 1 solo where ----------
-
             // = ---- FUNCIONA
             Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',23}", result1);
 
@@ -48,13 +47,12 @@ namespace Programa
             Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',23}", result2);
 
             //< -----------(NO FUNCIONA, DICE QUE NO RECIBE NADA)
-
             // Assert.AreEqual("{Name,Email,Age}{'Leire','leire@gmail.com',9}", result9);
 
             // sin where ------solo hay que ponerle name y devuelve solo los nombres)
-
             Assert.AreEqual("{Name}{'Jon'}{'Nuria'}{'Rafa'}", resultn);
             Assert.AreEqual("{Age}{18}{20}{23}", resulta);
+
 
             //-------------Test funcionales con 2 where ----------
             // = ---FUNCIONA
@@ -73,24 +71,31 @@ namespace Programa
             //-------------Test funcionales con * ----------
             //  funciona
 
-           Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Rafa','rafa@gmail.com',23}{'Maria','maria@gmail.com',25}{'Arrate','arrate@gmail.com',25}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}{'Leire','leire@gmail.com',9}", resultTodo);
-              
+            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Rafa','rafa@gmail.com',23}{'Maria','maria@gmail.com',25}{'Arrate','arrate@gmail.com',25}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}{'Leire','leire@gmail.com',9}", resultTodo);
+
             //SI LE CAMBIAS EL ORDEN YA NO FUNCIONA
-          Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
-
-
+            Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
         }
+
 
         [TestMethod]
         public void TestInsert()
         {
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-            string result2 = db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
-            //el insert no devuelve nada
-            //Assert.AreNotEqual("{Name}{'Rafa','rafa@gmail.com', 23}", result2);
-            //No funciona, devuelve null
-            Assert.AreEqual(Messages.InsertSuccess, result2);
+            //si
+            string result1 = db.RunQuery("INSERT INTO People VALUES ('Pepe', 'pepe@gmail.com', 2);");
+            //si
+            string result2 = db.RunQuery("INSERT INTO People VALUES ('Marta','', 3);");
+            //si
+            string result3 = db.RunQuery("INSERT INTO People VALUES ('', 'x@gmail.com',1 );");
+            //si
+            string result4 = db.RunQuery("INSERT INTO People VALUES ('Lucia', 'lucia@gmail.com', '');");
+
+            Assert.AreEqual(Messages.InsertSuccess, result1);
+            Assert.AreNotEqual(Messages.InsertSuccess, result2);
+            Assert.AreEqual(Messages.InsertSuccess, result3);
+            Assert.AreEqual(Messages.InsertSuccess, result4);
         }
 
         [TestMethod]
