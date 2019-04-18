@@ -177,6 +177,7 @@ namespace MiniSQLEngine
             {
                 Profile profile = new Profile(name);
                 profiles.Add(profile);
+                FileSystemAbstract.saveProfileInfo(name);
                 return Messages.CreateProfileSuccess;
             }
         }
@@ -207,6 +208,7 @@ namespace MiniSQLEngine
             }
             User user = new User(userName, userPassword, userProfileName);
             users.Add(user);
+            FileSystemAbstract.saveUserInfo(userName, userPassword, userProfileName);
             return Messages.UserAddedSuccess;
 
         }

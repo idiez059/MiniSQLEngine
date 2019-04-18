@@ -41,9 +41,22 @@ namespace MiniSQLEngine
             }
         }
 
-        public void saveUserInfo(string name, string password, string profileType)
+        public static void saveUserInfo(string name, string password, Profile profileType)
         {
+            string path = @"..\..\..\Storage\Users\" + name + ".txt";
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                file.Write(name + " " + password + " " + profileType.profileName);
+            }
+            }
 
+        public static void saveProfileInfo(string name)
+        {
+            string path = @"..\..\..\Storage\Profiles\" + name + ".txt";
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                file.Write(name);
+            }
         }
 
         public static void saveData(string dbName, List<Table> tables)
@@ -52,7 +65,7 @@ namespace MiniSQLEngine
             {
                 List<Column> columns = table.Columns;
                 string tableName = table.Name;
-                string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
+                string path = @"..\....\Storage\" + dbName + "-" + tableName + ".txt";
                 string[] lines = { };
 
 
