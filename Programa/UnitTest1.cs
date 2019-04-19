@@ -7,7 +7,7 @@ namespace Programa
     [TestClass]
     public class EverythingWorks
     {
-        /*
+        
         [TestMethod]
         public void TestSelect()
         {
@@ -98,7 +98,7 @@ namespace Programa
             Assert.AreEqual(Messages.InsertSuccess, result3);
             Assert.AreEqual(Messages.InsertSuccess, result4);
         }
-        */
+        
         //---------------------------------------------------------------------------
         [TestMethod]
         public void TestUpdate()
