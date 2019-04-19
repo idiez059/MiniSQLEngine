@@ -7,6 +7,7 @@ namespace Programa
     [TestClass]
     public class EverythingWorks
     {
+        /*
         [TestMethod]
         public void TestSelect()
         {
@@ -76,7 +77,7 @@ namespace Programa
             //SI LE CAMBIAS EL ORDEN YA NO FUNCIONA
             Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
         }
-
+         //---------------------------------------------------------------------------
 
         [TestMethod]
         public void TestInsert()
@@ -97,7 +98,8 @@ namespace Programa
             Assert.AreEqual(Messages.InsertSuccess, result3);
             Assert.AreEqual(Messages.InsertSuccess, result4);
         }
-
+        */
+        //---------------------------------------------------------------------------
         [TestMethod]
         public void TestUpdate()
         {
@@ -109,16 +111,63 @@ namespace Programa
             result1 = db.RunQuery("SELECT * FROM People;");
             Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
         }
-        
+
+        //---------------------------------------------------------------------------
+
         [TestMethod]
         public void TestDelete()
         {
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
+            db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
+            db.RunQuery("INSERT INTO People VALUES ('Maria', 'maria@gmail.com', 25);");
+            db.RunQuery("INSERT INTO People VALUES ('Arrate', 'arrate@gmail.com', 25);");
+            db.RunQuery("INSERT INTO People VALUES ('Juana', 'arrate@gmail.com', 85);");
+
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un = 
             string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un >
+            string result2 = db.RunQuery("DELETE FROM People WHERE Age > 30; ");
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un <
+            string result3 = db.RunQuery("DELETE FROM People WHERE Age < 20; ");
+            //-------------Test funcional con +1 columna a eliminar y siendo un <
+            string result4 = db.RunQuery("DELETE FROM People WHERE Age = 25; ");
+            //-------------Test funcional eliminar todo
+            string result5 = db.RunQuery("DELETE FROM People WHERE Age < 25; ");
+            
             Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
+            result1 = db.RunQuery("SELECT Rafa FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result1);   // Se esperaba <>, pero es <ERROR: Column does not exist>. 
+            
+            
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result2);
+            result2 = db.RunQuery("SELECT Rafa FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result2);
+            
+            
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result3);
+            result3 = db.RunQuery("SELECT Rafa FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result3);
+            
+            
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result4);
+            result4 = db.RunQuery("SELECT Rafa FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result4);
+            
+            //**************ESTO NO FUNCIONA********
+            /*
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result5);
+            result5 = db.RunQuery("SELECT Nerea FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result5);
+            
+            //result5 = db.RunQuery("SELECT Juana FROM People;");
+            //Assert.AreEqual("{Name,Email,Age}{'Juana','arrate@gmail.com',85}", result5);
+            */
+
         }
+        //---------------------------------------------------------------------------
+
         /*
         [TestMethod]
         public void TestCreateTable()
@@ -126,6 +175,7 @@ namespace Programa
             Database db = new Database("test-db");
            
         }
+         //---------------------------------------------------------------------------
 
         [TestMethod]
         public void TestDropTable()

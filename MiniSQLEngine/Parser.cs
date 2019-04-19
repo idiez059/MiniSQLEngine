@@ -79,8 +79,6 @@ namespace MiniSQLEngine {
                 String table = match.Groups[1].Value;
                 String values = match.Groups[2].Value;
               
-
-
                 return new Insert(table, values);
             }
 
@@ -93,8 +91,6 @@ namespace MiniSQLEngine {
                 String columns = match.Groups[2].Value;
                 String values = match.Groups[3].Value;
                 
-
-
                 return new Insert(table, columns, values);
             }
 
