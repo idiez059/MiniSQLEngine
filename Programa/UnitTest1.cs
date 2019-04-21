@@ -7,7 +7,6 @@ namespace Programa
     [TestClass]
     public class EverythingWorks
     {
-        
         [TestMethod]
         public void TestSelect()
         {
@@ -51,9 +50,8 @@ namespace Programa
             // Assert.AreEqual("{Name,Email,Age}{'Leire','leire@gmail.com',9}", result9);
 
             // sin where ------solo hay que ponerle name y devuelve solo los nombres)
-            Assert.AreEqual("{Name}{'Jon'}{'Nuria'}{'Rafa'}", resultn);
+            Assert.AreEqual("{Name}{'Nerea'}{'Jon'}{'Nuria'}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}{'Leire'}", resultn);
             Assert.AreEqual("{Age}{18}{20}{23}", resulta);
-
 
             //-------------Test funcionales con 2 where ----------
             // = ---FUNCIONA
@@ -67,105 +65,109 @@ namespace Programa
             // FUNCIONAAAAAAAA
             Assert.AreEqual("{Name,Email,Age}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}", result8);
             //<  Tengo que probarlo
-            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}", result4);
+            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Juan','juan@gmail.com',11}" +
+                "{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}", result4);
 
             //-------------Test funcionales con * ----------
             //  funciona
 
-            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Rafa','rafa@gmail.com',23}{'Maria','maria@gmail.com',25}{'Arrate','arrate@gmail.com',25}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}{'Juan','juan@gmail.com',11}{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}{'Leire','leire@gmail.com',9}", resultTodo);
+            Assert.AreEqual("{Name,Email,Age}{'Nerea','nerea@gmail.com',17}{'Jon','jon@gmail.com',18}{'Nuria','nuria@gmail.com',20}{'Rafa','rafa@gmail.com',23}" +
+                "{'Maria','maria@gmail.com',25}{'Arrate','arrate@gmail.com',25}{'Luis','luis@gmail.com',27}{'Luisma','luisma@gmail.com',28}{'Juan','juan@gmail.com',11}" +
+                "{'Juana','juana@gmail.com',11}{'Juanjo','juanjo@gmail.com',11}{'Leire','leire@gmail.com',9}", resultTodo);
 
             //SI LE CAMBIAS EL ORDEN YA NO FUNCIONA
             Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
         }
-         //---------------------------------------------------------------------------
-
-        [TestMethod]
-        public void TestInsert()
-        {
-            Database db = new Database("test-db");
-            db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-            //si
-            string result1 = db.RunQuery("INSERT INTO People VALUES ('Pepe', 'pepe@gmail.com', 2);");
-            //si
-            string result2 = db.RunQuery("INSERT INTO People VALUES ('Marta','', 3);");
-            //si
-            string result3 = db.RunQuery("INSERT INTO People VALUES ('', 'x@gmail.com',1 );");
-            //si
-            string result4 = db.RunQuery("INSERT INTO People VALUES ('Lucia', 'lucia@gmail.com', '');");
-
-            Assert.AreEqual(Messages.InsertSuccess, result1);
-            Assert.AreNotEqual(Messages.InsertSuccess, result2);
-            Assert.AreEqual(Messages.InsertSuccess, result3);
-            Assert.AreEqual(Messages.InsertSuccess, result4);
-        }
-        
         //---------------------------------------------------------------------------
-        [TestMethod]
-        public void TestUpdate()
-        {
-            Database db = new Database("test-db");
-            db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-            string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
-            Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
-            result1 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
-        }
+        /*
+                [TestMethod]
+                public void TestInsert()
+                {
+                    Database db = new Database("test-db");
+                    db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
+                    //si
+                    string result1 = db.RunQuery("INSERT INTO People VALUES ('Pepe', 'pepe@gmail.com', 2);");
+                    //si
+                    string result2 = db.RunQuery("INSERT INTO People VALUES ('Marta','', 3);");
+                    //si
+                    string result3 = db.RunQuery("INSERT INTO People VALUES ('', 'x@gmail.com',1 );");
+                    //si
+                    string result4 = db.RunQuery("INSERT INTO People VALUES ('Lucia', 'lucia@gmail.com', '');");
 
-        //---------------------------------------------------------------------------
+                    Assert.AreEqual(Messages.InsertSuccess, result1);
+                    Assert.AreNotEqual(Messages.InsertSuccess, result2);
+                    Assert.AreEqual(Messages.InsertSuccess, result3);
+                    Assert.AreEqual(Messages.InsertSuccess, result4);
+                }
 
-        [TestMethod]
-        public void TestDelete()
-        {
-            Database db = new Database("test-db");
-            db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-            db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
-            db.RunQuery("INSERT INTO People VALUES ('Maria', 'maria@gmail.com', 25);");
-            db.RunQuery("INSERT INTO People VALUES ('Arrate', 'arrate@gmail.com', 25);");
-            db.RunQuery("INSERT INTO People VALUES ('Juana', 'arrate@gmail.com', 85);");
+                //---------------------------------------------------------------------------
+                [TestMethod]
+                public void TestUpdate()
+                {
+                    Database db = new Database("test-db");
+                    db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
+                    db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
+                    string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+                    Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
+                    result1 = db.RunQuery("SELECT * FROM People;");
+                    Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
+                }
 
-            //-------------Test funcional con 1 unica columna a eliminar y siendo un = 
-            string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
-            //-------------Test funcional con 1 unica columna a eliminar y siendo un >
-            string result2 = db.RunQuery("DELETE FROM People WHERE Age > 30; ");
-            //-------------Test funcional con 1 unica columna a eliminar y siendo un <
-            string result3 = db.RunQuery("DELETE FROM People WHERE Age < 20; ");
-            //-------------Test funcional con +1 columna a eliminar y siendo un <
-            string result4 = db.RunQuery("DELETE FROM People WHERE Age = 25; ");
-            //-------------Test funcional eliminar todo
-            string result5 = db.RunQuery("DELETE FROM People WHERE Age < 25; ");
-            
-            Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
-            result1 = db.RunQuery("SELECT Rafa FROM People;");
-            Assert.AreEqual(Messages.ColumnDoesNotExist, result1);   // Se esperaba <>, pero es <ERROR: Column does not exist>. 
-            
-            
-            Assert.AreEqual(Messages.TupleDeleteSuccess, result2);
-            result2 = db.RunQuery("SELECT Rafa FROM People;");
-            Assert.AreEqual(Messages.ColumnDoesNotExist, result2);
-            
-            
-            Assert.AreEqual(Messages.TupleDeleteSuccess, result3);
-            result3 = db.RunQuery("SELECT Rafa FROM People;");
-            Assert.AreEqual(Messages.ColumnDoesNotExist, result3);
-            
-            
-            Assert.AreEqual(Messages.TupleDeleteSuccess, result4);
-            result4 = db.RunQuery("SELECT Rafa FROM People;");
-            Assert.AreEqual(Messages.ColumnDoesNotExist, result4);
-            
-            //**************ESTO NO FUNCIONA********
-            /*
-            Assert.AreEqual(Messages.TupleDeleteSuccess, result5);
-            result5 = db.RunQuery("SELECT Nerea FROM People;");
-            Assert.AreEqual(Messages.ColumnDoesNotExist, result5);
-            
-            //result5 = db.RunQuery("SELECT Juana FROM People;");
-            //Assert.AreEqual("{Name,Email,Age}{'Juana','arrate@gmail.com',85}", result5);
-            */
+                //---------------------------------------------------------------------------
 
-        }
+                [TestMethod]
+                public void TestDelete()
+                {
+                    Database db = new Database("test-db");
+                    db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
+                    db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
+                    db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
+                    db.RunQuery("INSERT INTO People VALUES ('Maria', 'maria@gmail.com', 25);");
+                    db.RunQuery("INSERT INTO People VALUES ('Arrate', 'arrate@gmail.com', 25);");
+                    db.RunQuery("INSERT INTO People VALUES ('Juana', 'arrate@gmail.com', 85);");
+
+                    //-------------Test funcional con 1 unica columna a eliminar y siendo un = 
+                    string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
+                    //-------------Test funcional con 1 unica columna a eliminar y siendo un >
+                    string result2 = db.RunQuery("DELETE FROM People WHERE Age > 30; ");
+                    //-------------Test funcional con 1 unica columna a eliminar y siendo un <
+                    string result3 = db.RunQuery("DELETE FROM People WHERE Age < 20; ");
+                    //-------------Test funcional con +1 columna a eliminar y siendo un <
+                    string result4 = db.RunQuery("DELETE FROM People WHERE Age = 25; ");
+                    //-------------Test funcional eliminar todo
+                    string result5 = db.RunQuery("DELETE FROM People WHERE Age < 25; ");
+
+                    Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
+                    result1 = db.RunQuery("SELECT Rafa FROM People;");
+                    Assert.AreEqual(Messages.ColumnDoesNotExist, result1);   // Se esperaba <>, pero es <ERROR: Column does not exist>. 
+
+
+                    Assert.AreEqual(Messages.TupleDeleteSuccess, result2);
+                    result2 = db.RunQuery("SELECT Rafa FROM People;");
+                    Assert.AreEqual(Messages.ColumnDoesNotExist, result2);
+
+
+                    Assert.AreEqual(Messages.TupleDeleteSuccess, result3);
+                    result3 = db.RunQuery("SELECT Rafa FROM People;");
+                    Assert.AreEqual(Messages.ColumnDoesNotExist, result3);
+
+
+                    Assert.AreEqual(Messages.TupleDeleteSuccess, result4);
+                    result4 = db.RunQuery("SELECT Rafa FROM People;");
+                    Assert.AreEqual(Messages.ColumnDoesNotExist, result4);
+                  */
+        //**************ESTO NO FUNCIONA********
+        /*
+        Assert.AreEqual(Messages.TupleDeleteSuccess, result5);
+        result5 = db.RunQuery("SELECT Nerea FROM People;");
+        Assert.AreEqual(Messages.ColumnDoesNotExist, result5);
+
+        //result5 = db.RunQuery("SELECT Juana FROM People;");
+        //Assert.AreEqual("{Name,Email,Age}{'Juana','arrate@gmail.com',85}", result5);
+        */
+
+        //  }
+
         //---------------------------------------------------------------------------
 
         /*
