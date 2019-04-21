@@ -79,7 +79,7 @@ namespace Programa
             Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
         }
         //---------------------------------------------------------------------------
-        /*
+        
                 [TestMethod]
                 public void TestInsert()
                 {
@@ -155,7 +155,7 @@ namespace Programa
                     Assert.AreEqual(Messages.TupleDeleteSuccess, result4);
                     result4 = db.RunQuery("SELECT Rafa FROM People;");
                     Assert.AreEqual(Messages.ColumnDoesNotExist, result4);
-                  */
+                  
         //**************ESTO NO FUNCIONA********
         /*
         Assert.AreEqual(Messages.TupleDeleteSuccess, result5);
@@ -166,7 +166,7 @@ namespace Programa
         //Assert.AreEqual("{Name,Email,Age}{'Juana','arrate@gmail.com',85}", result5);
         */
 
-        //  }
+                }
 
         //---------------------------------------------------------------------------
 
