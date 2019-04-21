@@ -62,34 +62,31 @@ public class Select : Query
             {
                 //SELECT Name,Age,... & condition
                 //Handle condition
+
+                //create a list of columns, one for each of the requested columns
+                List<Column> resultColumns = new List<Column>();
+                foreach (string columnName in ColumnNames)
+                    resultColumns.Add(new ColumnString(columnName)); //<- This is not 100% correct, but should work
+
                 int numValues = table.ColumnByName(ConditionCol).GetNumValues();
-                numValues--;
+               
                 for (int i = 0; i <= numValues; i++) //esto hay que probarlo
                 {
                     string gottenValue =
                         table.ColumnByName(ConditionCol).GetValueAsString(i);
                     bool comparation = CompareOp(gottenValue, ConditionValue, ConditionOp);
-                    if (comparation == false)
+                    if (comparation == true)
                     {
-                        //preguntar en clase RemoveAt(i)
-                        //no estoy seguro
-                        foreach (Column delColTuple in table.Columns)
+                        int numRequestedColumns = ColumnNames.Count;
+                        for (int colIndex = 0; colIndex < numRequestedColumns; colIndex++)
                         {
-                            delColTuple.RemoveValueAtIndex(i);
+                            Column sourceColumn = table.ColumnByName(ColumnNames[colIndex]);
+                            resultColumns[colIndex].AddValue(sourceColumn.GetValueAsString(i));
                         }
-                        i--;
-                        numValues--;
                     }
                 }
-                return table.ToString();
-                //try
-                //{
-                //    return db.SelectColumns(TableName, ColumnNames).ToString();
-                //}
-                //catch
-                //{
-                //    return Messages.ColumnDoesNotExist;
-                //}
+
+                return new Table(table.Name, resultColumns).ToString();
             }
         }
     }
