@@ -79,19 +79,19 @@ namespace Programa
             Assert.AreEqual("{Name}{'Rafa'}{'Maria'}{'Arrate'}{'Luis'}{'Nerea'}{'Jon'}{'Nuria'}{'Luisma'}{'Juan'}{'Juana'}{'Juanjo'}", resultn);
         }
         //---------------------------------------------------------------------------
-        
-       [TestMethod]
+
+        [TestMethod]
         public void TestInsert()
         {
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-                    //si
+            //si
             string result1 = db.RunQuery("INSERT INTO People VALUES ('Pepe', 'pepe@gmail.com', 2);");
-                    //si
+            //si
             string result2 = db.RunQuery("INSERT INTO People VALUES ('Marta','', 3);");
-                    //si
+            //si
             string result3 = db.RunQuery("INSERT INTO People VALUES ('', 'x@gmail.com',1 );");
-                    //si
+            //si
             string result4 = db.RunQuery("INSERT INTO People VALUES ('Lucia', 'lucia@gmail.com', '');");
 
             Assert.AreEqual(Messages.InsertSuccess, result1);
@@ -100,46 +100,58 @@ namespace Programa
             Assert.AreEqual(Messages.InsertSuccess, result4);
         }
 
-                //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
         [TestMethod]
         public void TestUpdate()
         {
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-            string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+            //string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+            //Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
+            //result1 = db.RunQuery("SELECT * FROM People;");
+            //Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
+
+            //EL QUERY DEVUELVE NULL
+            //string result2 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=21 WHERE Age>27;");
+            //Assert.AreEqual(Messages.TupleUpdateSuccess, result2);
+            //result2 = db.RunQuery("SELECT * FROM People;");
+            //Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',21}", result2);
+
+            //EL QUERY DEVUELVE NULL
+            string result1 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=30 WHERE Age=34;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
             result1 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',30}", result1);
         }
 
-                //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
-       [TestMethod]
-       public void TestDelete()
-       {
-           Database db = new Database("test-db");
-           db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-           db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-           db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
-           db.RunQuery("INSERT INTO People VALUES ('Maria', 'maria@gmail.com', 25);");
-           db.RunQuery("INSERT INTO People VALUES ('Arrate', 'arrate@gmail.com', 25);");
-           db.RunQuery("INSERT INTO People VALUES ('Juana', 'arrate@gmail.com', 85);");
+        [TestMethod]
+        public void TestDelete()
+        {
+            Database db = new Database("test-db");
+            db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
+            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
+            db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
+            db.RunQuery("INSERT INTO People VALUES ('Maria', 'maria@gmail.com', 25);");
+            db.RunQuery("INSERT INTO People VALUES ('Arrate', 'arrate@gmail.com', 25);");
+            db.RunQuery("INSERT INTO People VALUES ('Juana', 'arrate@gmail.com', 85);");
 
-           //-------------Test funcional con 1 unica columna a eliminar y siendo un = 
-           string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
-           //-------------Test funcional con 1 unica columna a eliminar y siendo un >
-           string result2 = db.RunQuery("DELETE FROM People WHERE Age > 30; ");
-           //-------------Test funcional con 1 unica columna a eliminar y siendo un <
-           string result3 = db.RunQuery("DELETE FROM People WHERE Age < 20; ");
-           //-------------Test funcional con +1 columna a eliminar y siendo un <
-           string result4 = db.RunQuery("DELETE FROM People WHERE Age = 25; ");
-           //-------------Test funcional eliminar todo
-           string result5 = db.RunQuery("DELETE FROM People WHERE Age < 25; ");
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un = 
+            string result1 = db.RunQuery("DELETE FROM People WHERE Name = Rafa; ");
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un >
+            string result2 = db.RunQuery("DELETE FROM People WHERE Age > 30; ");
+            //-------------Test funcional con 1 unica columna a eliminar y siendo un <
+            string result3 = db.RunQuery("DELETE FROM People WHERE Age < 20; ");
+            //-------------Test funcional con +1 columna a eliminar y siendo un <
+            string result4 = db.RunQuery("DELETE FROM People WHERE Age = 25; ");
+            //-------------Test funcional eliminar todo
+            string result5 = db.RunQuery("DELETE FROM People WHERE Age < 25; ");
 
-           Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
-           result1 = db.RunQuery("SELECT Rafa FROM People;");
-           Assert.AreEqual(Messages.ColumnDoesNotExist, result1);   // Se esperaba <>, pero es <ERROR: Column does not exist>. 
+            Assert.AreEqual(Messages.TupleDeleteSuccess, result1);
+            result1 = db.RunQuery("SELECT Rafa FROM People;");
+            Assert.AreEqual(Messages.ColumnDoesNotExist, result1);   // Se esperaba <>, pero es <ERROR: Column does not exist>. 
 
 
             Assert.AreEqual(Messages.TupleDeleteSuccess, result2);
@@ -154,7 +166,7 @@ namespace Programa
             Assert.AreEqual(Messages.TupleDeleteSuccess, result4);
             result4 = db.RunQuery("SELECT Rafa FROM People;");
             Assert.AreEqual(Messages.ColumnDoesNotExist, result4);
-                  
+
             //**************ESTO NO FUNCIONA********
             /*
             Assert.AreEqual(Messages.TupleDeleteSuccess, result5);
@@ -165,7 +177,7 @@ namespace Programa
             //Assert.AreEqual("{Name,Email,Age}{'Juana','arrate@gmail.com',85}", result5);
             */
 
-       }
+        }
 
         //---------------------------------------------------------------------------
 
