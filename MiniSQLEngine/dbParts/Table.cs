@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiniSQLEngine
 {
-    //Clase tabla 
+    //Clase tabla.
     public class Table
     {
         public String Name { get; }
