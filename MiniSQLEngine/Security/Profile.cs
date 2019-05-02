@@ -13,7 +13,6 @@ namespace MiniSQLEngine
         List<string> updateIn = new List<string>();
         List<string> insertIn = new List<string>();
         List<string> selectIn = new List<string>();
-
         public Profile(string pName)
         {
             profileName = pName;

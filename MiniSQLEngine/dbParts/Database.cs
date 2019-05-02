@@ -25,6 +25,13 @@ namespace MiniSQLEngine
 
         public Database(string dbName, string user, string password)
         {
+
+            Profile adminProf = new Profile("adminProf");
+            User admin = new User("admin", "admin", adminProf);
+            users.Add(admin);
+            
+            profiles.Add(adminProf);
+
             Name = dbName;
             string admPass;
             if (user == null)
@@ -82,6 +89,7 @@ namespace MiniSQLEngine
         {
             Profile profile = null;
             List<string> list = new List<string>();
+            if(user == "admin") { return true; }
             foreach (User us in users)
             {
                 if (us.getUserName() == user)
