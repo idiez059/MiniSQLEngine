@@ -48,7 +48,7 @@ namespace MiniSQLEngine
             {
                 file.Write(name + " " + password + " " + profileType.profileName);
             }
-            }
+        }
 
         public static void saveProfileInfo(string name)
         {
