@@ -22,7 +22,6 @@ namespace MiniSQLEngine
         private string loggedUser;
 
         // Track whether Dispose has been called.
-        private bool disposed = false;
 
         public Database(string dbName, string user, string password)
         {
