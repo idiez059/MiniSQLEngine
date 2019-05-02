@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,19 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Database db = new Database("test-db");
+            Database db2 = new Database("database1");
+            string path = @"..\..\..\Storage\" + "ficheroPrueba" + ".txt";
+            using (StreamReader sr = new StreamReader(path))
+            {                
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        db2.RunQuery(line);
+                    }
+                
+            }
+
+                Database db = new Database("test-db");
             Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
             //A ver si peta
             FileSystemAbstract.LoadOrCreateDB("AscoDeVida");
