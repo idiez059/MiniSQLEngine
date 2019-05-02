@@ -94,24 +94,16 @@ namespace Programa
                     //si
                     string result4 = db.RunQuery("INSERT INTO People VALUES ('Lucia', 'lucia@gmail.com', '');");
 
-                    Assert.AreEqual(Messages.InsertSuccess, result1);
-                    Assert.AreNotEqual(Messages.InsertSuccess, result2);
-                    Assert.AreEqual(Messages.InsertSuccess, result3);
-                    Assert.AreEqual(Messages.InsertSuccess, result4);
-                }
-
-                //---------------------------------------------------------------------------
-                [TestMethod]
-                public void TestUpdate()
-                {
-                    Database db = new Database("test-db");
-                    db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-                    db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-                    string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
-                    Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
-                    result1 = db.RunQuery("SELECT * FROM People;");
-                    Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}",result1);
-                }
+        [TestMethod]
+        public void Update()
+        { Database db = new Database("test-db" ,"uuuser", "password");
+            db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
+            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 23);");
+            db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+            //db.RunQuery(@"UPDATE People SET Name=Bernardino,Email=delvalle@gmail.com WHERE Age<27;");
+            //db.RunQuery("UPDATE People SET Name=Bernado WHERE Name=Rafa;");
+            //db.RunQuery("UPDATE People SET Name=Bernardino,Age=21;");
+            //db.RunQuery("UPDATE People SET Name=Bernado WHERE Name=Rafa;");
 
                 //---------------------------------------------------------------------------
 

@@ -30,6 +30,13 @@ namespace MiniSQLEngine {
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
             string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s*\;";
 
+            string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
+            string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
+            string addUser = @"ADD USER\s+\(([^\)]+)\)\s*\;";
+            string deleteUser = @"DELETE USER\s+(\w+)\;";
+            string grantOnTo = @"GRANT\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
+            string revokeOnTo = @"REVOKE\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
+
             //Select
             Match match = Regex.Match(query, select);
             if (match.Success)
@@ -137,6 +144,60 @@ namespace MiniSQLEngine {
                 String tipoDato = match.Groups[2].Value;
                 return new CreateTable(nombreTabla, tipoDato);
             }
+
+            //CreateSecProfile
+            match = Regex.Match(query, createSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;               
+                return new CreateSecProfile(profileName);
+            }
+
+            //DropSecProfile
+            match= Regex.Match(query, dropSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;
+                return new DropSecProfile(profileName);
+            }
+
+            //AddUser
+            match = Regex.Match(query, addUser);
+            if (match.Success)
+            {
+                String userName = match.Groups[1].Value;
+                String userPassword = match.Groups[2].Value;
+                String userProfileName = match.Groups[3].Value;
+                return new AddUser(userName, userPassword, userProfileName);
+            }
+            //DeleteUser
+            match = Regex.Match(query, deleteUser);
+            if (match.Success)
+            {
+                String userName = match.Groups[1].Value;
+                return new DeleteUser(userName);
+            }
+            //GrantOnTo
+            match = Regex.Match(query, grantOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new GrantOnTo(privilege, table, profName);
+            }
+
+            // RevokeOnTo
+            match = Regex.Match(query, revokeOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new RevokeOnTo(privilege, table, profName);
+            }
+
+
             return null;
         }
     }

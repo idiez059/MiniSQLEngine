@@ -11,41 +11,36 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Database db = new Database("test-db");
-            Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
-            //A ver si peta
-            FileSystemAbstract.LoadOrCreateDB("AscoDeVida");
+            Database db = new Database("test-db","dfjdhf","hfdj");
+
             List<Column> columns = new List<Column>();
             Column ages = new ColumnInt("Age");
             ages.AddValue("23");
             ages.AddValue("42");
-            ages.AddValue("50");
             columns.Add(ages);
             Column names = new ColumnString("Name");
             names.AddValue("Maria");
             names.AddValue("Ignacio");
-            names.AddValue("Ricardo");
             columns.Add(names);
             db.CreateTable("People", columns);
+            db.CreateSecProfile("TAD4NKA");
+            db.CreateSecProfile("TAD4NKA2");
+            db.DropSecProfile("TAD4NKA2");
+            Profile prof = db.GetProfileByName("TAD4NKA");
+            db.AddUser("dfjdhf", "hfdj", prof);
+            db.AddUser("dfjdhf", "hfdj", prof);
+            db.DeleteUser("dfjdhf");
+            db.DeleteUser("chocolate");
+            db.GrantOnTo("DELETE", "People", prof);
+            db.GrantOnTo("INSERT", "People", prof);
+            db.RevokeOnTo("DELETE", "People", prof);
+
+
             //string query = "SELECT * FROM People WHERE Age < 30;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
 
-            string querySelect1 = "SELECT * FROM table1;";
-            string querySelect2 = "SELECT * FROM table2;";
-            string queryInsert1 = "INSERT INTO table1 (names, ages) VALUES (D4NK_Nadius, 22);";
-            string queryInsert2 = "INSERT INTO table2 (Kills, KDA) VALUES (5000, 0.9);";
-            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
-            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
-            Console.WriteLine(queryInsert1 + ": " + db1.RunQuery(queryInsert1));
-            Console.WriteLine(queryInsert2 + ": " + db1.RunQuery(queryInsert2));
-            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
-            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
-            db1.Dispose();
-            Console.WriteLine("Test finalizado.");
             string queryDelete = "DROP TABLE People;";
-            db.Dispose();
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
-            
 
             //string query = "SELECT Name FROM People;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));
