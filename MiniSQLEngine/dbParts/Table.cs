@@ -69,7 +69,7 @@ namespace MiniSQLEngine
             return;
         }
 
-        private bool CompareOp(string elem1, string elem2, string operat)
+        private bool CompareOp(string columns, string elem1, string elem2, string operat)
         {
             switch (operat)
             {
@@ -99,7 +99,7 @@ namespace MiniSQLEngine
                     if (Columns[i].Name == left) {
                         for (int tuple = 0; tuple < numTuples; tuple++)
                         {
-                          bool delete = CompareOp(Columns[i].GetValueAsString(tuple), right,  op);
+                          bool delete = CompareOp(Columns[i].Name, Columns[i].GetValueAsString(tuple), right,  op);
 
                             if(delete == true)
                             {

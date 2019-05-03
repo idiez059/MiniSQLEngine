@@ -72,9 +72,9 @@ public class Select : Query
                
                 for (int i = 0; i <= numValues; i++) //esto hay que probarlo
                 {
-                    string gottenValue =
-                        table.ColumnByName(ConditionCol).GetValueAsString(i);
-                    bool comparation = CompareOp(gottenValue, ConditionValue, ConditionOp);
+                    string gottenValue = table.ColumnByName(ConditionCol).GetValueAsString(i);
+                    // !!!!!!!!!!!
+                    bool comparation = CompareOp(ConditionCol, gottenValue, ConditionValue, ConditionOp);
                     if (comparation == true)
                     {
                         int numRequestedColumns = ColumnNames.Count;
@@ -90,23 +90,51 @@ public class Select : Query
             }
         }
     }
-    private bool CompareOp(string elem1, string elem2, string operat)
+    private bool CompareOp(string columns, string elem1, string elem2, string operat)
     {
-        switch (operat)
+
+        if (columns == "Age") {
+            int intelem1 = int.Parse(elem1);
+            int intelem2 = int.Parse(elem2);
+
+            switch (operat)
+            {
+                case "=":
+                    return intelem1 == intelem2;
+                case "<":
+                    if (intelem1 < intelem2)
+                        return true;
+                    else
+                        return false;
+
+                case ">":
+                    if (intelem1 > intelem2)
+                        return true;
+                    else
+                        return false;
+                default:
+                    Console.WriteLine("Error comparing tuples, in Compare() method");
+                    return false;
+            }
+        }
+        else
         {
-            case "=":
-                return elem1 == elem2;
-            case "<":
-                int j = string.Compare(elem1, elem2);
-                if(j == -1) {return true;}
-                else { return false; }
-            case ">":
-                int k = string.Compare(elem1, elem2);
-                if (k == 1) { return true; }
-                else { return false; }
-            default:
-                Console.WriteLine("Error comparing tuples, in Compare() method");
-                return false;
+            switch (operat)
+            {
+                case "=":
+                    return elem1 == elem2;
+                case "<":
+                    int j = string.Compare(elem1, elem2);
+                    if (j == -1) { return true; }
+                    else { return false; }
+                case ">":
+                    int k = string.Compare(elem1, elem2);
+                    if (k == 1) { return true; }
+                    else { return false; }
+                default:
+                    Console.WriteLine("Error comparing tuples, in Compare() method");
+                    return false;
+            }
         }
     }
 }
