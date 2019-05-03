@@ -32,7 +32,7 @@ namespace MiniSQLEngine {
 
             string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
             string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
-            string addUser = @"ADD USER\s+\(([^\)]+)\)\s*\;";
+            string addUser = @"ADD USER\s+\((\w+),(\w+),(\w+)\)\;";
             string deleteUser = @"DELETE USER\s+(\w+)\;";
             string grantOnTo = @"GRANT\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
             string revokeOnTo = @"REVOKE\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";

@@ -393,11 +393,7 @@ namespace MiniSQLEngine
                 if (prof.profileName == theName)
                 {
                     return prof;
-                }
-                else
-                {
-                    return null;
-                }
+                }               
             }
             return null;
         }

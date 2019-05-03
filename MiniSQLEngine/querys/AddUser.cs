@@ -17,6 +17,7 @@ public class AddUser : Query
         pUserName = userName;
         pUserPassword = userPassword;
         pUserProfileName = userProfileName;
+
     }
     public override string Run(Database bd)
     {
