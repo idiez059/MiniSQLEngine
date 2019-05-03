@@ -35,8 +35,7 @@ namespace ConsoleApp2
                                     //Ignore given that parts is less on size than 3, as that means it's an empty line / line break
                                 }
                                 Console.WriteLine(line + ": " + query);
-                            }
-                            
+                            }                            
                         }
                     }
                 }
