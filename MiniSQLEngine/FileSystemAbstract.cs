@@ -17,13 +17,13 @@ namespace MiniSQLEngine
                 //Create a new database
                 Console.WriteLine("Database was not found, creating new database named: " + name);
                 Directory.CreateDirectory(pathfile);
-                return new Database(name);
+                return new Database(name, "admin", "admin");
             }
             //If it DOES exist
             else
             {
                 //Load existing data
-                Database loadedDB = new Database(name);
+                Database loadedDB = new Database(name, "admin", "admin");
                 Console.WriteLine("Database: " + name + "was found, will proceed to open now...");
                 foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
                 {
