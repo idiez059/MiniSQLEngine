@@ -24,7 +24,7 @@ namespace MiniSQLEngine {
             string insert = @"INSERT\s+INTO\s+(\w+)\s+\(([^\)]+)\)\s+VALUES\s+\(([^\)]+)\);";
             string insert2 = @"INSERT\s+INTO\s+(\w+)\s+VALUES\s+\(([^\)]+)\);";
 
-            string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
+            string createDataBase = @"CREATE DATABASE\s+(|\w+),(|\w+),(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
@@ -105,9 +105,11 @@ namespace MiniSQLEngine {
             match = Regex.Match(query, createDataBase);
             if (match.Success)
             {
-                String nombreBD = match.Groups[0].Value;
+                String BDName = match.Groups[1].Value;
+                String userName = match.Groups[2].Value;
+                String password = match.Groups[3].Value;
 
-                return new CreateDataBase(nombreBD);
+                return new CreateDataBase(BDName,userName,password);
             }
 
             //DropDataBase
