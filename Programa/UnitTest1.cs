@@ -144,10 +144,10 @@ namespace Programa
             Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}{'Lucas','rafa@gmail.com',61}{'Juana','juana@gmail.com',30}", result3);
 
             //
-            string result4 = db.RunQuery("UPDATE People SET Name='Pepe' WHERE Name=Rafa;");
+            string result4 = db.RunQuery("UPDATE People SET Name='Pepe' WHERE Name=Lucas;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result4);
             result4 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Pepe','rafa@gmail.com',60}", result4);
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}{'Pepe','rafa@gmail.com',61}{'Juana','juana@gmail.com',30}", result4);
 
         }
 

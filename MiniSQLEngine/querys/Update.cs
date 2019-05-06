@@ -30,7 +30,7 @@ public class Update : Query
             Values.Add(parts[1]);
         }
     }
-    private bool CompareOp(string columns, string elem1, string elem2, string operat)
+    private bool CompareOp(string elem1, string elem2, string operat)
     {
         switch (operat)
         {
@@ -64,12 +64,13 @@ public class Update : Query
         //we need the column list to know the correct column
         int numValues = table.ColumnByName(pLeft).GetNumValues();
         numValues--;
-        
+
         for (int i = 0; i < numValues; i++) 
         {
             
             string value = table.ColumnByName(pLeft).GetValueAsString(i).Trim('\'');
-            bool comparation = CompareOp(ColumnNames[i], value, pRight, pOp);
+            bool comparation = CompareOp(value, pRight, pOp);
+
             if (comparation == true)
             {
                 for (int j=0; j< Values.Count; j++)
