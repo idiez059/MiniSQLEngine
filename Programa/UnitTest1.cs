@@ -129,7 +129,7 @@ namespace Programa
             string result1 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=11 WHERE Age<15;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
             result1 = db.RunQuery("SELECT Name,Age FROM People WHERE Age < 15;");
-            Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}", result1);
+            Assert.AreEqual("{Name,Age}{'Bernardino',11}", result1);
             //
             string result4 = db.RunQuery("UPDATE People SET Name='Bernardino' WHERE Name=Rafa;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result4);
