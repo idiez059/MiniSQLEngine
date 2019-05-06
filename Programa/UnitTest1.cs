@@ -130,23 +130,25 @@ namespace Programa
             Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
             result1 = db.RunQuery("SELECT Name,Age FROM People WHERE Age < 20;");
             Assert.AreEqual("{Name,Age}{'Bernardino',11}", result1);
-            //
-            string result4 = db.RunQuery("UPDATE People SET Name='Bernardino' WHERE Name=Rafa;");
-            Assert.AreEqual(Messages.TupleUpdateSuccess, result4);
-            result4 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',60}", result4);
-
+           
             //EL QUERY DEVUELVE NULL
-            string result2 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=61 WHERE Age>59;");
+            string result2 = db.RunQuery("UPDATE People SET Name='Lucas',Age=61 WHERE Age>59;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result2);
             result2 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',61}", result2);
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}{'Lucas','rafa@gmail.com',61}{'Juana','juana@gmail.com',30}", result2);
 
            ////EL QUERY DEVUELVE NULL
             string result3 = db.RunQuery("UPDATE People SET Name='Juana',Age=31 WHERE Age=30;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result3);
             result3 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Juana','juana@gmail.com',31}", result3);
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}{'Lucas','rafa@gmail.com',61}{'Juana','juana@gmail.com',30}", result3);
+
+            //
+            string result4 = db.RunQuery("UPDATE People SET Name='Pepe' WHERE Name=Rafa;");
+            Assert.AreEqual(Messages.TupleUpdateSuccess, result4);
+            result4 = db.RunQuery("SELECT * FROM People;");
+            Assert.AreEqual("{Name,Email,Age}{'Pepe','rafa@gmail.com',60}", result4);
+
         }
 
         //---------------------------------------------------------------------------
