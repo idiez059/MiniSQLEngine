@@ -18,7 +18,7 @@ namespace MiniSQLEngine {
         {
             //devuelve subclase de query que se ejecutara en el metodo run que llamara al select de la base de datos
 
-            string select = @"SELECT\s+(\*|([^\)]+))\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
+            string select = @"SELECT\s+(\*|[^\)]+)\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|\<|\>)\s+(\w+))?(\;)";
             string update = @"UPDATE\s+(\w+)\s+SET\s+([\w\,\=\@\.\']+)\s+WHERE\s+(\w+)\s*(=|<|>)\s*(\w+);";
             string delete = @"DELETE\s+FROM\s+(\w+)(?:\s+WHERE\s+(\w+)\s+(\=|<|>)\s+(\w+))?(\;)";
             string insert = @"INSERT\s+INTO\s+(\w+)\s+\(([^\)]+)\)\s+VALUES\s+\(([^\)]+)\);";
