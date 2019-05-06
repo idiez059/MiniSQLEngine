@@ -91,6 +91,7 @@ namespace MiniSQLEngine
 
         public void DeleteRows(string left, string op, string right)
         {
+            bool delete = false;
             for (int i = 0; i < Columns.Count; i++)
             {
                 int numTuples = Columns[0].GetNumValues();                
@@ -99,8 +100,14 @@ namespace MiniSQLEngine
                     if (Columns[i].Name == left) {
                         for (int tuple = 0; tuple < numTuples; tuple++)
                         {
-                          bool delete = CompareOp(Columns[i].Name, Columns[i].GetValueAsString(tuple), right,  op);
-
+                            if (i > 0)
+                            {
+                                delete = CompareOp(Columns[i].Name, Columns[i].GetValueAsString(tuple), right, op);
+                            }
+                            else
+                            {
+                                delete = false;
+                            }
                             if(delete == true)
                             {
                                 for (int j = 0; j < Columns.Count; j++)
