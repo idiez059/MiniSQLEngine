@@ -175,7 +175,7 @@ namespace Programa
             Assert.AreEqual(Messages.ColumnDoesNotExist, result2);
 
             Assert.AreEqual(Messages.TupleDeleteSuccess, result3);
-            result3 = db.RunQuery("SELECT Rafa FROM People;");
+            result3 = db.RunQuery("SELECT Nerea FROM People;");
             Assert.AreEqual(Messages.ColumnDoesNotExist, result3);
 
 
