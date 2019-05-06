@@ -64,7 +64,7 @@ public class Update : Query
         //we need the column list to know the correct column
         int numValues = table.ColumnByName(pLeft).GetNumValues();
         numValues--;
-        for (int i = 0; i <= numValues; i++) 
+        for (int i = 0; i < numValues; i++) 
         {
             
             string value = table.ColumnByName(pLeft).GetValueAsString(i).Trim('\'');

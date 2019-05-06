@@ -121,29 +121,32 @@ namespace Programa
         {
             Database db = new Database("test-db");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
-            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
-            //FUNCIONA si ponemos el nombre sin ''
-            string result1 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+            db.RunQuery("INSERT INTO People VALUES ('Manuela', 'manuela@gmail.com', 10);");
+            db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 60);");
+            db.RunQuery("INSERT INTO People VALUES ('Juana', 'juana@gmail.com', 30);");
+          
+            //FUNCIONA 
+            string result1 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=11 WHERE Age<15;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result1);
-            result1 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}", result1);
+            result1 = db.RunQuery("SELECT Name,Age FROM People WHERE Age < 15;");
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','manuela@gmail.com',11}", result1);
             //
-            string result4 = db.RunQuery("UPDATE People SET Name=Bernardino,Age=21 WHERE Age<27;");
+            string result4 = db.RunQuery("UPDATE People SET Name='Bernardino' WHERE Name=Rafa;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result4);
             result4 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Rafa','rafa@gmail.com',34}", result4);
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',60}", result4);
 
             //EL QUERY DEVUELVE NULL
-            //string result2 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=21 WHERE Age>27;");
-            //Assert.AreEqual(Messages.TupleUpdateSuccess, result2);
-            //result2 = db.RunQuery("SELECT * FROM People;");
-            //Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',21}", result2);
+            string result2 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=61 WHERE Age>59;");
+            Assert.AreEqual(Messages.TupleUpdateSuccess, result2);
+            result2 = db.RunQuery("SELECT * FROM People;");
+            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',61}", result2);
 
            ////EL QUERY DEVUELVE NULL
-            string result3 = db.RunQuery("UPDATE People SET Name='Bernardino',Age=30 WHERE Age=34;");
+            string result3 = db.RunQuery("UPDATE People SET Name='Juana',Age=31 WHERE Age=30;");
             Assert.AreEqual(Messages.TupleUpdateSuccess, result3);
             result3 = db.RunQuery("SELECT * FROM People;");
-            Assert.AreEqual("{Name,Email,Age}{'Bernardino','rafa@gmail.com',30}", result3);
+            Assert.AreEqual("{Name,Email,Age}{'Juana','juana@gmail.com',31}", result3);
         }
 
         //---------------------------------------------------------------------------
