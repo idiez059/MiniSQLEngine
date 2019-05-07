@@ -69,7 +69,7 @@ namespace testParsing
             foreach (string query in correctQueries)
                 Assert.IsNotNull(Parser.Parse(query));
         }
-        
+        //creo que aqui da el error en el github
          [TestMethod]
          public void TestCreateDataBase()
          {
