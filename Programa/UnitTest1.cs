@@ -11,7 +11,7 @@ namespace Programa
         [TestMethod]
         public void TestSelect()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
 
             db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");

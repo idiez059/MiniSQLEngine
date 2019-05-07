@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,41 +12,41 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Database db = new Database("test-db");
-            Database db1 = FileSystemAbstract.LoadOrCreateDB("patataBrava");
-            //A ver si peta
-            FileSystemAbstract.LoadOrCreateDB("AscoDeVida");
-            List<Column> columns = new List<Column>();
-            Column ages = new ColumnInt("Age");
-            ages.AddValue("23");
-            ages.AddValue("42");
-            ages.AddValue("50");
-            columns.Add(ages);
-            Column names = new ColumnString("Name");
-            names.AddValue("Maria");
-            names.AddValue("Ignacio");
-            names.AddValue("Ricardo");
-            columns.Add(names);
-            db.CreateTable("People", columns);
-            //string query = "SELECT * FROM People WHERE Age < 30;";
-            //Console.WriteLine(query + ": " + db.RunQuery(query));
+            Database db = new Database("Database1","admin","admin");
+            string pathfile = @"..\..\..\Storage\";
+            foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
+            {
+                string fileName = Path.GetFileNameWithoutExtension(file);
+                if (fileName.Equals("TesterInput"))
+                {
+                    using (StreamReader sr = new StreamReader(file))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            string query = db.RunQuery(line);
+                            if(query == null)
+                            {
+                                string[] parts;
+                                parts = line.Split(',');
+                                if(parts.Length > 3)
+                                {
+                                    FileSystemAbstract.LoadOrCreateDB(parts[0]);
+                                    //Ignore given that parts is less on size than 3, as that means it's an empty line / line break
+                                }
+                                Console.WriteLine(line + ": " + query);
+                            }                            
+                        }
+                    }
+                }
+            }
 
-            string querySelect1 = "SELECT * FROM table1;";
-            string querySelect2 = "SELECT * FROM table2;";
-            string queryInsert1 = "INSERT INTO table1 (names, ages) VALUES (D4NK_Nadius, 22);";
-            string queryInsert2 = "INSERT INTO table2 (Kills, KDA) VALUES (5000, 0.9);";
-            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
-            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
-            Console.WriteLine(queryInsert1 + ": " + db1.RunQuery(queryInsert1));
-            Console.WriteLine(queryInsert2 + ": " + db1.RunQuery(queryInsert2));
-            Console.WriteLine(querySelect1 + ": " + db1.RunQuery(querySelect1));
-            Console.WriteLine(querySelect2 + ": " + db1.RunQuery(querySelect2));
-            db1.Dispose();
-            Console.WriteLine("Test finalizado.");
-            string queryDelete = "DROP TABLE People;";
-            db.Dispose();
+
+                //string query = "SELECT * FROM People WHERE Age < 30;";
+                //Console.WriteLine(query + ": " + db.RunQuery(query));
+
+                string queryDelete = "DROP TABLE People;";
             Console.WriteLine(queryDelete + ": " + db.RunQuery(queryDelete));
-            
 
             //string query = "SELECT Name FROM People;";
             //Console.WriteLine(query + ": " + db.RunQuery(query));

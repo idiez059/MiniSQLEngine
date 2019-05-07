@@ -24,11 +24,18 @@ namespace MiniSQLEngine {
             string insert = @"INSERT\s+INTO\s+(\w+)\s+\(([^\)]+)\)\s+VALUES\s+\(([^\)]+)\);";
             string insert2 = @"INSERT\s+INTO\s+(\w+)\s+VALUES\s+\(([^\)]+)\);";
 
-            string createDataBase = @"CREATE DATABASE\s+(|\w+)(\;)";
+            string createDataBase = @"CREATE DATABASE\s+(|\w+),(|\w+),(|\w+)(\;)";
             string dropDataBase = @"DROP DATABASE\s+(\w+)(\;)";
             string dropTable = @"DROP TABLE\s+(\*|\w+)(\;)";
             string backupDataBase = @"BACKUP DATABASE\s+(\w+)\s+TO DISK\s+(\=)\s+(\'\w+\')(\;)";
             string createTable = @"CREATE TABLE\s+(\w+)\s+\(([^\)]+)\)\s*\;";
+
+            string createSecProfile = @"CREATE SECURITY PROFILE\s+(\w+)\;";
+            string dropSecProfile = @"DROP SECURITY PROFILE\s+(\w+)\;";
+            string addUser = @"ADD USER\s+\((\w+),(\w+),(\w+)\)\;";
+            string deleteUser = @"DELETE USER\s+(\w+)\;";
+            string grantOnTo = @"GRANT\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
+            string revokeOnTo = @"REVOKE\s+(\w+)\s+ON\s+(\w+)\s+TO\s+(\w+);";
 
             //Select
             Match match = Regex.Match(query, select);
@@ -98,9 +105,11 @@ namespace MiniSQLEngine {
             match = Regex.Match(query, createDataBase);
             if (match.Success)
             {
-                String nombreBD = match.Groups[0].Value;
+                String BDName = match.Groups[1].Value;
+                String userName = match.Groups[2].Value;
+                String password = match.Groups[3].Value;
 
-                return new CreateDataBase(nombreBD);
+                return new CreateDataBase(BDName,userName,password);
             }
 
             //DropDataBase
@@ -137,6 +146,60 @@ namespace MiniSQLEngine {
                 String tipoDato = match.Groups[2].Value;
                 return new CreateTable(nombreTabla, tipoDato);
             }
+
+            //CreateSecProfile
+            match = Regex.Match(query, createSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;               
+                return new CreateSecProfile(profileName);
+            }
+
+            //DropSecProfile
+            match= Regex.Match(query, dropSecProfile);
+            if (match.Success)
+            {
+                String profileName = match.Groups[1].Value;
+                return new DropSecProfile(profileName);
+            }
+
+            //AddUser
+            match = Regex.Match(query, addUser);
+            if (match.Success)
+            {
+                String userName = match.Groups[1].Value;
+                String userPassword = match.Groups[2].Value;
+                String userProfileName = match.Groups[3].Value;
+                return new AddUser(userName, userPassword, userProfileName);
+            }
+            //DeleteUser
+            match = Regex.Match(query, deleteUser);
+            if (match.Success)
+            {
+                String userName = match.Groups[1].Value;
+                return new DeleteUser(userName);
+            }
+            //GrantOnTo
+            match = Regex.Match(query, grantOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new GrantOnTo(privilege, table, profName);
+            }
+
+            // RevokeOnTo
+            match = Regex.Match(query, revokeOnTo);
+            if (match.Success)
+            {
+                String privilege = match.Groups[1].Value;
+                String table = match.Groups[2].Value;
+                String profName = match.Groups[3].Value;
+                return new RevokeOnTo(privilege, table, profName);
+            }
+
+
             return null;
         }
     }
