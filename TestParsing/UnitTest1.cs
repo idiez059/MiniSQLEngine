@@ -74,7 +74,7 @@ namespace testParsing
          public void TestCreateDataBase()
          {
             string[] wrongQueries = { "CREATE DATABASE alumno where nombre = Juan;" };
-            string[] correctQueries = { "CREATE DATABASE alumno;" };
+            string[] correctQueries = { "CREATE DATABASE alumno,admin,admin;" };
             /*
              string input1 = "CREATE DATABASE alumnos";
              string input2 = "CREATE DATA alumnos";

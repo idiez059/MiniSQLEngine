@@ -98,7 +98,7 @@ namespace Programa
         [TestMethod]
         public void TestInsert()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             //si
             string result1 = db.RunQuery("INSERT INTO People VALUES ('Pepe', 'pepe@gmail.com', 2);");
@@ -119,7 +119,7 @@ namespace Programa
         [TestMethod]
         public void TestUpdate()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Manuela', 'manuela@gmail.com', 10);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 60);");
@@ -156,7 +156,7 @@ namespace Programa
         [TestMethod]
         public void TestDelete()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
             db.RunQuery("CREATE TABLE People (Name TEXT, Email TEXT, Age INT);");
             db.RunQuery("INSERT INTO People VALUES ('Rafa', 'rafa@gmail.com', 34);");
             db.RunQuery("INSERT INTO People VALUES ('Nerea', 'nerea@gmail.com', 17);");
@@ -211,7 +211,7 @@ namespace Programa
         [TestMethod]
         public void TestCreateTable()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
 
         }
          //---------------------------------------------------------------------------
@@ -219,7 +219,7 @@ namespace Programa
         [TestMethod]
         public void TestDropTable()
         {
-            Database db = new Database("test-db");
+            Database db = new Database("test-db", "admin", "admin");
 
         }
         */
