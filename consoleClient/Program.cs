@@ -52,6 +52,7 @@ namespace consoleClient
                 Console.Write("Enter the query: ");
                 query = Console.ReadLine();
                 
+                
             }
             Environment.Exit(0);
         }
