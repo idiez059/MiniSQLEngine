@@ -49,7 +49,7 @@ namespace consoleClient
             Console.Write("Enter the query: ");
             query = Console.ReadLine();
 
-            while (query.ToLower() != "exit")
+            while (!query.ToLower().Equals("exit"))
             {
                 Console.Write("Enter the query: ");
                 query = Console.ReadLine();
