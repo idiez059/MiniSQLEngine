@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniSQLEngine;
 
 namespace consoleClient
 {
@@ -39,12 +40,12 @@ namespace consoleClient
             string pass = Console.ReadLine();
             Console.Write("Enter the name of the database: ");
             string datab = Console.ReadLine();
-           
 
-            //Program db = new Program(datab, user, pass,ip,port);
-         
 
-            Console.WriteLine("Write exit when you want to finish");
+            String XMLOpenConnection = "<Open Database = " + datab + "User = " + user + "Password = " + pass + "/>";
+            //PasarXML(XMLOpenConnection); Cuando este hecho
+
+                Console.WriteLine("Write exit when you want to finish");
             string query;
             Console.Write("Enter the query: ");
             query = Console.ReadLine();
@@ -53,6 +54,7 @@ namespace consoleClient
             {
                 Console.Write("Enter the query: ");
                 query = Console.ReadLine();
+                
             }
             Environment.Exit(0);
         }
