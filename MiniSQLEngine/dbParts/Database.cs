@@ -32,11 +32,12 @@ namespace MiniSQLEngine
             users.Add(admin);
             
             profiles.Add(adminProf);
-            
+            result = "DBErrorExist/User/Passwd";
             Name = dbName;
             string admPass;
             if (user == null)
             {
+                result = "Must introduce a user";
                 throw new System.ArgumentException("Must introduce a user");
             }
             else
@@ -55,6 +56,7 @@ namespace MiniSQLEngine
 
                             } else
                             {
+                                result = "Admin password incorrect";
                                 throw new System.ArgumentException("Admin password incorrect");
                             }
                         }
@@ -75,11 +77,13 @@ namespace MiniSQLEngine
                                 }
                                 else
                                 {
+                                    result = "User and password do not mach";
                                     throw new System.ArgumentException("User and password do not mach");
                                 }
                             }
                             else
                             {
+                                result = "User does not exist";
                                 throw new System.ArgumentException("User does not exist");
                             }
                         }

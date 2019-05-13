@@ -65,14 +65,13 @@ namespace ServerProgram
                             {
                                 theAnswer = "<Success/>";
                             }
-
-
+                            else
+                            {
+                                theAnswer = "<Error>The database doesn’t exist</Error>";
+                            }
 
                         }else if (runAQuery.Success)
                         {
-
-
-
 
 
                         }
@@ -85,7 +84,7 @@ namespace ServerProgram
 
                         Console.WriteLine("Request received: " + request);
 
-                        byte[] outputBuffer = Encoding.ASCII.GetBytes("My answer is NO");
+                        byte[] outputBuffer = Encoding.ASCII.GetBytes(theAnswer);
                         networkStream.Write(outputBuffer, 0, outputBuffer.Length);
 
                         size = networkStream.Read(inputBuffer, 0, 1024);
