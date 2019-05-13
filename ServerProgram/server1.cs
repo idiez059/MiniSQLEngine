@@ -59,9 +59,12 @@ namespace ServerProgram
                         if (openADb.Success)
                         {
                             db = new Database(openADb.Groups[1].Value,openADb.Groups[2].Value,openADb.Groups[3].Value);
-                            //if (la bd se ha creado succesfully){
-                            //que devuelva el <Success/>
-                            //}
+                            string creationResult = "Nothing at all";
+                            creationResult = db.getResult();
+                            if (creationResult == "DB created OK.")
+                            {
+                                theAnswer = "<Success/>";
+                            }
 
 
 
