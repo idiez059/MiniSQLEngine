@@ -30,19 +30,23 @@ namespace consoleClient
             string ip = Console.ReadLine();
             Console.Write("Enter the port: ");
             string port = Console.ReadLine();
-
-
-
             Console.Write("Enter your user: ");
             string user = Console.ReadLine();
             Console.Write("Enter your password: ");
             string pass = Console.ReadLine();
             Console.Write("Enter the name of the database: ");
             string datab = Console.ReadLine();
-           
 
-            //Program db = new Program(datab, user, pass,ip,port);
-         
+            Program db = new Program(datab, user, pass,ip,port);
+            //if (Program.init(datab, user, pass) == Constants.OpenDatabaseSuccess)
+            //{
+            //    db = new Program(datab, user, pass);
+            //    Console.WriteLine("Database opened");
+            //}
+            //i--;
+
+            
+
 
             Console.WriteLine("Write exit when you want to finish");
             string query;
@@ -53,6 +57,7 @@ namespace consoleClient
             {
                 Console.Write("Enter the query: ");
                 query = Console.ReadLine();
+                
             }
             Environment.Exit(0);
         }
