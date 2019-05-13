@@ -20,6 +20,7 @@ namespace MiniSQLEngine
         private List<User> users = new List<User>();
         private List<Profile> profiles = new List<Profile>();
         private string loggedUser;
+        private string result;
 
         // Track whether Dispose has been called.
 
@@ -31,7 +32,7 @@ namespace MiniSQLEngine
             users.Add(admin);
             
             profiles.Add(adminProf);
-
+            
             Name = dbName;
             string admPass;
             if (user == null)
@@ -50,6 +51,8 @@ namespace MiniSQLEngine
                             if (admPass == password)
                             {
                                 loggedUser = "admin";
+                                result = "DB created OK.";
+
                             } else
                             {
                                 throw new System.ArgumentException("Admin password incorrect");
@@ -68,6 +71,7 @@ namespace MiniSQLEngine
                                 if (us.getUserPass() == password)
                                 {
                                     loggedUser = user;
+                                    result = "DB created OK.";
                                 }
                                 else
                                 {
@@ -518,6 +522,10 @@ namespace MiniSQLEngine
                 }
             }
             return null;
+        }
+        public string getResult()
+        {
+            return result;
         }
         public String RunQuery(string line)
         {
