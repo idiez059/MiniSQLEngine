@@ -20,6 +20,7 @@ namespace MiniSQLEngine
         private List<User> users = new List<User>();
         private List<Profile> profiles = new List<Profile>();
         private string loggedUser;
+        private string result;
 
         // Track whether Dispose has been called.
 
@@ -31,11 +32,12 @@ namespace MiniSQLEngine
             users.Add(admin);
             
             profiles.Add(adminProf);
-
+            result = "DBErrorExist/User/Passwd";
             Name = dbName;
             string admPass;
             if (user == null)
             {
+                result = "Must introduce a user";
                 throw new System.ArgumentException("Must introduce a user");
             }
             else
@@ -50,8 +52,11 @@ namespace MiniSQLEngine
                             if (admPass == password)
                             {
                                 loggedUser = "admin";
+                                result = "DB created OK.";
+
                             } else
                             {
+                                result = "Admin password incorrect";
                                 throw new System.ArgumentException("Admin password incorrect");
                             }
                         }
@@ -68,14 +73,17 @@ namespace MiniSQLEngine
                                 if (us.getUserPass() == password)
                                 {
                                     loggedUser = user;
+                                    result = "DB created OK.";
                                 }
                                 else
                                 {
+                                    result = "User and password do not mach";
                                     throw new System.ArgumentException("User and password do not mach");
                                 }
                             }
                             else
                             {
+                                result = "User does not exist";
                                 throw new System.ArgumentException("User does not exist");
                             }
                         }
@@ -518,6 +526,10 @@ namespace MiniSQLEngine
                 }
             }
             return null;
+        }
+        public string getResult()
+        {
+            return result;
         }
         public String RunQuery(string line)
         {
