@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace consoleClient
 {
     class Program
@@ -37,23 +38,16 @@ namespace consoleClient
             Console.Write("Enter the name of the database: ");
             string datab = Console.ReadLine();
 
-            Program db = new Program(datab, user, pass,ip,port);
-            //if (Program.init(datab, user, pass) == Constants.OpenDatabaseSuccess)
-            //{
-            //    db = new Program(datab, user, pass);
-            //    Console.WriteLine("Database opened");
-            //}
-            //i--;
 
-            
+            String XMLOpenConnection = "<Open Database = " + datab + "User = " + user + "Password = " + pass + "/>";
+            //PasarXML(XMLOpenConnection); Cuando este hecho
 
-
-            Console.WriteLine("Write exit when you want to finish");
+                Console.WriteLine("Write exit when you want to finish");
             string query;
             Console.Write("Enter the query: ");
             query = Console.ReadLine();
 
-            while (query.ToLower() != "exit")
+            while (!query.ToLower().Equals("exit"))
             {
                 Console.Write("Enter the query: ");
                 query = Console.ReadLine();
