@@ -53,13 +53,15 @@ namespace ServerProgram
                     {
                         Database db = null;
                         string theAnswer = "";
-                       // Match openADb = Regex.Match(request, Constants.regExOpenDatabase);
-                        //Match runAQuery = Regex.Match(request, things);
+                        Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
+                        Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
 
                         if (openADb.Success)
                         {
                             db = new Database(openADb.Groups[1].Value,openADb.Groups[2].Value,openADb.Groups[3].Value);
-
+                            //if (la bd se ha creado succesfully){
+                            //que devuelva el <Success/>
+                            //}
 
 
 
