@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
 using MiniSQLEngine;
+using System.Text.RegularExpressions;
 
 namespace ServerProgram
 {
@@ -52,8 +53,8 @@ namespace ServerProgram
                     {
                         Database db = null;
                         string theAnswer = "";
-                        Match openADb = Regex.Match(things, things);
-                        System.Text.RegularExpressions.Match runAQuery = Regex.Match(things, things);
+                       // Match openADb = Regex.Match(request, Constants.regExOpenDatabase);
+                        //Match runAQuery = Regex.Match(request, things);
 
                         if (openADb.Success)
                         {
