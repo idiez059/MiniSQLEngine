@@ -72,8 +72,7 @@ namespace ServerProgram
 
                         }else if (runAQuery.Success)
                         {
-
-
+                            db.RunQuery(runAQuery.Groups[1].Value);
                         }
                         else
                         {
