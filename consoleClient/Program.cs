@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,7 +47,7 @@ namespace consoleClient
                 Console.WriteLine("ERROR. Usage: TCPClient ip=<ip> port=<port>");
                 return;
             }
-                      
+
             using (TcpClient client = new TcpClient(ip, port))
             {
                 NetworkStream networkStream = client.GetStream();
@@ -54,30 +55,39 @@ namespace consoleClient
                 byte[] database = Encoding.ASCII.GetBytes(datab);
                 byte[] userBuffer = Encoding.ASCII.GetBytes(user);
                 byte[] passBuffer = Encoding.ASCII.GetBytes(pass);
+                byte[] openDatabase = Encoding.ASCII.GetBytes("<Open Database=" + database + " User=" + userBuffer + " Password=" + passBuffer + ">");
                 byte[] inputBuffer = new byte[1024];
 
-                networkStream.Write(database,0,database.Length);
+                networkStream.Write(openDatabase, 0, openDatabase.Length);
                 int readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                Console.WriteLine("Server response to database: " + readBytes);
-                networkStream.Write(userBuffer, 0, userBuffer.Length);
-                readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                Console.WriteLine("Server response to user: " + readBytes);
-                networkStream.Write(passBuffer, 0, passBuffer.Length);
-                readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                Console.WriteLine("Server response to password: " + readBytes);
+                Console.WriteLine("Server response to database: " + inputBuffer);
 
-                Console.WriteLine("Write exit when you want to finish");
-                string query;
-                byte[] queryBuffer;
-                do
+                if (inputBuffer.Equals(Encoding.ASCII.GetBytes("<Success/>")))
                 {
-                    Console.Write("Enter the query: ");
-                    query = Console.ReadLine();
-                    queryBuffer = Encoding.ASCII.GetBytes(query);
-                    networkStream.Write(queryBuffer, 0, queryBuffer.Length);
-                    readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                    Console.WriteLine("Server response to query: " + query + "; " + readBytes);
-                } while (query.ToLower() != "exit");
+
+                    
+                    Console.WriteLine("Write exit when you want to finish");
+                    string query;
+                    byte[] queryBuffer;
+                    String answer;
+                    do
+                    {
+                        Console.Write("Enter the query: ");
+                        query = Console.ReadLine();
+                        if (query.ToLower() != "exit")
+                        {
+                            queryBuffer = Encoding.ASCII.GetBytes("<Query>" + query + "</Query>");
+                            networkStream.Write(queryBuffer, 0, queryBuffer.Length);
+                            readBytes = networkStream.Read(inputBuffer, 0, 1024);
+                            answer = Encoding.ASCII.GetString(inputBuffer);
+                            Console.WriteLine("Server response to query: " + query + " - " + answer);
+                        }
+                    } while (query.ToLower() != "exit");
+                }
+                else
+                {
+                    Console.WriteLine("Could not log in, check data was correct.");
+                }
             }
         }
     }
