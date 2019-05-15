@@ -52,20 +52,16 @@ namespace consoleClient
             {
                 NetworkStream networkStream = client.GetStream();
 
-                byte[] database = Encoding.ASCII.GetBytes(datab);
-                byte[] userBuffer = Encoding.ASCII.GetBytes(user);
-                byte[] passBuffer = Encoding.ASCII.GetBytes(pass);
-                byte[] openDatabase = Encoding.ASCII.GetBytes("<Open Database=" + database + " User=" + userBuffer + " Password=" + passBuffer + ">");
+                byte[] openDatabase = Encoding.ASCII.GetBytes("<Open Database="
+                    + datab + " User=" + user + " Password=" + pass + "/>");
                 byte[] inputBuffer = new byte[1024];
 
                 networkStream.Write(openDatabase, 0, openDatabase.Length);
                 int readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                Console.WriteLine("Server response to database: " + inputBuffer);
+                Console.WriteLine("Server response to database: " + Encoding.ASCII.GetString(inputBuffer));
 
                 if (inputBuffer.Equals(Encoding.ASCII.GetBytes("<Success/>")))
-                {
-
-                    
+                {                    
                     Console.WriteLine("Write exit when you want to finish");
                     string query;
                     byte[] queryBuffer;

@@ -18,7 +18,7 @@ namespace ServerProgram
             Console.WriteLine("JINIX DB Server v0.000000001");
             const string argPrefixPort = "port=";
 
-            int port = 0;
+            int port = 8888;
             foreach (string arg in args)
             {
                 if (arg.StartsWith(argPrefixPort)) port = int.Parse(arg.Substring(argPrefixPort.Length));
@@ -53,12 +53,15 @@ namespace ServerProgram
                     {
                         Database db = null;
                         string theAnswer = "";
-                        Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
+                        string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
+                        Match openADb = Regex.Match(request, prueba);
+                        //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
                         Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
 
                         if (openADb.Success)
                         {
-                            db = new Database(openADb.Groups[1].Value,openADb.Groups[2].Value,openADb.Groups[3].Value);
+                            db = new Database(openADb.Groups[1].Value,
+                                openADb.Groups[2].Value,openADb.Groups[3].Value);
                             string creationResult = "Nothing at all";
                             creationResult = db.getResult();
                             if (creationResult == "DB created OK.")
