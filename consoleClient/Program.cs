@@ -78,7 +78,7 @@ namespace consoleClient
                             answer = Encoding.ASCII.GetString(inputBuffer);
                             Console.WriteLine("Server response to query: " + query + " - " + answer);
                         }
-                    } while (query.ToLower() != "exit");
+                    } while (query != "END");
                 }
                 else
                 {
