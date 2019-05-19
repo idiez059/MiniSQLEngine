@@ -57,7 +57,7 @@ namespace ServerProgram
                     int size = networkStream.Read(inputBuffer, 0, 1024);
                     string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
                   
-                    while (con == true) //doing thingies here
+                    while (request != "END") //doing thingies here
                     {
                         //Database db = null;
                         string theAnswer = "";
@@ -80,20 +80,19 @@ namespace ServerProgram
                                 {
                                     theAnswer = "<Error>The database doesn’t exist</Error>";
                                 }
-
                             }
-                            else if (runAQuery.Success)
-                            {
-                                if (runAQuery.Groups[1].Value.Equals("EXIT"))
-                                {
-                                    con = false;
-                                }
-                                else
-                                {
-                                    db.RunQuery(runAQuery.Groups[1].Value);
-                                    theAnswer = "<Success/>";
-                                }
-                            }
+                            //else if (runAQuery.Success)
+                            //{
+                            //    if (runAQuery.Groups[1].Value.Equals("EXIT"))
+                            //    {
+                            //        con = false;
+                            //    }
+                            //    else
+                            //    {
+                            //        db.RunQuery(runAQuery.Groups[1].Value);
+                            //        theAnswer = "<Success/>";
+                            //    }
+                            //}
                             else
                             {
                                 Console.WriteLine("Could not understand what to do!");
