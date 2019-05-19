@@ -64,7 +64,7 @@ namespace consoleClient
                 byte[] bytes = Encoding.ASCII.GetBytes("<Success/>");
                 if (answer=="<Success/>")
                 {                    
-                    Console.WriteLine("Write exit when you want to finish");
+                    Console.WriteLine("Write END when you want to finish");
                     string query;
                     byte[] queryBuffer;
           

@@ -13,12 +13,16 @@ namespace ServerProgram
 {
     public class server1
     {
+        public static Database db;
+        static bool con = false;
         static void Main(string[] args)
+
         {
+
             Console.WriteLine("JINIX DB Server v0.000000001");
             const string argPrefixPort = "port=";
 
-            int port = 8888;
+            int port = 2400;
             foreach (string arg in args)
             {
                 if (arg.StartsWith(argPrefixPort)) port = int.Parse(arg.Substring(argPrefixPort.Length));
@@ -37,7 +41,11 @@ namespace ServerProgram
             while (true)
             {
                 TcpClient client = listener.AcceptTcpClient();
-                Console.WriteLine("Client connection accepted");
+               if (client != null){
+                    Console.WriteLine("Client connection accepted");
+                    con = true;
+                }
+                
 
                 var childSocketThread = new Thread(() =>
                 {
@@ -48,41 +56,49 @@ namespace ServerProgram
                     //Read message from the client
                     int size = networkStream.Read(inputBuffer, 0, 1024);
                     string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
-
+                  
                     while (request != "END") //doing thingies here
                     {
-                        Database db = null;
+                        //Database db = null;
                         string theAnswer = "";
                         string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
                         Match openADb = Regex.Match(request, prueba);
                         //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
                         Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
-
-                        if (openADb.Success)
-                        {
-                            db = new Database(openADb.Groups[1].Value,
-                                openADb.Groups[2].Value,openADb.Groups[3].Value);
-                            string creationResult = "Nothing at all";
-                            creationResult = db.getResult();
-                            if (creationResult == "DB created OK.")
+                        
+                            if (openADb.Success)
                             {
-                                theAnswer = "<Success/>";
+                                db = new Database(openADb.Groups[1].Value,
+                                    openADb.Groups[2].Value, openADb.Groups[3].Value);
+                                string creationResult = "Nothing at all";
+                                creationResult = db.getResult();
+                                if (creationResult == "DB created OK.")
+                                {
+                                    theAnswer = "<Success/>";
+                                }
+                                else
+                                {
+                                    theAnswer = "<Error>The database doesn’t exist</Error>";
+                                }
                             }
+                            //else if (runAQuery.Success)
+                            //{
+                            //    if (runAQuery.Groups[1].Value.Equals("EXIT"))
+                            //    {
+                            //        con = false;
+                            //    }
+                            //    else
+                            //    {
+                            //        db.RunQuery(runAQuery.Groups[1].Value);
+                            //        theAnswer = "<Success/>";
+                            //    }
+                            //}
                             else
                             {
-                                theAnswer = "<Error>The database doesn’t exist</Error>";
+                                Console.WriteLine("Could not understand what to do!");
+                                theAnswer = "<Error> Database, user or password are incorrect </Error>";
                             }
-
-                        }else if (runAQuery.Success)
-                        {
-                            db.RunQuery(runAQuery.Groups[1].Value);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Could not understand what to do!");
-                            theAnswer = "<Error> Database, user or password are incorrect </Error>";
-                        }
-
+                        
 
                         Console.WriteLine("Request received: " + request);
 
