@@ -58,14 +58,16 @@ namespace consoleClient
 
                 networkStream.Write(openDatabase, 0, openDatabase.Length);
                 int readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                Console.WriteLine("Server response to database: " + Encoding.ASCII.GetString(inputBuffer));
+                string answer = Encoding.ASCII.GetString(inputBuffer,0,10);
+                Console.WriteLine("Server response to database: " + answer);
 
-                if (inputBuffer.Equals(Encoding.ASCII.GetBytes("<Success/>")))
+                byte[] bytes = Encoding.ASCII.GetBytes("<Success/>");
+                if (answer=="<Success/>")
                 {                    
                     Console.WriteLine("Write exit when you want to finish");
                     string query;
                     byte[] queryBuffer;
-                    String answer;
+          
                     do
                     {
                         Console.Write("Enter the query: ");
@@ -75,8 +77,20 @@ namespace consoleClient
                             queryBuffer = Encoding.ASCII.GetBytes("<Query>" + query + "</Query>");
                             networkStream.Write(queryBuffer, 0, queryBuffer.Length);
                             readBytes = networkStream.Read(inputBuffer, 0, 1024);
-                            answer = Encoding.ASCII.GetString(inputBuffer);
+                            answer = Encoding.ASCII.GetString(inputBuffer,0,10);
                             Console.WriteLine("Server response to query: " + query + " - " + answer);
+                        }
+                        else
+                        {
+                            bool aachis = true;
+                            while (aachis) {
+                                if(answer == "<Success/>")
+                                {
+                                    aachis = false;
+                                }
+                            }
+                                client.Close();
+                            
                         }
                     } while (query.ToLower() != "exit");
                 }
