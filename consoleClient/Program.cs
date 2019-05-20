@@ -18,6 +18,7 @@ namespace consoleClient
         private string pass;
         private string ip;
         private int port;
+        private static Boolean conStatus = false;
        
         public Program(string datab, string user, string pass,string ip, int port)
         {
@@ -82,16 +83,10 @@ namespace consoleClient
                         }
                         else
                         {
-                            bool aachis = true;
-                            while (aachis) {
-                                if(answer == "<Success/>")
-                                {
-                                    aachis = false;
-                                }
-                            }
-                                client.Close();
-                            
+                            conStatus = false;                          
+                            client.Close();
                         }
+
                     } while (query.ToLower() != "exit");
                 }
                 else
