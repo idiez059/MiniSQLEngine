@@ -15,6 +15,8 @@ namespace ServerProgram
     {
         public static Database db;
         static bool con = false;
+        static bool dbOpened = false;
+        static byte[] outputBuffer = Encoding.ASCII.GetBytes("Nothing at all");
         static void Main(string[] args)
 
         {
@@ -45,72 +47,65 @@ namespace ServerProgram
                     Console.WriteLine("Client connection accepted");
                     con = true;
                 }
-                
+
 
                 var childSocketThread = new Thread(() =>
                 {
-                    byte[] inputBuffer = new byte[1024];
+                byte[] inputBuffer = new byte[1024];
 
-                    NetworkStream networkStream = client.GetStream();
+                NetworkStream networkStream = client.GetStream();
 
-                    //Read message from the client
-                    int size = networkStream.Read(inputBuffer, 0, 1024);
-                    string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
-                  
-                    while (request != "EXIT") //doing thingies here
+                //Read message from the client
+                int size = networkStream.Read(inputBuffer, 0, 1024);
+                string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
+
+                while (request != "<Query>EXIT</Query>") //doing thingies here
+                {
+                    //Database db = null;                        
+                    string theAnswer = "";
+                    string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
+                    Match openADb = Regex.Match(request, prueba);
+                    //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
+                    Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
+
+                    if (dbOpened == false)
                     {
-                        //Database db = null;
-                        Boolean dbOpened = false;
-                        string theAnswer = "";
-                        string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
-                        Match openADb = Regex.Match(request, prueba);
-                        //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
-                        Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
-                        
-                            if (openADb.Success && dbOpened == false)
+                        if (openADb.Success)
+                        {
+                            db = new Database(openADb.Groups[1].Value,
+                                openADb.Groups[2].Value, openADb.Groups[3].Value);
+                            string creationResult = "Nothing at all";
+                            creationResult = db.getResult();
+                            if (creationResult == "DB created OK.")
                             {
-                                db = new Database(openADb.Groups[1].Value,
-                                    openADb.Groups[2].Value, openADb.Groups[3].Value);
-                                string creationResult = "Nothing at all";
-                                creationResult = db.getResult();
-                                if (creationResult == "DB created OK.")
-                                {
-                                    theAnswer = "<Success/>";
-                                }
-                                else
-                                {
-                                    theAnswer = "<Error>The database doesn’t exist</Error>";
-                                }
-                            dbOpened = true;
+                                theAnswer = "<Success/>";
+                                outputBuffer = Encoding.ASCII.GetBytes(theAnswer);
+                                dbOpened = true;
                             }
-                            //else if (runAQuery.Success)
-                            //{
-                            //    if (runAQuery.Groups[1].Value.Equals("EXIT"))
-                            //    {
-                            //        con = false;
-                            //    }
-                            //    else
-                            //    {
-                            //        db.RunQuery(runAQuery.Groups[1].Value);
-                            //        theAnswer = "<Success/>";
-                            //    }
-                            //}
                             else
                             {
-                                Console.WriteLine("Could not understand what to do!");
-                                theAnswer = "<Error> Database, user or password are incorrect </Error>";
+                                theAnswer = "<Error>The database doesn’t exist</Error>";
+                                outputBuffer = Encoding.ASCII.GetBytes(theAnswer);
                             }
-                        
 
-                        Console.WriteLine("Request received: " + request);
+                        }
 
-                        byte[] outputBuffer = Encoding.ASCII.GetBytes(theAnswer);
+                    }
+                    else
+                    {
+                        string requestQuery = ParserXML.QueryXMLtoQuery(request);
+                            theAnswer = db.RunQuery(ParserXML.QueryXMLtoQuery(request));
+                            outputBuffer = Encoding.ASCII.GetBytes(ParserXML.AddAnswer(request));
+                        }
+
+                        Console.WriteLine("Request received: " + request);                        
                         networkStream.Write(outputBuffer, 0, outputBuffer.Length);
-
                         size = networkStream.Read(inputBuffer, 0, 1024);
                         request = Encoding.ASCII.GetString(inputBuffer, 0, size);
                     }
-                    client.Close();
+                    FileSystemAbstract.saveData(db.Name,db.Tables);
+                    db.Dispose();
+                    client.Close();                    
                 });
                 childSocketThread.Start();
             }

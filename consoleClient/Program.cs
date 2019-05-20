@@ -73,20 +73,13 @@ namespace consoleClient
                     {
                         Console.Write("Enter the query: ");
                         query = Console.ReadLine();
-                        if (query.ToLower() != "exit")
-                        {
+                        
                             queryBuffer = Encoding.ASCII.GetBytes("<Query>" + query + "</Query>");
                             networkStream.Write(queryBuffer, 0, queryBuffer.Length);
                             readBytes = networkStream.Read(inputBuffer, 0, 1024);
                             answer = Encoding.ASCII.GetString(inputBuffer,0,10);
                             Console.WriteLine("Server response to query: " + query + " - " + answer);
-                        }
-                        else
-                        {
-                            conStatus = false;                          
-                            client.Close();
-                        }
-
+                       
                     } while (query.ToLower() != "exit");
                 }
                 else

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniSQLEngine
 {
-    class ParserXML
+    public class ParserXML
     {
         //Use: Converts a MiniSQL query of the client to a XML sentence to pass it
         //to the server
@@ -60,5 +60,12 @@ namespace MiniSQLEngine
             return match.Groups[1].Value;            
         }
 
+        public static string AddAnswer(string pData)
+        {
+            string res = "<Answer>";
+            res += pData;
+            res += "</Answer>";
+            return res;
+        }
     }
 }

@@ -143,8 +143,8 @@ namespace MiniSQLEngine {
             if (match.Success)
             {
                 String nombreTabla = match.Groups[1].Value;
-                String tipoDato = match.Groups[2].Value;
-                return new CreateTable(nombreTabla, tipoDato);
+                String nombreColumna = match.Groups[2].Value;
+                return new CreateTable(nombreTabla, nombreColumna);
             }
 
             //CreateSecProfile

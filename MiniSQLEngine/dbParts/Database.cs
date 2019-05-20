@@ -16,7 +16,7 @@ namespace MiniSQLEngine
     {
         private Boolean disposed = false;
         public String Name { get; }
-        private List<Table> Tables = new List<Table>();
+        public List<Table> Tables = new List<Table>();
         private List<User> users = new List<User>();
         private List<Profile> profiles = new List<Profile>();
         private string loggedUser;
