@@ -57,16 +57,17 @@ namespace ServerProgram
                     int size = networkStream.Read(inputBuffer, 0, 1024);
                     string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
                   
-                    while (request != "END") //doing thingies here
+                    while (request != "EXIT") //doing thingies here
                     {
                         //Database db = null;
+                        Boolean dbOpened = false;
                         string theAnswer = "";
                         string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
                         Match openADb = Regex.Match(request, prueba);
                         //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
                         Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
                         
-                            if (openADb.Success)
+                            if (openADb.Success && dbOpened == false)
                             {
                                 db = new Database(openADb.Groups[1].Value,
                                     openADb.Groups[2].Value, openADb.Groups[3].Value);
@@ -80,6 +81,7 @@ namespace ServerProgram
                                 {
                                     theAnswer = "<Error>The database doesn’t exist</Error>";
                                 }
+                            dbOpened = true;
                             }
                             //else if (runAQuery.Success)
                             //{
