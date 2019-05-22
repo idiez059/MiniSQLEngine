@@ -87,7 +87,7 @@ namespace MiniSQLEngine
             {
                 List<Column> columns = table.Columns;
                 string tableName = table.Name;
-                string path = @"..\....\Storage\" + dbName + "-" + tableName + ".txt";
+                string path = @"..\..\..\Storage\" + dbName + "-" + tableName + ".txt";
                 string[] lines = { };
 
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(path,false))
