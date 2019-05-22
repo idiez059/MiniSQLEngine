@@ -8,7 +8,7 @@ namespace MiniSQLEngine
 
     public class FileSystemAbstract
     {
-        public static Database LoadOrCreateDB(string name)
+        public static Database LoadOrCreateDB(string name, string user, string password)
         {
             string pathfile = @"..\..\..\Storage\" + name;
             //If given database does NOT exist (notice exclamation mark at the beginning)
@@ -17,13 +17,13 @@ namespace MiniSQLEngine
                 //Create a new database
                 Console.WriteLine("Database was not found, creating new database named: " + name);
                 Directory.CreateDirectory(pathfile);
-                return new Database(name, "admin", "admin");
+                return new Database(name, user, password);
             }
             //If it DOES exist
             else
             {
                 //Load existing data
-                Database loadedDB = new Database(name, "admin", "admin");
+                Database loadedDB = new Database(name, user, password);
                 Console.WriteLine("Database: " + name + "was found, will proceed to open now...");
                 foreach (string file in Directory.EnumerateFiles(pathfile, "*.txt"))
                 {

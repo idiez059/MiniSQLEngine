@@ -31,7 +31,7 @@ namespace ConsoleApp2
                                 parts = line.Split(',');
                                 if(parts.Length > 3)
                                 {
-                                    FileSystemAbstract.LoadOrCreateDB(parts[0]);
+                                    FileSystemAbstract.LoadOrCreateDB(parts[0],parts[1],parts[2]);
                                     //Ignore given that parts is less on size than 3, as that means it's an empty line / line break
                                 }
                                 Console.WriteLine(line + ": " + query);

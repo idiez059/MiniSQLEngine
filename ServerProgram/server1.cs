@@ -72,7 +72,7 @@ namespace ServerProgram
                     {
                         if (openADb.Success)
                         {
-                            db = new Database(openADb.Groups[1].Value,
+                            db = FileSystemAbstract.LoadOrCreateDB(openADb.Groups[1].Value,
                                 openADb.Groups[2].Value, openADb.Groups[3].Value);
                             string creationResult = "Nothing at all";
                             creationResult = db.getResult();
