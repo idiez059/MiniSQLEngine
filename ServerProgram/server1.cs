@@ -52,9 +52,9 @@ namespace ServerProgram
                 var childSocketThread = new Thread(() =>
                 {
                 byte[] inputBuffer = new byte[1024];
-                byte[] outputBuffer;
+                 byte[] outputBuffer = Encoding.ASCII.GetBytes("Nothing");
 
-                NetworkStream networkStream = client.GetStream();
+                    NetworkStream networkStream = client.GetStream();
 
                 //Read message from the client
                 int size = networkStream.Read(inputBuffer, 0, 1024);
