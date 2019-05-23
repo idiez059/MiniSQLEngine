@@ -16,7 +16,7 @@ namespace ServerProgram
         public static Database db;
         static bool con = false;
         static bool dbOpened = false;
-        static byte[] outputBuffer = Encoding.ASCII.GetBytes("Nothing at all");
+        
         static void Main(string[] args)
 
         {
@@ -52,6 +52,7 @@ namespace ServerProgram
                 var childSocketThread = new Thread(() =>
                 {
                 byte[] inputBuffer = new byte[1024];
+                byte[] outputBuffer;
 
                 NetworkStream networkStream = client.GetStream();
 
@@ -81,7 +82,8 @@ namespace ServerProgram
                                 theAnswer = "<Success/>";
                                 outputBuffer = Encoding.ASCII.GetBytes(theAnswer);
                                 dbOpened = true;
-                            }
+                                
+                                }
                             else
                             {
                                 theAnswer = "<Error>The database doesn’t exist</Error>";
@@ -95,7 +97,7 @@ namespace ServerProgram
                     {
                         string requestQuery = ParserXML.QueryXMLtoQuery(request);
                             theAnswer = db.RunQuery(ParserXML.QueryXMLtoQuery(request));
-                            outputBuffer = Encoding.ASCII.GetBytes(ParserXML.AddAnswer(request));
+                            outputBuffer = Encoding.ASCII.GetBytes(ParserXML.AddAnswer(theAnswer));
                         }
 
                         Console.WriteLine("Request received: " + request);                        
