@@ -1,0 +1,9 @@
+Name Role 
+'Eva' 'Programming manager' 
+'Ramon' 'Programmer' 
+'Miren' 'Sales' 
+'Maite' 'Human Resources' 
+'Maite' 'Human Resources' 
+'Patxi' 'Programmer' 
+'Patxi' 'Programmer' 
+'Patxi' 'Programmer' 

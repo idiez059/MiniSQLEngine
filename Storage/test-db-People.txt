@@ -1,2 +1,0 @@
-Name Email Age 
-'Rafa' 'rafa@gmail.com' 34 

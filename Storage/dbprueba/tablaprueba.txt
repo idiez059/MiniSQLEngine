@@ -1,2 +1,0 @@
-nombre edad 
-Borjia 30 

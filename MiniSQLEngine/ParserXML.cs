@@ -43,7 +43,7 @@ namespace MiniSQLEngine
             answer += "{";
             for (int tuple = 0; tuple < numTuples; tuple++)
             {
-                for (int i = 1; i < table.Columns.Count; i++) answer += "," + table.Columns[i].GetValueAsString(tuple);
+                for (int i = 1; i < table.Columns.Count; i++) answer += "," + table.Columns[i].GetValueAsString(tuple).Trim('\'');
             }
             answer += "}";
             answer += "</Answer>";

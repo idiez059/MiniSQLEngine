@@ -59,12 +59,12 @@ namespace ServerProgram
                 //Read message from the client
                 int size = networkStream.Read(inputBuffer, 0, 1024);
                 string request = Encoding.ASCII.GetString(inputBuffer, 0, size);
-
-                while (request != "<Query>EXIT</Query>") //doing thingies here
+                    bool open = true;
+                while (open && request!= "<Query>EXIT</Query>") //doing thingies here
                 {
                     //Database db = null;                        
                     string theAnswer = "";
-                    string prueba = @"<Open Database=(\w+)\s+User=(\w+)\s+Password=(\w+)\/>";
+                    string prueba = @"<Open Database=""(\w+)""\s+User=""(\w+)""\s+Password=""(\w+)""/>";
                     Match openADb = Regex.Match(request, prueba);
                     //Match openADb = Regex.Match(request, "<Open Database=\"(\\w+)\" User=\"(\\w+)\" Password=\"(\\w+)\"/>");
                     Match runAQuery = Regex.Match(request, "<Query>(.+)</Query>");
@@ -100,9 +100,17 @@ namespace ServerProgram
                             outputBuffer = Encoding.ASCII.GetBytes(ParserXML.AddAnswer(theAnswer));
                         }
 
-                        Console.WriteLine("Request received: " + request);                        
-                        networkStream.Write(outputBuffer, 0, outputBuffer.Length);
-                        size = networkStream.Read(inputBuffer, 0, 1024);
+                        Console.WriteLine("Request received: " + request);
+                        try
+                        {
+                            networkStream.Write(outputBuffer, 0, outputBuffer.Length);
+                            size = networkStream.Read(inputBuffer, 0, 1024);
+                        }
+                        catch(System.IO.IOException e) {
+                            open = false;
+                        }
+        
+                       
                         request = Encoding.ASCII.GetString(inputBuffer, 0, size);
                     }
                     FileSystemAbstract.saveData(db.Name,db.Tables);

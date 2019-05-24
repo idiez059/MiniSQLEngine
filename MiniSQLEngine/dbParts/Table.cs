@@ -48,8 +48,8 @@ namespace MiniSQLEngine
             {
                 for (int tuple = 0; tuple < numTuples; tuple++)
                 {
-                    result += "{" + Columns[0].GetValueAsString(tuple);
-                    for (int i = 1; i < Columns.Count; i++) result += "," + Columns[i].GetValueAsString(tuple);
+                    result += "{" + Columns[0].GetValueAsString(tuple).Trim('\'');
+                    for (int i = 1; i < Columns.Count; i++) result += "," + Columns[i].GetValueAsString(tuple).Trim('\'');
                     result += "}";
                 }
             }

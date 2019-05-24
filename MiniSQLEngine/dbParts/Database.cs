@@ -534,6 +534,10 @@ namespace MiniSQLEngine
         public String RunQuery(string line)
         {
             Query theQuery = Parser.Parse(line);
+            if(theQuery == null)
+            {
+                return Messages.WrongSyntax;
+            }
             return theQuery.Run(this);
             
         }
